@@ -36,39 +36,32 @@ def test():
     print(f"   Min segment size: {min(segment_sizes)}")
     print(f"   Max segment size: {max(segment_sizes)}")
 
-def test2():
-    dataset = ICSIDataset(fold='dev')
-    dataset.load_dataset()
-
-    first_meeting = dataset.meetings[0]
-
-    root = dataset.anno_roots[first_meeting]
-    
-    dataset.print_anno_tree(root, first_meeting)
-
-
 def main():
-    dataset = ICSIDataset(fold='dev')
-    dataset.load_dataset()
-    meetings = dataset.meetings
+    # test dataset for ICSI dataset
+    dataset_test = ICSIDataset(fold='test')
+
+    # dev dataset for ICSI dataet
+    dataset_dev = ICSIDataset(fold='dev')
+    
+    dataset_dev.load_dataset()
+    meetings = dataset_dev.meetings
     print(f"Available meetings: {meetings}")
 
-    notes = dataset.notes[meetings[0]]
+    notes = dataset_dev.notes[meetings[0]]
     print(f"Total notes: {len(notes)}")
 
-    # for i, note in enumerate(notes[:5]):
-        # print(f"   {i+1}. {note['composite']}")
+    for i, note in enumerate(notes[:5]):
+        print(f"   {i+1}. {note['composite']}")
     
-    transitions = dataset.transitions[meetings[0]]
+    transitions = dataset_dev.transitions[meetings[0]]
     boundary_count = sum(transitions)
 
-    # print(f"\n   Topic boundaries: {boundary_count}")
-    # print(f"   Total utterances: {len(transitions)}")
+    print(f"\n   Topic boundaries: {boundary_count}")
+    print(f"   Total utterances: {len(transitions)}")
 
-    hier_transitions = dataset.hier_transitions[meetings[0]]
-    # print(f"   Hierarchical levels: {len(hier_transitions)}")
+    hier_transitions = dataset_dev.hier_transitions[meetings[0]]
+    print(f"   Hierarchical levels: {len(hier_transitions)}")
 
 
 if __name__ == "__main__":
-    # main()
-    test2()
+    main()
