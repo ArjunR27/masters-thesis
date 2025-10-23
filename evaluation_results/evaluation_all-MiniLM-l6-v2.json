@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-10-23T10:08:27.765923",
+  "models": [
+    "sentence-transformers/all-MiniLM-L6-v2"
+  ],
+  "datasets": [
+    "ami",
+    "icsi"
+  ],
+  "results": {
+    "sentence-transformers/all-MiniLM-L6-v2_ami": {
+      "avg_window_diff": 0.4286988807634555,
+      "avg_pk": 0.3942077922464599,
+      "std_window_diff": 0.06072120954144614,
+      "std_pk": 0.06927657993853202,
+      "num_meetings": 25
+    },
+    "sentence-transformers/all-MiniLM-L6-v2_icsi": {
+      "avg_window_diff": 0.3964529372809654,
+      "avg_pk": 0.351274561443855,
+      "std_window_diff": 0.05392369709427531,
+      "std_pk": 0.06358906709192683,
+      "num_meetings": 25
+    }
+  }
+}
