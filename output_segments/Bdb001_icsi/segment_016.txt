@@ -1,0 +1,179 @@
+Segment 16
+============================================================
+Identifier: *.2.4
+Start Time: 2325.72s
+End Time: 2780.57s
+Duration: 454.85s
+Level: 2
+============================================================
+
+-Um,
+-it would be nice um,
+-eh, gr this is sort of r regarding
+-uh, uh it's related but not directly germane to the topic of discussion, but, when it comes to annotations, um,
+-you often find yourself in the situation where you have different annotations of the same, say, word sequence.
+-Yeah.
+-OK? And sometimes the word sequences even differ slightly because they were edited s at one place but not the other.
+-Yeah.
+-So, once this data gets out there, some people might start annotating this for,
+-I don't know, dialogue acts or, um,
+-you know, topics or what the heck. You know, there's a zillion things that people might annotate this for.
+-And the only thing that
+-is really sort of common among all the versi the various versions of this data is the word sequence,
+-Yep.
+-or approximately.
+-Or the time.
+-Or the times. But, see, if you'd annotate dialogue acts, you don't necessarily want to or topics you don't really want to be dealing with time-marks.
+-I guess.
+-You'd it's much more efficient for them to just see the word sequence, right?
+-Mm-hmm.
+-I mean, most people aren't as sophisticated as as we are here with, you know, uh, time alignments and stuff. So
+-So the the the point is
+-Should should we mention some names on the people who are n?
+-Right.
+-So, um, the p my point is that you're gonna end up with,
+-uh, word sequences that are differently annotated. And you want some tool,
+-uh, that is able to sort of merge these different annotations back into a single,
+-uh, version.
+-OK?
+-Um, and we had this problem very massively, uh, at SRI when we worked, uh, a while back on,
+-uh
+-well, on dialogue acts as well as, uh, you know, um, what was it? uh,
+-Well, all the Switchboard in it. Yeah.
+-utterance types. There's, uh, automatic, uh, punctuation and stuff like that.
+-Because we had one set of annotations that were based on,
+-uh, one version of the transcripts with a particular segmentation, and then we had another version that was based on,
+-uh, a different s slightly edited version of the transcripts with a different segmentation. So,
+-we had these two different
+-versions which were you know, you could tell they were from the same source but they weren't identical. So it was extremely hard
+-to reliably merge these two back together to correlate the information from the different annotations.
+-Yep. I I don't see any way that file formats are gonna help us with that. It's it's all a question of semantic.
+-No.
+-No. But once you have a file format, I can imagine writing
+-Mm-hmm.
+-not personally, but someone writing a tool that is essentially an alignment tool,
+-Yeah.
+-um, that mediates between various versions, and
+-uh, sort of like th uh, you know, you have this thing in UNIX where you have, uh,
+-Diff.
+-W-diff or diff. Yeah.
+-diff.
+-There's the, uh, diff that actually tries to reconcile different
+-Is it S-diff?
+-two diffs f based on the same original.
+-Yep.
+-Mmm.
+-Something like that,
+-um, but operating on these lattices that are really what's behind this uh, this annotation format.
+-Yep.
+-So
+-You could definitely do that with the
+-There's actually a diff library you can use to do things like that that
+-So somewhere in the API you would like to have like a merge or some some function that merges two
+-so you have different formats.
+-Yeah, I think it's gonna be very hard. Any sort of structured
+-two versions.
+-Right.
+-anything when you try to merge is really, really hard because you ha i
+-The hard part isn't the file format. The hard part is specifying what you mean by "merge".
+-Is
+-Exactly.
+-But the one thing that would work here actually for i that is more reliable than the utterances is the
+-And that's very difficult.
+-the speaker ons and offs. So if you have a good, um
+-But this is exactly what I mean, is that that the problem i
+-Yeah.
+-You just have to know wha what to tie it to.
+-Yeah, exactly. The problem is saying "what are the semantics, what do you mean by "merge"?" So.
+-And
+-Right, right.
+-Right.
+-So so just to let you know what we where we kluged it by, uh, doing
+-uh, by doing Hhh.
+-Both were based on words, so, bo we have two versions of the same words intersp you know, sprinkled with with different tags for annotations.
+-And then you did diff. Yeah, that's just what I thought.
+-And we did diff. Exactly!
+-And that's how Yeah.
+-That's just wh how I would have done it.
+-But, you know, it had lots of errors and things would end up in the wrong order, and so forth. Uh, so,
+-Yep.
+-um, if you had a more
+-Uh, it it was a kluge because it was basically reducing everything to uh, to uh, uh, to textual alignment.
+-A textual
+-Um, so
+-But, d isn't that something where whoever if if the people
+-who are making changes, say in the transcripts, cuz this all happened when the transcripts were different
+-ye um, if they tie it to something, like if they tied it to the acoustic segment if they
+-You know what I mean? Then Or if they tied it to an acoustic segment and we had the time-marks, that would help. But the problem is exactly as Adam said, that you get,
+-Yep.
+-you know, y you don't have that information or it's lost in the merge somehow, so
+-Well, can I ask one question? It it seems to me that, um, we will have o an official version of the corpus, which will be only one
+-one version in terms of the words where the words are concerned.
+-We'd still have the the merging issue maybe if coding were done independently of the
+-And you're gonna get that because if the data gets out, people will do all kinds of things to it.
+-But but
+-And, uh, s you know, several years from now you might want to look into, um,
+-the prosody of
+-referring expressions. And someone at the university of who knows where has annotated the referring expressions.
+-Right.
+-So you want to get that annotation and bring it back in line with your data.
+-OK, then
+-But unfortunately they've also hand-edited it.
+-OK?
+-But they've also Exactly. And so that's exactly what we should somehow when you distribute the data, say that you know,
+-Yeah.
+-Yep.
+-Right.
+-Well, then the
+-that have some way of knowing how to merge it back in and asking people to try to do that.
+-What's what's wrong with doing times? I
+-I agree. That was what I was wondering.
+-Uh, yeah, time is the Time is passing!
+-Time is unique. You were saying that you didn't think we should Andreas was saying Yeah.
+-Well,
+-Time time times are
+-what if they haven't notated with them, times?
+-Yeah.
+-ephemeral.
+-He he's a language modeling person, though.
+-Um
+-So so imagine I think his his example is a good one. Imagine that this person who developed the corpus of the referring expressions didn't include time.
+-Mm-hmm.
+-Yeah.
+-Ach!
+-He included references to words. He said that at this word is when when it happened. Or she.
+-Well, then
+-Yeah.
+-Or she.
+-But then couldn't you just indirectly figure out the time tied to the word?
+-But still they
+-Exactly. Yeah.
+-Sure. But what if what if they change the words?
+-Not Well, but you'd have some anchoring point. He couldn't have changed all the words.
+-But can they change the words without changing the time of the word?
+-Sure. But they could have changed it a little.
+-The the point is, that that they may have annotated it off a word transcript that isn't the same as our word transcript, so how do you merge it back in? I understand what you're saying.
+-Mmm. Mm-hmm.
+-And I I guess the answer is,
+-um, it's gonna be different every time.
+-It's j it's just gonna be
+-Yeah.
+-Yeah.
+-You only know the boundaries of the
+-I it's exactly what I said before, which is that "what do you mean by "merge"?"
+-So in this case where you have the words and you don't have the times, well, what do you mean by "merge"?
+-Right.
+-If you tell me what you mean, I can write a program to do it.
+-Right. You can merge at the level of the representation that the other person preserved and that's it.
+-Right. And that's about all you can do.
+-And beyond that, all you know is is relative ordering and sometimes even that is wrong.
+-So so in so in this one you would have to do a best match between the word sequences,
+-So.
+-Mm-hmm.
+-extract the times f from the best match of theirs to yours, and use that.
+-And then infer that their time-marks are somewhere in between. Yeah, exactly.
+-Right.
+-But it could be that they just uh, I mean, it could be that they chunked they they lost certain utterances and all that stuff, or
+-Right, exactly. So it could get very, very ugly.
+-Definitely. Definitely.
+-Yeah.

@@ -1,0 +1,58 @@
+Segment 7
+============================================================
+Identifier: *.1.5
+Start Time: 633.88s
+End Time: 776.82s
+Duration: 142.93s
+Level: 2
+============================================================
+
+-I mean, it must be the equivalent of whatever you guys used to store feat your computed features in, right?
+-OK.
+-Yeah, th we have
+-Actually, we we use a generalization of the the Sphere format.
+-Mmm.
+-Um, but
+-Yeah, so there is something like that but it's, um, probably not as sophist
+-And I think there's
+-Well, what does H T K do for features? Or does it even have a concept of features?
+-They ha it has its own
+-I mean, Entropic has their own feature format that's called, like, S-SD or some so SF or something like that.
+-Yeah.
+-Yeah.
+-I'm just wondering, would it be worth while to use that instead?
+-Hmm?
+-Yeah. Th-this is exactly the kind of decision It's just whatever
+-But, I mean, people don't typically share this kind of stuff, right? I mean
+-Right.
+-They generate their own.
+-Actually, I
+-Yeah.
+-I just you know, we we've done this stuff on prosodics and
+-three or four places have asked for those prosodic files, and we just have an ASCII,
+-uh, output of frame-by-frame. Which is fine,
+-Ah, right.
+-but it gets unwieldy to go in and and query these files with really huge files.
+-Right.
+-I mean, we could do it. I was just thinking if there's something that where all the frame values are Hmm?
+-And a and again, if you have a
+-if you have a two-hour-long meeting, that's gonna
+-They're they're fair they're quite large. And these are for ten-minute Switchboard conversations, and
+-Yeah, I mean, they'd be emo enormous.
+-Right.
+-So it's doable, it's just that you can only store a feature vector at frame-by-frame and it doesn't have any kind of,
+-um
+-Is is the sharing part of this a pretty important consideration or does that just sort of, uh a nice thing to have?
+-I I don't know enough about what we're gonna do with the data. But I thought it would be good to get something that
+-we can that other people can use or adopt for their own kinds of
+-encoding. And just, I mean we have to use some we have to make some decision about what to do. And especially for the prosody work, what
+-Yeah.
+-what it ends up being is you get
+-features from the signal, and of course those change every time your alignments change. So you re-run a recognizer, you want to recompute
+-your features, um, and then keep the database up to date. Or you change a word, or you change a
+-Right.
+-utterance boundary segment, which is gonna happen a lot.
+-And so I wanted something where all of this can be done in a elegant way and that if somebody
+-wants to try something or compute something else, that it can be done flexibly.
+-Um, it doesn't have to be pretty, it just has to be,
+-you know, easy to use, and

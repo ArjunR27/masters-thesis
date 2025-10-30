@@ -1,0 +1,104 @@
+Segment 9
+============================================================
+Identifier: *.1.6.1
+Start Time: 1180.15s
+End Time: 1412.09s
+Duration: 231.94s
+Level: 3
+============================================================
+
+-Right. But but so how in the NIST format do we express
+-Yeah, but
+-a hierarchical relationship between, um, say, an utterance and the words within it?
+-So how do you tell that these are the words that belong to that utterance?
+-Um, you would have another structure lower down than this that would be saying they're all belonging to this ID.
+-Mm-hmm.
+-So each thing refers to the utterance that it belongs to.
+-Right.
+-So it's it's not hi it's sort of bottom-up.
+-And then each utterance could refer to a turn, and each turn could refer to something higher up.
+-And what if you actually have
+-So right now what you have as utterance, um, the closest thing that comes out of the channelized is the
+-stuff between the segment boundaries that the transcribers put in or that Thilo put in,
+-which may or may not actually be, like, a s it's usually not um, the beginning and end of a sentence, say.
+-Well, that's why I didn't call it "sentence".
+-So, right. Um, so it's like a segment or something. So,
+-Yeah.
+-I mean, I assume this is possible, that if you have someone annotates the punctuation or whatever when they transcribe,
+-you can say, you know, from
+-for from the c beginning of the sentence to the end of the sentence, from the annotations, this is a unit, even though it never actually
+-i It's only a unit by virtue of the annotations at the word-level.
+-Sure. I mean, so you would you would have yet another tag.
+-And then that would get a tag somehow. OK.
+-You'd have another tag which says this is of type "sentence".
+-OK.
+-And, what
+-But it's just not overtly in the
+-OK.
+-Um, cuz this is exactly the kind of
+-So
+-I think that should be possible as long as the
+-But, uh, what I don't understand is where the where in this type of file that would be expressed.
+-Right. You would have another tag somewhere.
+-It's well, there're two ways of doing it.
+-S so it would just be floating before the sentence or floating after the sentence without a time-mark.
+-You could have some sort of link type
+-type equals "sentence",
+-and ID is "S-whatever".
+-And then lower down you could have an utterance. So the type is "utterance"
+-equals "utt". And you could either say that
+-No. I don't know I take that back.
+-So here's the thing. Um
+-See, cuz it's
+-Can you can you say that this is
+-Hhh.
+-it's
+-You would just have a r
+-part of this, or do you say this is part of this? I think
+-S
+-But they're
+-You would refer up to the sentence.
+-Well, the thing
+-they're actually overlapping each other, sort of.
+-So
+-the thing is that some something may be a part of
+-Right.
+-one thing for one purpose and another thing of another purpose.
+-You have to have another type then, I guess.
+-So f
+-s
+-Um, well, s let's let's ta so let's
+-Well, I think I'm I think w I had better look at it again because I I'm
+-Yeah.
+-OK. OK.
+-so
+-There's one level there's one more level of indirection that I'm forgetting.
+-y So for instance sup
+-Suppose you have a word sequence and you have two different segmentations of that same word sequence. f Say, one segmentation is in terms of,
+-um,
+-you know, uh, sentences. And another segmentation is in terms of, um, I don't know, prosodic phrases.
+-And let's say that they don't nest. So, you know, a prosodic phrase may cross
+-Right.
+-two sentences or something. I don't know if that's true or not but let's as
+-Well, it's definitely true with the segment. That's what I exactly what I meant by the utterances versus the sentence could be sort of
+-Right.
+-Yeah.
+-So, you want to be s you want to say this this word is part of that sentence and this prosodic phrase.
+-Yeah.
+-Yeah.
+-But the phrase is not part of the sentence and neither is the sentence part of the phrase.
+-Right.
+-I I'm pretty sure that you can do that, but I'm forgetting the exact level of nesting.
+-So, you would have to have two different pointers from the word up one level up, one to the sent
+-So so what you would end up having is a tag saying "here's a word, and it starts here and it ends here".
+-Right.
+-And then lower down you would say "here's a prosodic boundary and it has these words in it".
+-And lower down you'd have "here's a sentence, and it has these words in it".
+-An-Right.
+-Right.
+-So you would be able to go in and say, you know, "give me all the words in the bound in the prosodic phrase and give me all the words in the" Yeah.
+-Yep.
+-So I think that's that would wor Let me look at it again.
+-Um, OK.
+-Mm-hmm.
+-OK.

@@ -1,0 +1,42 @@
+Segment 34
+============================================================
+Identifier: *.4.4
+Start Time: 2844.60s
+End Time: 2947.09s
+Duration: 102.49s
+Level: 2
+============================================================
+
+-One of the questions just come at Bhaskara is,
+-"How much of this does JavaBayes support?"
+-Yeah, it's a good question. Um
+-The so what we want, is basically JavaBayes to support deterministic, uh, functions.
+-Right.
+-And, um In a sense it sup we can make it supported by, um, manually, uh, entering, you know, probabilities that are one and zeros, right?
+-Right. So the little handout that The little thing that I sent I sent a message saying,
+-uh, here is a way to take
+-One thing you could do, which is kind of s in a way, stupid, is take this deterministic function,
+-and use it to build the CPT.
+-So, if Ba-JavaBayes won't do it for you,
+-Mmm.
+-that you can convert all that into what the CPT would be.
+-Um and, what I sent out about a week ago, was an idea of how to do that,
+-for,
+-um, evidence combination. So one of one function that you could use as your "G function" is an e e Evidence-Combining. So you just take the
+-uh, if each of th if each of the ones has its own
+-little table like that, then you could take the,
+-uh, strength of each of those, times its little table, and you'd add up the total evidence for "V", "E", and "A".
+-Mmm.
+-I don't think you can do this, because
+-Mm-hmm.
+-Yep.
+-G is a function from
+-that
+-to that.
+-Right.
+-Right? So there's no numbers. There's just
+-quadruplets of well, N-duplets of, uh, E Vs.
+-I i i
+-No, no But I'm saying is There
+-There is a w I mean, if y if if you decide what's what is appropriate, is probablistic evidence combination, you can write a function
+-that does it. It's a pui it's actually one of the examples he's got in there.

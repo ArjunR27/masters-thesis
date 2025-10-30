@@ -1,0 +1,126 @@
+Segment 8
+============================================================
+Identifier: *.2.1
+Start Time: 522.29s
+End Time: 762.99s
+Duration: 240.70s
+Level: 2
+============================================================
+
+-So, you can sho You you Are are you gonna show us the little templates?
+-S
+-Yeah. We ar we can sh er I can show you the templates.
+-"The former end g" Oh, I see. Uh-huh.
+-I I also have it running here, so if I
+-do this now,
+-um, you can see that
+-it parsed the wonderful English sentence, "Which films are on the cinema today evening?"
+-Well, that sounds
+-But, um.
+-Uh do don't worry about it. It could be
+-No i
+-"this evening, which which films are on the cinema", or "running in the cinema, which"
+-OK.
+-uh, "today evening", uh i
+-"Is anything happening in the cinema this evening?"
+-OK. Key words, e basically.
+-Well
+-Ge-elaborate, or, more or less, uh
+-Actually, it's a little tricky,
+-in that there's some
+-allowable German orders which aren't allowable English orders and so forth. And it is order-based. So it it
+-Isn't it?
+-No.
+-No.
+-Oh. So it it doe I it These
+-It is not
+-u these optional elements, it's it's actually a set, not a sequence?
+-Yeah. We were I was afraid that, um
+-Oh!
+-So it really is key word matching, basically.
+-Really a se
+-Um.
+-e yeah. Mm-hmm.
+-Oh, wow.
+-Um, I mean, these sentences are just silly. I mean, uh, d these were not the ones we we actually did it.
+-Hmm.
+-Um. What's an idiomatic of phrasing this? Which films are
+-Are pl playing at the cinema?
+-showing? playing?
+-Yeah.
+-Tonight?
+-I changed that file, actually, where it's on my account.
+-Actually, you would say, "which films are on tonight?"
+-This this evening?
+-You want to get it? Or is di was it easy to get it?
+-Um. I have no net here.
+-Oh, OK.
+-Do I?
+-OK. So. Wonderful parse, same thing.
+-Um.
+-Right.
+-Except that we d w we don't have this, uh, time information here now, which is,
+-um
+-Oh. This are the reserve.
+-Anyways.
+-So.
+-Um.
+-These are the sort of the ten different sentence types
+-that the uh
+-the parser was able to do. And it still is, now in English.
+-Yeah.
+-Mm-hmm.
+-And, um Sorry.
+-And, um
+-you have already to make it a little bit more elaborate, right?
+-Yeah, I mean I changed those sentences to make it, uh,
+-more, uh, idiomatic.
+-And, of course, you can have i
+-many variations in those sentences, they will still parse fine.
+-So, in a sense it's pretty broad.
+-OK.
+-OK.
+-So, if you want to look at the templates,
+-they're conveniently located in a file, "template".
+-Um,
+-and this is what I had to do. I had to change,
+-"Spielfilm" to "film", uh, "Film" to "movie", cinem "Kino" to "cinema"
+-to "today" heu "heute" to "today", evening "Abend" to "evening"
+-Huh.
+-Capitalized as well
+-Hmm.
+-And, um.
+-Y i
+-One thing I was wondering, was,
+-those functions there, are those things that modify the M-three-L basically?
+-Yep.
+-OK.
+-And that's that's the next step, but we'll get to that in a second.
+-p
+-And so this means, um,
+-Oh.
+-"this" and "see" are not optional.
+-"Want I like" is all maybe in there, but may also not be in there.
+-So so, the point is, if it says "this" and "see", it also will work in "see" and "this"?
+-S
+-In the other order?
+-Yeah.
+-with those two key words?
+-Should we try it?
+-"This is the one I want to see"
+-or whatever.
+-OK.
+-"Action watch",
+-Hmm.
+-whatever. Nothing was specialfi specified.
+-except that it has some references to audio-visual media here.
+-AV medium.
+-Yeah.
+-Where it gets that from It's correct, but I don't know where it gets it from.
+-"See".
+-Oh, "see". Yeah.
+-I mean it's sort of
+-Yeah. Yep. OK.
+-And "see this"
+-is exactly the same thing.
+-OK, so it is set-based. Alright.

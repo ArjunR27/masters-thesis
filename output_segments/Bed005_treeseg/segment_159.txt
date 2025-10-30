@@ -1,0 +1,15 @@
+Segment 159
+============================================================
+Identifier: *RLLLLLRL
+Start Time: 2597.49s
+End Time: 2626.35s
+Duration: 28.86s
+Number of Utterances: 6
+============================================================
+
+-Alright, so you have nodes. Right? And the, uh, problem that we were having was that, you know, given N-nodes, there's "two to the N"
+-Given N-nodes, and furthermore, the fact that there's three things here, we need to specify "three times", uh, "two to the N" probabilities.
+-Right? That's assuming these are all binary, which f they may not be. For example, they could be "time of day", in which case we could, uh, say, you know, "Morning,
+-afternoon, evening, night". So, this could be more
+-So, it's a lot, anyway.
+-And, that's a lot of probabilities to put here, which is kind of a pain. So

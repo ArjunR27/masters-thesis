@@ -1,0 +1,18 @@
+Segment 32
+============================================================
+Identifier: *LLRLLLRRL
+Start Time: 546.81s
+End Time: 573.75s
+Duration: 26.94s
+Number of Utterances: 9
+============================================================
+
+-So.
+-I mean, I've I've used them. I don't know what their structure is. I've forgot what the str
+-OK.
+-But, wait a minute, P-file for each frame is storing a vector of cepstral or PLP values, right?
+-It's whatever you want, actually. So that what's nice about the P-file It i
+-Right.
+-Built into it is the concept of frames, utterances, sentences, that sort of thing, that structure.
+-And then also attached to it is an arbitrary vector of values.
+-Oh.

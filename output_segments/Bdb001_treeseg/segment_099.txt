@@ -1,0 +1,14 @@
+Segment 99
+============================================================
+Identifier: *LLRLRRRLRLRLL
+Start Time: 1648.35s
+End Time: 1668.97s
+Duration: 20.62s
+Number of Utterances: 5
+============================================================
+
+-One of the things that ATLAS is doing is they're trying to define an API which is independent of the back store,
+-Huh.
+-so that, uh, you could define a single API and the the storage could be flat XML files or a database.
+-Mm-hmm.
+-My opinion on that is for the s sort of stuff that we're doing, I suspect it's overkill to do a full relational database, that, um,

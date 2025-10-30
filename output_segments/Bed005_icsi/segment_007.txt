@@ -1,0 +1,56 @@
+Segment 7
+============================================================
+Identifier: *.2.0
+Start Time: 428.26s
+End Time: 523.40s
+Duration: 95.14s
+Level: 2
+============================================================
+
+-So. w c sh should we move on to the technical sides?
+-Yep.
+-Well I guess the good good news of last week was the parser.
+-So, um
+-Bhaskara and I started working on the
+-the parser. Then Bhaskara went to class and once he came back, um,
+-it was finished.
+-So.
+-It, uh I didn't measure it, but it was about an hour and ten minutes.
+-Yep. Something like that.
+-And, um and now it's We have a complete English parser that does everything the German parser does.
+-Which is not a lot. But
+-That's the, uh, point.
+-The uh, that's not a lot.
+-OK.
+-Yes.
+-Right.
+-And um.
+-What did you end up having to do? I mean, wha Was there anything
+-Well, if you, eh
+-We'll show you.
+-interesting about it at all? or are we gonna see that?
+-Yeah, we can show us, right?
+-Well, w w
+-We d The first we did is we we tried to to do change the the "laufen" into "run", or "running", or "runs".
+-Yep.
+-Mm-hmm.
+-And we noticed that whatever we tried to do, it no effect.
+-And we were puzzled.
+-OK.
+-Mm-hmm.
+-And, uh, the reason was that the parser i c
+-completely ignores the verb.
+-Hmm. Interesting parser property.
+-So this sentence
+-sentence is
+-parses the p the same output,
+-um, even if you leave out, um,
+-I see. Yeah.
+-all all of this. So it's basically feature film and TV.
+-Today OK. And the t and the time, right?
+-That's what you need.
+-If if you'd add add Today and Evening, it'll add Time or not. So it i it does look at that. But all the rest is p simply frosting on the cake,
+-OK.
+-and it's optional for that parser.
+-True.
+-And

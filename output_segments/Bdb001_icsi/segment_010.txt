@@ -1,0 +1,142 @@
+Segment 10
+============================================================
+Identifier: *.1.6.2
+Start Time: 1411.93s
+End Time: 1819.49s
+Duration: 407.56s
+Level: 3
+============================================================
+
+-The the o the other issue that you had was, how do you actually efficiently extract, um
+-So.
+-That's good.
+-find and extract information in a structure of this type?
+-So you gave some examples like
+-Well, uh, and, I mean, you guys might
+-I don't know if this is premature because I suppose once you get the representation you can do this, but the kinds of things I was worried about is,
+-uh
+-No, that's not clear. I mean, yeah, you c sure you can do it, but can you do it
+-Well, OK. So i if it
+-I I mean, I can't do it, but I can um,
+-sort of l l you know,
+-it
+-y y you gotta you gotta do this you you're gonna want to do this very quickly
+-Well
+-or else you'll spend all your time sort of searching through very complex data structures
+-Right. You'd need a p sort of a paradigm for how to do it. But an example would be
+-"find all the cases in which Adam
+-started to talk while Andreas was talking and his pitch was rising, Andreas's pitch". That kind of thing.
+-Right. I mean, that's gonna be
+-Is the rising pitch a feature, or is it gonna be in the same file?
+-Well, the rising pitch will never be hand-annotated. So the all the prosodic features are going to be automatically So they're gonna be in those
+-But the
+-I mean, that's gonna be hard regardless, right? Because you're gonna have to write a program that goes through your feature file and looks for rising pitches.
+-Yeah.
+-So Right. So normally what we would do is we would say
+-"what do we wanna assign rising pitch to?" Are we gonna assign it to words? Are we gonna just assign it to sort of
+-when it's rising we have a begin-end rise representation? But suppose we dump out this file and we say,
+-uh, for every word we just classify it as, w you know, rise or fall or neither?
+-OK. Well, in that case you would add that to this format r
+-OK.
+-So we would basically be sort of, um,
+-taking the format and enriching it with things that we wanna
+-query in relation to the words that are already in the file, and then querying it. OK.
+-Right.
+-You want sort of a grep that's that works at the structural
+-You have that.
+-on the structural representation.
+-There's a standard again in XML, specifically for searching XML documents structured X-XML documents, where you can specify both the content and the structural position.
+-Yeah, but it's it's not clear that that's
+-If
+-That's relative to the structure of the XML document, not to the structure of what you're representing in the document.
+-You use it as a tool.
+-You use it as a tool, not an end-user. It's not an end-user thing. It's it's you would use that to build your tool to do that sort of search.
+-Right.
+-Right.
+-Be-
+-Uh
+-Because here you're specifying a lattice. So the underlying
+-that's the underlying data structure. And you want to be able to search in that lattice.
+-But as long as the
+-It's a graph, but
+-That's different from searching through the text.
+-But it seems like as long as the features that
+-Well, no, no, no. The whole point is that the text and the lattice are isomorphic.
+-They represent each other completely.
+-Um
+-So that
+-I mean th
+-That's true if the features from your acoustics or whatever that are not explicitly in this are at the level of these types.
+-Hhh.
+-That that if you can
+-Yeah, but that's gonna be the trouble no matter what.
+-do that
+-Right? No matter what format you choose, you're gonna have the trou you're gonna have the difficulty of relating
+-That's right. That's true. That's why I was trying to figure out what's the best format for this representation. And it's still gonna be
+-the the frame-level features
+-Yep.
+-it's still gonna be, uh, not direct. You know, it
+-Hmm.
+-Right.
+-Or another example was, you know, uh, where in the language where in the word sequence
+-are people interrupting? So,
+-I guess that one's actually easier.
+-What about what about, um,
+-the idea of using a relational database to, uh, store the information from the XML? So you would have XML basically would
+-Uh, you you could use the XML to put the data in,
+-and then when you get data out, you put it back in XML. So use XML as sort of the
+-Transfer.
+-the transfer format, uh, but then you store the data in the database, which
+-The, uh
+-allows you to do all kinds of good search things in there.
+-One of the things that ATLAS is doing is they're trying to define an API which is independent of the back store,
+-Huh.
+-so that, uh, you could define a single API and the the storage could be flat XML files or a database.
+-Mm-hmm.
+-My opinion on that is for the s sort of stuff that we're doing, I suspect it's overkill to do a full relational database, that, um,
+-But
+-just a flat file and, uh, search tools I bet will be enough.
+-But that's the advantage of ATLAS, is that if we actually take
+-decide to go that route completely and we program to their API, then if we wanted to add a database later it would be pretty easy.
+-Mm-hmm.
+-Mm-hmm.
+-It seems like the kind of thing you'd do if I don't know, if people start adding all kinds of s bells and whistles to the data. And so that might be
+-I mean, it'd be good for us to know to use a format where
+-we know we can easily, um, input that to some database if other people are using it.
+-Yep.
+-Something like that.
+-I guess I'm just a little hesitant to try to go whole hog on sort of the
+-So
+-the whole framework that that NIST is talking about, with ATLAS and a database and all that sort of stuff, cuz it's a big learning curve,
+-Hmm.
+-just to get going. Whereas if we just do a flat file format,
+-Hmm.
+-sure, it may not be as efficient but everyone can program in Perl and and use it.
+-OK.
+-Right? So, as opposed to
+-But this is I I'm still, um,
+-not convinced that you can do much at all on the text on the flat file that that you know, the text representation.
+-e
+-Because the text representation is gonna be,
+-uh, not reflecting the structure of of your words and annotations.
+-It's just it's
+-Well, if it's not representing it, then how do you recover it? Of course it's representing it. That's the whole point.
+-No. You you have to what you have to do is you have to basically
+-Y yeah. You can use Perl to read it in and construct a internal representation that is essentially a lattice.
+-But,
+-Yeah.
+-the and then
+-OK. Well, that was a different point. Right? So what I was saying
+-Right.
+-is that
+-But that's what you'll have to do.
+-For Perl if you want to just do Perl. If you wanted to use the structured XML query language, that's a different thing. And it's a set of tools that let you specify given the D-DDT DTD of the document,
+-Bec-be
+-um, what sorts of structural searches you want to do.
+-So you want to say that, you know, you're looking for,
+-um, a tag within a tag within a particular tag that has this particular text in it,
+-um, and, uh, refers to a particular value.
+-And so the point isn't that an end-user, who is looking for a query like you specified, wouldn't program it in this language. What you would do is,
+-someone would build a tool that used that as a library.
+-So that they so that you wouldn't have to construct the internal representations yourself.
+-Is a

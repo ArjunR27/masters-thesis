@@ -1,0 +1,163 @@
+Segment 8
+============================================================
+Identifier: *.1.6.0
+Start Time: 777.09s
+End Time: 1181.01s
+Duration: 403.92s
+Level: 3
+============================================================
+
+-Yeah, the other thing
+-We should look at ATLAS, the NIST thing,
+-Oh.
+-Mmm.
+-Uh
+-and see if they have anything at that level. I mean, I'm not sure what to do about this with ATLAS, because they chose a different route.
+-I chose something that Th-there are sort of two choices. Your your file format
+-can know about
+-know that you're talking about language and speech, which is what I chose, and time,
+-or your file format can just be a graph representation.
+-And then the application has to impose the structure on top.
+-So what it looked like ATLAS chose is, they chose the other way, which was their file format is just
+-nodes and links, and you have to interpret what they mean yourself.
+-And why did you not choose that type of approach?
+-Uh, because I knew that we were doing speech, and I thought it was better
+-OK.
+-if you're looking at a raw file to be t for the tags to say "it's an utterance", as opposed to the tag to say "it's a link".
+-OK.
+-But other than that, are they compatible? I mean, you could sort of
+-So, but
+-Yeah, they're reasonably compatible.
+-I mean, you you could
+-You could probably translate between them.
+-Yeah, that's w So, OK.
+-Yep.
+-So, well, the other thing is
+-if we choose to use ATLAS, which maybe we should just do, we should just throw this out before we invest a lot of time in it.
+-I don't
+-So this is what the meeting's about, just sort of how to Um, cuz we need to come up with a database like this just to do our work. And I actually don't
+-Yeah.
+-care, as long as it's something useful to other people, what we choose. So maybe it's
+-Yeah.
+-maybe oth you know, if if you have any idea of how to choose, cuz I don't.
+-The only thing
+-Yeah.
+-Do they already have tools?
+-I mean, I I chose this for a couple reasons. One of them is that it's easy to parse.
+-You don't need a full XML parser. It's very easy to just write a Perl script to parse it.
+-As long as uh each tag is on one line.
+-Exactly. Exactly. Which I always do.
+-And you can have as much information in the tag as you want, right?
+-Well, I have it structured. Right? So each type tag has only particular items that it can take.
+-Can you But you can add to those structures
+-Sure.
+-if you
+-If you have more information. So what
+-Yeah. So
+-What NIST would say is that instead of doing this, you would say something like "link
+-start equals, um, you know, some node ID, end equals some other node ID",
+-and then "type" would be "utterance".
+-Hmm.
+-You know, so it's very similar.
+-So why would it be a a waste to do it this way if it's similar enough that we can always translate it?
+-It probably wouldn't be a waste. It would mean that at some point if we wanted to switch, we'd just have to
+-Write a translator. But it se
+-translate everything.
+-But it but that sounds
+-Since they are developing a big
+-But that's I don't think that's a big deal.
+-As long as it is
+-they're developing a big infrastructure. And so it seems to me that if
+-if we want to use that, we might as well go directly to what they're doing, rather than
+-If we want to
+-Do they already have something that's that would be useful for us in place?
+-Yeah. See, that's the question. I mean, how stable is their
+-Are they ready to go, or?
+-The I looked at it The last time I looked at it was a while ago, probably a year ago,
+-Hmm.
+-uh, when we first started talking about this. And at that time at least
+-it was still not very complete.
+-And so, specifically they didn't have any external format representation at that time.
+-They just had the sort of conceptual node
+-uh, annotated transcription graph, which I really liked. And that's exactly what this stuff is based on.
+-Since then, they've developed their own external file format,
+-which is, uh, you know, this sort of s this sort of thing.
+-Um, and apparently they've also developed a lot of tools, but I haven't looked at them. Maybe I should.
+-We should we should find out.
+-I mean, would the tools would the tools run on something like this, if you can translate them anyway?
+-Um, th what would would would what would worry me is that maybe we might miss a little detail
+-I mean, that I guess it's a question that uh, yeah.
+-It's a hassle
+-if
+-that would make it very difficult to translate from one to the other.
+-OK.
+-I I think if it's conceptually close, and they already have or will have tools that everybody else will be using, I mean,
+-OK.
+-Yeah, we might as well.
+-it would be crazy to do something s you know, separate that
+-Yep.
+-Yeah.
+-So I'll I'll take a closer look at it.
+-Actually, so it's that that would really be the question, is just what you would feel is in the long run the best thing. Cuz
+-And
+-Right.
+-The
+-once we start, sort of, doing this I don't we don't actually have enough time to probably have to rehash it out again and
+-Yep.
+-The other thing the other way that I sort of established this was as easy translation to and from the Transcriber format.
+-s
+-Right. Right.
+-Um, but
+-I mean, I like this. This is sort of intuitively easy to actually r read, as easy it could as it could be. But,
+-Yep.
+-I suppose that as long as they have a type here that specifies "utt",
+-um,
+-It's almost the same. The the the the point is with this, though, is that you can't really add any supplementary information.
+-it's yeah, close enough that
+-Right? So if you suddenly decide that you want
+-You have to make a different type.
+-Yeah. You'd have to make a different type.
+-So Well, if you look at it and
+-Um, I guess in my mind I don't know enough Jane would know better, about
+-the types of annotations and and
+-But I imagine that those are things that would well, you guys mentioned this, that could span any
+-it could be in its own channel, it could span time boundaries of any type, it could be instantaneous, things like that. Um,
+-Right.
+-and then from the recognition side we have
+-backtraces at the phone-level. If if it can handle that, it could handle states or whatever.
+-Right.
+-And then at the prosody-level we have
+-frame sort of like cepstral
+-Yep.
+-feature files, uh, like these P-files or anything like that. And that's sort of the world of things that I
+-And then we have the aligned channels, of course, and
+-Right.
+-It seems to me you want to keep the frame-level stuff separate.
+-Yeah. I I definitely agree and I wanted to find actually a f a nicer format or a maybe a more compact format than what we used before. Just cuz you've got
+-And then
+-Right.
+-ten channels or whatever and two hours of a meeting. It's it's a lot of
+-Now now how would you
+-Huge.
+-how would you represent, um, multiple speakers in this framework? Were You would just represent them as
+-Um,
+-You would have like a speaker tag or something?
+-there's a spea speaker tag up at the top which identifies them and then each utt
+-the way I had it is each turn or each utterance, I don't even remember now, had a speaker ID tag attached to it.
+-Mm-hmm.
+-And in this format you would have a different tag,
+-OK.
+-which which would, uh, be linked to the link.
+-Yeah.
+-So so somewhere else you would have another thing that would be, um
+-Let's see, would it be a node or a link? Um
+-And so so this one would have, um, an ID is link
+-link seventy-four or something like that. And then somewhere up here you would have a link that that, uh,
+-Mm-hmm.
+-you know, was referencing L-seventy-four and had speaker Adam.
+-Is i?
+-Actually, it's the channel, I think, that
+-You know, or something like that.
+-Well, channel or speaker or whatever. It doesn't
+-I mean, w yeah, channel is what the channelized output out
+-This isn't quite right. I have to look at it again.

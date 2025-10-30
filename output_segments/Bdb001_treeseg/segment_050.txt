@@ -1,0 +1,14 @@
+Segment 50
+============================================================
+Identifier: *LLRLRLLRLL
+Start Time: 866.52s
+End Time: 886.33s
+Duration: 19.81s
+Number of Utterances: 5
+============================================================
+
+-You don't need a full XML parser. It's very easy to just write a Perl script to parse it.
+-As long as uh each tag is on one line.
+-Exactly. Exactly. Which I always do.
+-And you can have as much information in the tag as you want, right?
+-Well, I have it structured. Right? So each type tag has only particular items that it can take.
