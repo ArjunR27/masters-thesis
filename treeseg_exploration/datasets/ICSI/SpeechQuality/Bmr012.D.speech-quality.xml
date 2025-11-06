@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<nite:root nite:id="Bmr012.D.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
-   <speechquality nite:id="Bmr012.emphasis.1" type="emphasis">
-      <nite:child href="Bmr012.D.words.xml#id(Bmr012.w.4235)..id(Bmr012.w.4236)"/>
-   </speechquality>
-   <speechquality nite:id="Bmr012.uncertain.10" type="uncertain">
-      <nite:child href="Bmr012.D.words.xml#id(Bmr012.w.9954)"/>
-   </speechquality>
-</nite:root>

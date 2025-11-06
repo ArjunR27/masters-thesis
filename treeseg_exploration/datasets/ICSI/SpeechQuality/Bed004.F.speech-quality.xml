@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<nite:root nite:id="Bed004.F.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
-   <speechquality nite:id="Bed004.foreign.2" type="foreign" language="de" description="pronounced with an American accent">
-      <nite:child href="Bed004.F.words.xml#id(Bed004.w.1,665)..id(Bed004.w.1,668)"/>
-   </speechquality>
-   <speechquality nite:id="Bed004.foreign.3" type="foreign" language="de" description="pronounced with an American accent">
-      <nite:child href="Bed004.F.words.xml#id(Bed004.w.1,687)..id(Bed004.w.1,690)"/>
-   </speechquality>
-</nite:root>
