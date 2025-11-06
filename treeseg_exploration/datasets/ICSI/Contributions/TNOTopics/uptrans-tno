@@ -1,0 +1,164 @@
+#!/usr/bin/perl
+
+use XML::XPath;
+use XML::XPath::XMLParser;
+
+# uptranslate the initial attempt from TNO at topic segmentation
+
+$JAVADIR="/usr/java/sdks/default";
+$XSLDIR="/home/jonathan/Tokenize";
+$top="origtopic";
+@myagents=("A","B","C","D","E","F","G","H","I","J");
+
+# sadly, ID generation in XSLT on my platform adds commas into numbers
+# meaning we have to do the same here. Ugh.
+sub commatize {
+    my($num) = @_;
+    if ($num<1000) { return $num; }
+    $num =~ s/(\d?\d?\d)(\d\d\d)\b/$1\,$2/g;
+    return $num;
+}
+
+sub usage {
+    print STDERR "Usage: uptrans-tno -ob observationname -i <input_dir> [-o <output_dir> ] \n";
+    exit 1;
+}
+
+$outdir=".";
+$indir=".";
+
+# Get the args
+while (@ARGV) {
+#    print @ARGV;
+    $arg = shift(@ARGV);
+    if ($arg eq "-o") {
+        $outdir = shift(@ARGV);
+        if (!$outdir) { &usage; }
+    } elsif ($arg eq "-i") {
+        $indir = shift(@ARGV);
+        if (!$indir) { &usage; }
+    } elsif ($arg eq "-ob") {
+        $obs = shift(@ARGV);
+        if (!$obs) { &usage; }
+    } elsif ($arg =~ /^-/) {
+        &usage;
+    } 
+}
+
+if (!$obs) {
+    &usage;
+}
+
+
+$fin = "$indir/$obs\_rated\.mrt";
+if (!(-f $fin)) {
+    die "Topic file $fin does not exist. Exiting.\n";
+}
+
+#----------------------------
+print "
+# STAGE 1 - Get data about participants and channels from the MRT file
+";
+#----------------------------
+# Use the XML::XPath stuff to read the MRT file
+
+my $xp = XML::XPath->new(filename => $fin);
+
+%names=();
+foreach my $parts ($xp->find('//Participant')->get_nodelist){
+    $nm = $parts->find('@Name');
+    $chan = $parts->find('@Channel');
+
+    # There are cases (e.g. Bmr012) where no channel is listed as
+    # participant has no head-worn mic (so no DAs)
+    if (!$chan && $nm) { $chan="cx"; }
+
+    $chan=~ s/han//;
+    $altchan=$chan;
+    $altchan=~ s/(\w)$/\l$1/; # not robust - also may use lower case form..
+    if ($chan && $chan!~ /^\s*$/) {
+
+	# I believe this happens only once , but it's possible to have
+	# two speakers on one channel one following the other and
+	# separated by a 'CHANGE OF SPEAKER' note in the comment field
+	if ($names{$chan}) {
+	    $chan="$alt$chan";
+	    $altchan="$alt$altchan";
+	}
+
+	$names{$chan}=$nm;
+	if ($chan!~/$altchan/) { 
+	    $agents{$altchan}=$myagents[$fnum]; 
+	    $names{$altchan}=$nm; 
+	    print "ADD NAME: $altchan - $nm ($agents{$altchan})\n";
+	}
+	$agents{$chan}=$myagents[$fnum++];
+	print "FOUND NAME: $chan - $nm ($agents{$chan})\n";
+	$nagents{ $nm } = $agents{$chan};
+    }
+}
+
+%changechan=();
+
+#----------------------------
+print "
+# STAGE 2 - XML::XPath processing
+";
+#----------------------------
+# We need the agent vs channel info to get the hrefs right and turning
+# boundary markers into containers isn't so easy in XSLT either! The
+# whole thing is less hassle using an XML aware perl module
+
+$curtopic;
+$root;
+$tops=1; $segs=1;
+$root = XML::XPath::Node::Element->new("nite:root");
+my $ns = XML::XPath::Node::Attribute->new('xmlns:nite', 'http://nite.sourceforge.net/');
+my $nid = XML::XPath::Node::Attribute->new('nite:id', "$obs\.tno-topics");
+$root->appendAttribute($ns);
+$root->appendAttribute($nid);
+
+foreach my $node ($xp->find('//Transcript/Segment')->get_nodelist){
+    $rat=$node->find('@Rating');
+    $part=$node->find('@Participant');
+    $topstart=$node->find('@TopicStart');
+    $topic=$node->find('@Topic');
+    $start=$node->find('@StartTime');
+    $end=$node->find('@EndTime');
+    
+    if ($topstart) {
+	if ($curtopic) {
+	    $att = XML::XPath::Node::Attribute->new('endtime', $end );
+	    $curtopic->appendAttribute($att);
+	}
+	$curtopic = XML::XPath::Node::Element->new('tno-topic');
+	my $att = XML::XPath::Node::Attribute->new('nite:id', "$obs\.tno-topic$tops");
+	$curtopic->appendAttribute($att);
+	$att = XML::XPath::Node::Attribute->new('description', $topic );
+	$curtopic->appendAttribute($att);
+	$att = XML::XPath::Node::Attribute->new('starttime', $start );
+	$curtopic->appendAttribute($att);
+	$root->appendChild($curtopic);
+	$tops++;
+    } 
+    $point = XML::XPath::Node::Element->new('nite:pointer');
+    $csegs=&commatize($segs);
+    $myhref="$obs\.$nagents{$part}\.segs\.xml\#$obs\.segment\.$csegs";
+    my $att = XML::XPath::Node::Attribute->new('href', $myhref);
+    $point->appendAttribute($att);
+    $att = XML::XPath::Node::Attribute->new('role', "rating_$rat");
+    $point->appendAttribute($att);
+    if ($curtopic) { $curtopic->appendChild($point); }
+    else { print stderr "NO TOPIC TO ADD SEGMENT TO!!\n"; }
+    $segs++;
+}
+
+if ($curtopic) {
+    $att = XML::XPath::Node::Attribute->new('endtime', $end );
+    $curtopic->appendAttribute($att);
+}
+
+$out2="$outdir/$obs.tno-topics.xml";
+open (OUT, ">$out2");
+print OUT $root->toString;
+close OUT;

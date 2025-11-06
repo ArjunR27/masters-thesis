@@ -1,0 +1,35 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bed015.B.prosody">
+ <prosody nite:id="2" f0_mean="0.79914" f0_std="36.9449629136" duration="0.41860" energy="0.82747" tfidf="5.3655371305">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.1"/>
+ </prosody>
+ <prosody nite:id="3" f0_mean="0.48585" f0_std="40.3673413491" duration="1.00000" energy="1.00000" tfidf="4.95802798135">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.2"/>
+ </prosody>
+ <prosody nite:id="4" f0_mean="0.60597" f0_std="40.907460125" duration="1.00000" energy="1.00000" tfidf="0.00737065938779">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.3"/>
+ </prosody>
+ <prosody nite:id="5" f0_mean="1.14642" f0_std="23.7936109388" duration="1.00000" energy="1.00000" tfidf="13.5063520871">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.4"/>
+ </prosody>
+ <prosody nite:id="6" f0_mean="1.23423" f0_std="8.53522536364" duration="1.00000" energy="1.00000" tfidf="4.12299168975">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.5"/>
+ </prosody>
+ <prosody nite:id="18" f0_mean="0.38020" f0_std="43.5066907347" duration="1.57746" energy="1.06534" tfidf="223.819548872">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.35"/>
+ </prosody>
+ <prosody nite:id="19" f0_mean="0.00000" f0_std="0.0" duration="0.73239" energy="1.09115" tfidf="223.819548872">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.36"/>
+ </prosody>
+ <prosody nite:id="20" f0_mean="0.00000" f0_std="0.0" duration="1.01408" energy="0.85045" tfidf="223.819548872">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.37"/>
+ </prosody>
+ <prosody nite:id="21" f0_mean="0.00000" f0_std="0.0" duration="0.67606" energy="0.99305" tfidf="223.819548872">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.38"/>
+ </prosody>
+ <prosody nite:id="26" f0_mean="0.70068" f0_std="43.0004709091" duration="1.00000" energy="1.00000" tfidf="97.9210526316">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.47"/>
+ </prosody>
+ <prosody nite:id="27" f0_mean="0.73099" f0_std="42.2972749796" duration="1.00000" energy="1.00000" tfidf="23.040247678">
+   <nite:child href="Bed015.B.words.xml#Bed015.w.49"/>
+ </prosody>
+</nite:root>

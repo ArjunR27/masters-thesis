@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed013.C.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed013.uncertain.11" type="uncertain">
+      <nite:child href="Bed013.C.words.xml#id(Bed013.w.2,559)"/>
+   </speechquality>
+   <speechquality nite:id="Bed013.uncertain.12" type="uncertain" numsyllables="3.0">
+      <nite:child href="Bed013.C.words.xml#id(Bed013.w.2,561)..id(Bed013.w.2,562)"/>
+   </speechquality>
+   <speechquality nite:id="Bed013.uncertain.23" type="uncertain">
+      <nite:child href="Bed013.C.words.xml#id(Bed013.w.5,483)"/>
+   </speechquality>
+</nite:root>

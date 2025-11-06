@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro016.B.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro016.uncertain.9" type="uncertain" numsyllables="4.0">
+      <nite:child href="Bro016.B.words.xml#id(Bro016.w.4,084)..id(Bro016.w.4,085)"/>
+   </speechquality>
+   <speechquality nite:id="Bro016.uncertain.19" type="uncertain">
+      <nite:child href="Bro016.B.words.xml#id(Bro016.w.6,050)..id(Bro016.w.6,052)"/>
+   </speechquality>
+</nite:root>

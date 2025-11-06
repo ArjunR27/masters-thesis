@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr025.F.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr025.emphasis.9" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.474)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.13" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.808)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.35" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.1,755)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.49" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.2,241)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.uncertain.2" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.2,243)..id(Bmr025.w.2,244)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.106" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.3,841)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.119" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.4,104)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.123" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.4,245)..id(Bmr025.w.4,246)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.125" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.4,279)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.132" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.4,536)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.194" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,025)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.195" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,027)..id(Bmr025.w.6,028)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.196" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,033)..id(Bmr025.w.6,034)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.201" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,071)..id(Bmr025.w.6,072)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.228" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,426)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.229" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.6,432)..id(Bmr025.w.6,433)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr025.emphasis.334" type="emphasis">
+      <nite:child href="Bmr025.F.words.xml#id(Bmr025.w.9,040)"/>
+   </speechquality>
+</nite:root>

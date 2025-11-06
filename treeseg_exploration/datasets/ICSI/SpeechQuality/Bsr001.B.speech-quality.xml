@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bsr001.B.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bsr001.uncertain.4" type="uncertain">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.164)..id(Bsr001.w.169)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.14" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.709)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.15" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.731)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.17" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.777)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.7" type="uncertain">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.825)..id(Bsr001.w.826)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.83" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.3,206)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.84" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.3,210)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.85" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.3,222)..id(Bsr001.w.3,223)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.97" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.3,663)..id(Bsr001.w.3,664)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.128" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.5,169)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.129" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.5,172)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.146" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.6,677)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.147" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.6,681)..id(Bsr001.w.6,682)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.26" type="uncertain">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.9,087)..id(Bsr001.w.9,088)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.190" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.9,359)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.30" type="uncertain">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.10,810)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.31" type="uncertain" numsyllables="3.0">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.10,811)..id(Bsr001.w.10,812)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.223" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.11,020)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.226" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.11,979)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.257" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.14,389)..id(Bsr001.w.14,390)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.260" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.14,560)..id(Bsr001.w.14,561)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.270" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.15,223)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.68" type="uncertain">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.18,560)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.uncertain.72" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.18,823)..id(Bsr001.w.18,824)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.328" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.19,218)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.329" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.19,225)"/>
+   </speechquality>
+   <speechquality nite:id="Bsr001.emphasis.330" type="emphasis">
+      <nite:child href="Bsr001.B.words.xml#id(Bsr001.w.19,229)..id(Bsr001.w.19,230)"/>
+   </speechquality>
+</nite:root>

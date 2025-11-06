@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bns003.B.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bns003.emphasis.31" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.812)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.42" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.1,157)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.43" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.1,178)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.uncertain.16" type="uncertain">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.2,462)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.206" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.4,760)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.207" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.4,780)..id(Bns003.w.4,781)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.208" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.4,785)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.279" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.7,218)..id(Bns003.w.7,219)"/>
+   </speechquality>
+   <speechquality nite:id="Bns003.emphasis.280" type="emphasis">
+      <nite:child href="Bns003.B.words.xml#id(Bns003.w.7,327)"/>
+   </speechquality>
+</nite:root>

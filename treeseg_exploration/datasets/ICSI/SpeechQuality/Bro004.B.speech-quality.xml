@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro004.B.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro004.emphasis.1" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.32)..id(Bro004.w.33)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.2" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.73)..id(Bro004.w.74)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.1" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.95)..id(Bro004.w.96)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.3" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.141)..id(Bro004.w.142)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.4" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.144)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.5" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.146)..id(Bro004.w.147)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.8" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.201)..id(Bro004.w.202)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.9" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.223)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.13" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.551)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.4" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.567)..id(Bro004.w.568)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.19" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.727)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.20" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.741)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.21" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.770)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.22" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.775)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.23" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.787)..id(Bro004.w.788)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.24" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.800)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.25" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.808)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.26" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.820)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.27" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.825)..id(Bro004.w.826)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.28" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.854)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.29" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.873)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.30" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.883)..id(Bro004.w.884)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.34" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,088)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.35" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,100)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.36" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,211)..id(Bro004.w.1,212)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.41" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,364)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.42" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,417)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.44" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,555)..id(Bro004.w.1,556)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.45" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,570)..id(Bro004.w.1,571)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.46" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,575)..id(Bro004.w.1,576)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.47" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,593)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.48" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,599)..id(Bro004.w.1,600)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.49" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,603)..id(Bro004.w.1,604)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.50" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,655)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.51" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,703)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.52" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,713)..id(Bro004.w.1,714)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.53" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,717)..id(Bro004.w.1,718)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.54" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,723)..id(Bro004.w.1,724)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.57" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,766)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.58" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,775)..id(Bro004.w.1,776)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.62" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,802)..id(Bro004.w.1,803)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.64" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,874)..id(Bro004.w.1,875)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.65" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,886)..id(Bro004.w.1,887)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.66" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,953)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.67" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,963)..id(Bro004.w.1,964)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.68" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.1,984)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.72" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,071)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.73" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,076)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.74" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,080)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.75" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,164)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.76" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,174)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.77" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,180)..id(Bro004.w.2,181)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.78" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,226)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.79" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,271)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.80" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,275)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.81" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,285)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.82" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,295)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.83" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,297)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.84" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,311)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.85" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,314)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.86" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,330)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.87" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,352)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.88" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,358)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.89" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,406)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.7" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,595)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.92" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,701)..id(Bro004.w.2,702)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.93" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,743)..id(Bro004.w.2,744)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.94" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,749)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.95" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,756)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.96" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,762)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.97" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,773)..id(Bro004.w.2,774)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.98" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,778)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.99" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,784)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.100" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,785)..id(Bro004.w.2,786)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.101" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,803)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.102" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,810)..id(Bro004.w.2,811)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.103" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,824)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.107" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,933)..id(Bro004.w.2,934)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.108" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,940)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.109" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,949)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.110" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,964)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.111" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,975)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.112" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,978)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.113" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,980)..id(Bro004.w.2,981)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.114" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.2,993)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.115" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,002)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.116" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,010)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.117" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,019)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.118" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,040)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.119" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,045)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.120" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,047)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.121" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,052)..id(Bro004.w.3,053)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.122" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,058)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.123" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,070)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.124" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,072)..id(Bro004.w.3,073)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.125" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,114)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.126" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,143)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.127" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,161)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.128" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,168)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.129" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,170)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.130" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,173)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.131" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,175)..id(Bro004.w.3,176)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.132" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,181)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.137" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,250)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.138" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,261)..id(Bro004.w.3,262)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.139" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,274)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.140" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,279)..id(Bro004.w.3,280)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.147" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,372)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.148" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,374)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.149" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,380)..id(Bro004.w.3,381)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.151" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,434)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.152" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,436)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.155" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,723)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.156" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,726)..id(Bro004.w.3,727)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.158" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,967)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.159" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,977)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.160" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.3,997)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.161" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,006)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.162" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,019)..id(Bro004.w.4,020)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.163" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,072)..id(Bro004.w.4,073)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.164" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,086)..id(Bro004.w.4,087)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.165" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,091)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.166" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,099)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.167" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,105)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.168" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,139)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.169" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,202)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.170" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,230)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.171" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,247)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.172" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,269)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.173" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,272)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.174" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,275)..id(Bro004.w.4,276)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.175" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,284)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.176" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,286)..id(Bro004.w.4,287)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.177" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,293)..id(Bro004.w.4,294)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.178" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,308)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.179" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,313)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.180" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,315)..id(Bro004.w.4,316)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.181" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,319)..id(Bro004.w.4,320)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.182" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,321)..id(Bro004.w.4,322)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.183" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,423)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.184" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,430)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.185" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,437)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.187" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,462)..id(Bro004.w.4,463)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.10" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,499)..id(Bro004.w.4,500)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.189" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,534)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.207" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.4,824)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.209" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,180)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.211" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,657)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.212" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,658)..id(Bro004.w.5,659)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.213" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,664)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.214" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,670)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.215" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,675)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.216" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,683)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.217" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,691)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.218" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,695)..id(Bro004.w.5,696)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.219" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,994)..id(Bro004.w.5,995)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.220" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.5,997)..id(Bro004.w.6,000)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.221" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,003)..id(Bro004.w.6,004)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.222" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,006)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.223" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,100)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.224" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,103)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.225" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,104)..id(Bro004.w.6,105)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.226" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,130)..id(Bro004.w.6,131)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.227" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,135)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.228" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,166)..id(Bro004.w.6,167)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.229" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,201)..id(Bro004.w.6,202)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.230" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,203)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.231" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,238)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.232" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,244)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.233" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,251)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.234" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,254)..id(Bro004.w.6,255)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.235" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,268)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.236" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,270)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.237" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,281)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.238" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,288)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.239" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,296)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.240" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,298)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.241" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,303)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.242" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,309)..id(Bro004.w.6,310)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.243" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,317)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.244" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,318)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.245" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,336)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.246" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,344)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.247" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,347)..id(Bro004.w.6,348)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.248" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,357)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.249" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,363)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.251" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,426)..id(Bro004.w.6,427)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.252" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,434)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.253" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,437)..id(Bro004.w.6,438)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.254" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,448)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.255" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,459)..id(Bro004.w.6,460)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.256" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,521)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.257" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,524)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.258" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,535)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.259" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,554)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.260" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,558)..id(Bro004.w.6,559)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.261" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,562)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.262" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,567)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.263" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,571)..id(Bro004.w.6,572)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.264" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,578)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.265" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,585)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.266" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,595)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.267" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,599)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.268" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,620)..id(Bro004.w.6,621)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.269" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,634)..id(Bro004.w.6,635)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.270" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,673)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.271" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,678)..id(Bro004.w.6,679)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.272" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,685)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.273" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,687)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.274" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,692)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.275" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,816)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.276" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,841)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.277" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,931)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.278" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,953)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.279" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,966)..id(Bro004.w.6,967)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.280" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.6,984)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.281" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,000)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.282" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,005)..id(Bro004.w.7,006)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.16" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,018)..id(Bro004.w.7,019)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.283" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,042)..id(Bro004.w.7,043)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.284" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,062)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.285" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,142)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.286" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,409)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.287" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,412)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.18" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,415)..id(Bro004.w.7,417)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.288" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,535)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.289" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,539)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.290" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,625)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.294" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,709)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.298" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,807)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.299" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,832)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.300" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,933)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.301" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,955)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.302" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,958)..id(Bro004.w.7,959)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.303" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,978)..id(Bro004.w.7,979)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.304" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,988)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.305" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.7,993)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.306" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,056)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.307" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,062)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.308" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,186)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.309" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,236)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.310" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,268)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.311" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,279)..id(Bro004.w.8,280)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.312" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,303)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.313" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,311)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.314" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,330)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.315" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,333)..id(Bro004.w.8,334)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.316" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,343)..id(Bro004.w.8,344)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.317" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,371)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.318" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,374)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.320" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,446)..id(Bro004.w.8,447)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.321" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,555)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.322" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,564)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.323" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,566)..id(Bro004.w.8,567)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.324" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,599)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.29" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,708)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.327" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,719)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.328" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,721)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.329" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,733)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.330" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,772)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.331" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,775)..id(Bro004.w.8,776)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.335" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,892)..id(Bro004.w.8,893)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.336" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,942)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.337" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,960)..id(Bro004.w.8,961)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.338" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,972)..id(Bro004.w.8,973)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.339" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,980)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.340" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.8,993)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.341" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,001)..id(Bro004.w.9,002)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.342" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,013)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.343" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,061)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.344" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,100)..id(Bro004.w.9,101)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.345" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,130)..id(Bro004.w.9,131)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.346" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,140)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.347" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,152)..id(Bro004.w.9,153)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.348" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,212)..id(Bro004.w.9,213)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.353" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,307)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.354" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,392)..id(Bro004.w.9,393)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.357" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,444)..id(Bro004.w.9,445)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.358" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,449)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.359" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,461)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.360" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,482)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.30" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,550)..id(Bro004.disfmarker.464)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.361" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,559)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.362" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,561)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.364" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,578)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.365" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,587)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.366" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,644)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.367" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,646)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.368" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,647)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.369" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,655)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.370" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,669)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.371" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,720)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.372" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,789)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.373" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,843)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.374" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,954)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.375" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,974)..id(Bro004.w.9,975)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.376" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.9,999)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.377" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,007)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.378" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,018)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.379" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,031)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.380" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,035)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.381" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,120)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.382" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,122)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.383" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,129)..id(Bro004.w.10,130)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.384" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,153)..id(Bro004.w.10,154)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.385" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,156)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.386" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,167)..id(Bro004.w.10,168)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.387" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,178)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.388" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,182)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.390" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,330)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.391" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,348)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.397" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,394)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.398" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,402)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.399" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,407)..id(Bro004.w.10,408)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.400" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,412)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.401" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,414)..id(Bro004.w.10,415)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.402" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,437)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.403" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,545)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.404" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,551)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.405" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,614)..id(Bro004.w.10,615)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.31" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,625)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.406" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,630)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.407" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,633)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.408" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,637)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.409" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,640)..id(Bro004.w.10,641)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.410" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,650)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.411" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,654)..id(Bro004.w.10,655)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.412" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,667)..id(Bro004.w.10,668)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.413" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,676)..id(Bro004.w.10,677)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.414" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,685)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.415" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,692)..id(Bro004.w.10,693)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.32" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,699)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.417" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,907)..id(Bro004.w.10,908)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.418" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.10,914)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.419" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,036)..id(Bro004.w.11,037)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.420" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,041)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.421" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,121)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.422" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,125)..id(Bro004.w.11,126)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.423" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,134)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.424" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,139)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.425" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,144)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.426" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,147)..id(Bro004.w.11,148)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.427" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,184)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.428" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,206)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.429" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,211)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.430" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,224)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.431" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,235)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.433" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,504)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.434" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,524)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.435" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,532)..id(Bro004.w.11,533)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.437" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,596)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.438" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,602)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.439" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,605)..id(Bro004.w.11,606)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.440" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,609)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.446" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,764)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.447" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,787)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.emphasis.448" type="emphasis">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.11,824)..id(Bro004.w.11,825)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.34" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.12,465)..id(Bro004.w.12,466)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.35" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.12,471)..id(Bro004.w.12,472)"/>
+   </speechquality>
+   <speechquality nite:id="Bro004.uncertain.36" type="uncertain">
+      <nite:child href="Bro004.B.words.xml#id(Bro004.w.12,554)..id(Bro004.w.12,555)"/>
+   </speechquality>
+</nite:root>

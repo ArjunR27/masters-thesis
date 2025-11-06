@@ -1,0 +1,569 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bmr012.J.prosody">
+ <prosody nite:id="7863" f0_mean="1.04709" f0_std="55.7252223644" duration="0.79599" energy="1.00633" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10085"/>
+ </prosody>
+ <prosody nite:id="7864" f0_mean="1.43439" f0_std="1.54765202667" duration="0.45860" energy="1.03816" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10086"/>
+ </prosody>
+ <prosody nite:id="7865" f0_mean="1.02564" f0_std="51.17225325" duration="0.73884" energy="1.02026" tfidf="0.519377037305">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10087"/>
+ </prosody>
+ <prosody nite:id="7866" f0_mean="1.06127" f0_std="33.8878971648" duration="1.25146" energy="1.04513" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10088"/>
+ </prosody>
+ <prosody nite:id="7867" f0_mean="0.93541" f0_std="46.3766239286" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10089"/>
+ </prosody>
+ <prosody nite:id="7868" f0_mean="0.97539" f0_std="56.3485053203" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10090"/>
+ </prosody>
+ <prosody nite:id="7869" f0_mean="1.24085" f0_std="0.222211222222" duration="0.12358" energy="1.05152" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10094"/>
+ </prosody>
+ <prosody nite:id="7870" f0_mean="1.32339" f0_std="13.7824800742" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10095"/>
+ </prosody>
+ <prosody nite:id="7871" f0_mean="1.28861" f0_std="8.86953175309" duration="0.53632" energy="1.05852" tfidf="0.552388289676">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10097"/>
+ </prosody>
+ <prosody nite:id="7872" f0_mean="1.20294" f0_std="1.367776" duration="1.21465" energy="1.04736" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10098"/>
+ </prosody>
+ <prosody nite:id="7873" f0_mean="1.22396" f0_std="0.8594524" duration="0.49837" energy="0.97832" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10099"/>
+ </prosody>
+ <prosody nite:id="7874" f0_mean="1.25924" f0_std="2.7479095" duration="0.34100" energy="0.89781" tfidf="0.519377037305">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10100"/>
+ </prosody>
+ <prosody nite:id="7875" f0_mean="1.25614" f0_std="2.25316934722" duration="0.56187" energy="1.02836" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10101"/>
+ </prosody>
+ <prosody nite:id="7876" f0_mean="1.00680" f0_std="34.7017994673" duration="1.17143" energy="1.00096" tfidf="16.2954545455">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10102"/>
+ </prosody>
+ <prosody nite:id="7877" f0_mean="0.84335" f0_std="43.1942854815" duration="0.88942" energy="0.96248" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10103"/>
+ </prosody>
+ <prosody nite:id="7878" f0_mean="1.00406" f0_std="15.3101568926" duration="0.77995" energy="0.90133" tfidf="0.114354066986">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10104"/>
+ </prosody>
+ <prosody nite:id="7879" f0_mean="1.13765" f0_std="2.81006868639" duration="0.93333" energy="0.95717" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10105"/>
+ </prosody>
+ <prosody nite:id="7880" f0_mean="1.08871" f0_std="12.7809269343" duration="0.62687" energy="1.00470" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10107"/>
+ </prosody>
+ <prosody nite:id="7881" f0_mean="0.92992" f0_std="26.4925237" duration="1.39759" energy="0.99265" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10110"/>
+ </prosody>
+ <prosody nite:id="7882" f0_mean="1.05325" f0_std="5.07926524654" duration="0.88338" energy="0.91116" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10111"/>
+ </prosody>
+ <prosody nite:id="7883" f0_mean="0.70439" f0_std="22.66274206" duration="0.46823" energy="0.99081" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10112"/>
+ </prosody>
+ <prosody nite:id="7884" f0_mean="0.42107" f0_std="52.5211945833" duration="1.09160" energy="0.97002" tfidf="1.67132867133">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10113"/>
+ </prosody>
+ <prosody nite:id="7885" f0_mean="0.94543" f0_std="36.2846285799" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10114"/>
+ </prosody>
+ <prosody nite:id="7886" f0_mean="1.12600" f0_std="3.00200478" duration="0.74257" energy="0.94946" tfidf="7.24242424242">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10115"/>
+ </prosody>
+ <prosody nite:id="7887" f0_mean="0.74326" f0_std="50.1503944933" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10116"/>
+ </prosody>
+ <prosody nite:id="7888" f0_mean="1.09962" f0_std="7.26991213889" duration="0.30435" energy="0.94082" tfidf="0.361368361368">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10117"/>
+ </prosody>
+ <prosody nite:id="7889" f0_mean="1.17236" f0_std="1.30458527978" duration="1.34895" energy="1.10064" tfidf="0.726934775262">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10119"/>
+ </prosody>
+ <prosody nite:id="7890" f0_mean="1.16792" f0_std="1.27802353778" duration="0.41443" energy="1.10449" tfidf="0.552388289676">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10120"/>
+ </prosody>
+ <prosody nite:id="7891" f0_mean="1.16549" f0_std="1.69307525444" duration="0.85714" energy="1.02408" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10121"/>
+ </prosody>
+ <prosody nite:id="7892" f0_mean="1.19464" f0_std="0.733088" duration="0.26496" energy="1.03684" tfidf="0.00795246583482">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10122"/>
+ </prosody>
+ <prosody nite:id="7893" f0_mean="1.22363" f0_std="2.35324863265" duration="0.86486" energy="1.09199" tfidf="3.62121212121">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10123"/>
+ </prosody>
+ <prosody nite:id="7894" f0_mean="0.80713" f0_std="57.5288184694" duration="0.85000" energy="0.97820" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10124"/>
+ </prosody>
+ <prosody nite:id="7895" f0_mean="0.54428" f0_std="60.3456923457" duration="0.47065" energy="0.93392" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10125"/>
+ </prosody>
+ <prosody nite:id="7896" f0_mean="1.20907" f0_std="6.16830908333" duration="0.91667" energy="1.07020" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10126"/>
+ </prosody>
+ <prosody nite:id="7897" f0_mean="1.00006" f0_std="24.9479943594" duration="0.82212" energy="0.92232" tfidf="3.43062200957">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10129"/>
+ </prosody>
+ <prosody nite:id="7898" f0_mean="0.97946" f0_std="30.072624568" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10130"/>
+ </prosody>
+ <prosody nite:id="7899" f0_mean="1.09680" f0_std="1.07506107266" duration="1.14588" energy="1.05421" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10131"/>
+ </prosody>
+ <prosody nite:id="7900" f0_mean="1.08379" f0_std="0.24136967474" duration="1.47016" energy="0.98646" tfidf="0.624980772189">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10132"/>
+ </prosody>
+ <prosody nite:id="7901" f0_mean="1.07862" f0_std="0.257388357143" duration="0.73669" energy="0.94034" tfidf="0.658402203857">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10133"/>
+ </prosody>
+ <prosody nite:id="7902" f0_mean="1.07130" f0_std="0.322121625" duration="0.64216" energy="1.02644" tfidf="0.770470664088">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10134"/>
+ </prosody>
+ <prosody nite:id="7903" f0_mean="1.06646" f0_std="0.207261510204" duration="0.20596" energy="1.02269" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10135"/>
+ </prosody>
+ <prosody nite:id="7904" f0_mean="0.77231" f0_std="42.7400727134" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10136"/>
+ </prosody>
+ <prosody nite:id="7905" f0_mean="0.69197" f0_std="52.5110578288" duration="0.78594" energy="0.95810" tfidf="18.1060606061">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10137"/>
+ </prosody>
+ <prosody nite:id="7906" f0_mean="0.84470" f0_std="38.8883529796" duration="0.59259" energy="0.87979" tfidf="2.89696969697">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10138"/>
+ </prosody>
+ <prosody nite:id="7907" f0_mean="0.61193" f0_std="27.9068784375" duration="0.70370" energy="0.75810" tfidf="2.17272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10139"/>
+ </prosody>
+ <prosody nite:id="7908" f0_mean="1.01792" f0_std="6.17384146939" duration="0.55042" energy="0.99435" tfidf="0.770470664088">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10140"/>
+ </prosody>
+ <prosody nite:id="7909" f0_mean="0.69825" f0_std="59.0930399184" duration="1.00000" energy="0.83821" tfidf="2.89696969697">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10141"/>
+ </prosody>
+ <prosody nite:id="7910" f0_mean="0.52805" f0_std="54.5136071872" duration="1.33108" energy="0.90804" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10143"/>
+ </prosody>
+ <prosody nite:id="7911" f0_mean="0.96071" f0_std="51.8673759556" duration="0.89707" energy="0.95542" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10144"/>
+ </prosody>
+ <prosody nite:id="7912" f0_mean="0.55650" f0_std="53.309654784" duration="0.81731" energy="1.03868" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10145"/>
+ </prosody>
+ <prosody nite:id="7913" f0_mean="0.73661" f0_std="49.0021288889" duration="1.00000" energy="0.91010" tfidf="7.24242424242">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10148"/>
+ </prosody>
+ <prosody nite:id="7914" f0_mean="1.15038" f0_std="6.26025037755" duration="0.91570" energy="0.84184" tfidf="1.91711229947">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10149"/>
+ </prosody>
+ <prosody nite:id="7915" f0_mean="1.12138" f0_std="7.72675553846" duration="0.81849" energy="0.94751" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10150"/>
+ </prosody>
+ <prosody nite:id="7916" f0_mean="0.99407" f0_std="8.89299417301" duration="0.82384" energy="0.97543" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10151"/>
+ </prosody>
+ <prosody nite:id="7917" f0_mean="0.85255" f0_std="25.8428981183" duration="0.81849" energy="0.90508" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10152"/>
+ </prosody>
+ <prosody nite:id="7918" f0_mean="0.93336" f0_std="26.6103285306" duration="0.16477" energy="0.93790" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10153"/>
+ </prosody>
+ <prosody nite:id="7919" f0_mean="0.77164" f0_std="46.19936772" duration="0.64311" energy="0.78412" tfidf="6.20779220779">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10154"/>
+ </prosody>
+ <prosody nite:id="7920" f0_mean="0.76664" f0_std="42.4998292438" duration="0.97764" energy="0.94561" tfidf="18.1060606061">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10155"/>
+ </prosody>
+ <prosody nite:id="7921" f0_mean="0.81089" f0_std="47.2005830625" duration="1.48837" energy="1.03265" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10156"/>
+ </prosody>
+ <prosody nite:id="7922" f0_mean="1.11956" f0_std="1.86290205102" duration="1.39869" energy="1.04476" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10157"/>
+ </prosody>
+ <prosody nite:id="7923" f0_mean="1.11596" f0_std="1.77779258" duration="1.06383" energy="1.07528" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10158"/>
+ </prosody>
+ <prosody nite:id="7924" f0_mean="1.00382" f0_std="27.9255166288" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10159"/>
+ </prosody>
+ <prosody nite:id="7925" f0_mean="0.80573" f0_std="55.4524287467" duration="0.67806" energy="0.94743" tfidf="0.775974025974">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10160"/>
+ </prosody>
+ <prosody nite:id="7926" f0_mean="0.99158" f0_std="23.1275366537" duration="0.60241" energy="1.00735" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10163"/>
+ </prosody>
+ <prosody nite:id="7927" f0_mean="1.11859" f0_std="0.3199005" duration="0.12358" energy="0.95783" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10164"/>
+ </prosody>
+ <prosody nite:id="7928" f0_mean="0.81147" f0_std="44.1673567686" duration="0.86007" energy="0.90895" tfidf="9.65656565657">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10165"/>
+ </prosody>
+ <prosody nite:id="7929" f0_mean="0.96854" f0_std="40.6931596233" duration="1.30958" energy="0.94754" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10166"/>
+ </prosody>
+ <prosody nite:id="7930" f0_mean="0.35812" f0_std="47.6466595556" duration="0.52993" energy="0.71034" tfidf="0.00795246583482">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10167"/>
+ </prosody>
+ <prosody nite:id="7931" f0_mean="1.00368" f0_std="20.03053328" duration="0.48196" energy="0.87985" tfidf="1.20707070707">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10168"/>
+ </prosody>
+ <prosody nite:id="7932" f0_mean="0.85894" f0_std="38.0932036543" duration="0.15217" energy="0.94901" tfidf="0.361368361368">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10169"/>
+ </prosody>
+ <prosody nite:id="7933" f0_mean="0.76016" f0_std="36.5727767969" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10170"/>
+ </prosody>
+ <prosody nite:id="7934" f0_mean="0.87247" f0_std="18.3082411111" duration="0.70935" energy="0.93244" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10171"/>
+ </prosody>
+ <prosody nite:id="7935" f0_mean="1.19582" f0_std="8.06055033778" duration="0.97143" energy="1.09842" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10172"/>
+ </prosody>
+ <prosody nite:id="7936" f0_mean="1.22561" f0_std="4.76744588889" duration="0.67447" energy="0.99825" tfidf="0.726934775262">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10173"/>
+ </prosody>
+ <prosody nite:id="7937" f0_mean="1.19893" f0_std="1.56036728571" duration="0.26255" energy="0.77137" tfidf="0.0314432311538">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10174"/>
+ </prosody>
+ <prosody nite:id="7938" f0_mean="1.03382" f0_std="23.442908" duration="0.97778" energy="1.03535" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10175"/>
+ </prosody>
+ <prosody nite:id="7939" f0_mean="1.13308" f0_std="2.1932345" duration="0.39367" energy="0.99010" tfidf="0.178825289936">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10176"/>
+ </prosody>
+ <prosody nite:id="7940" f0_mean="1.10492" f0_std="0.855207" duration="0.71304" energy="0.99308" tfidf="2.64966740576">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10177"/>
+ </prosody>
+ <prosody nite:id="7941" f0_mean="0.52011" f0_std="51.8997205" duration="0.69772" energy="0.91465" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10178"/>
+ </prosody>
+ <prosody nite:id="7942" f0_mean="0.83195" f0_std="50.7325656512" duration="0.97764" energy="1.02796" tfidf="18.1060606061">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10179"/>
+ </prosody>
+ <prosody nite:id="7943" f0_mean="0.79027" f0_std="45.7882449116" duration="1.77477" energy="0.88945" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10181"/>
+ </prosody>
+ <prosody nite:id="7944" f0_mean="1.25268" f0_std="5.95984454438" duration="0.70935" energy="0.96056" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10182"/>
+ </prosody>
+ <prosody nite:id="7945" f0_mean="1.21224" f0_std="0.203818040816" duration="0.44105" energy="1.03929" tfidf="0.624980772189">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10183"/>
+ </prosody>
+ <prosody nite:id="7946" f0_mean="1.32625" f0_std="6.131280495" duration="0.79365" energy="1.02870" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10184"/>
+ </prosody>
+ <prosody nite:id="7947" f0_mean="1.17335" f0_std="8.75914397531" duration="2.01822" energy="1.05177" tfidf="0.770470664088">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10185"/>
+ </prosody>
+ <prosody nite:id="7948" f0_mean="1.20460" f0_std="11.8374548809" duration="1.65635" energy="0.97036" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10186"/>
+ </prosody>
+ <prosody nite:id="7949" f0_mean="1.18211" f0_std="1.49277281481" duration="0.89844" energy="1.10659" tfidf="4.34545454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10187"/>
+ </prosody>
+ <prosody nite:id="7950" f0_mean="0.97217" f0_std="43.2941531304" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10188"/>
+ </prosody>
+ <prosody nite:id="7951" f0_mean="1.14594" f0_std="5.31362516872" duration="1.73558" energy="0.97344" tfidf="3.43062200957">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10191"/>
+ </prosody>
+ <prosody nite:id="7952" f0_mean="0.95796" f0_std="15.2173717037" duration="0.28212" energy="0.86383" tfidf="1.70409982175">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10192"/>
+ </prosody>
+ <prosody nite:id="7953" f0_mean="0.97225" f0_std="48.5084196667" duration="0.79152" energy="0.89252" tfidf="6.20779220779">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10193"/>
+ </prosody>
+ <prosody nite:id="7954" f0_mean="0.67714" f0_std="57.7481141967" duration="1.05431" energy="0.94082" tfidf="18.1060606061">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10194"/>
+ </prosody>
+ <prosody nite:id="7955" f0_mean="0.81540" f0_std="47.106121831" duration="1.10000" energy="0.99840" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10195"/>
+ </prosody>
+ <prosody nite:id="7956" f0_mean="1.27416" f0_std="16.0267251389" duration="0.80683" energy="0.87609" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10196"/>
+ </prosody>
+ <prosody nite:id="7957" f0_mean="0.89899" f0_std="35.8634113438" duration="0.94691" energy="0.86953" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10197"/>
+ </prosody>
+ <prosody nite:id="7958" f0_mean="1.18084" f0_std="2.08073804" duration="0.52006" energy="0.99341" tfidf="0.603535353535">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10199"/>
+ </prosody>
+ <prosody nite:id="7959" f0_mean="0.68487" f0_std="54.6724238933" duration="0.82212" energy="0.92763" tfidf="3.43062200957">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10202"/>
+ </prosody>
+ <prosody nite:id="7960" f0_mean="0.75587" f0_std="54.8548417851" duration="0.43724" energy="0.98909" tfidf="2.28708133971">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10203"/>
+ </prosody>
+ <prosody nite:id="7961" f0_mean="1.18689" f0_std="0.825501358025" duration="0.53788" energy="1.11820" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10204"/>
+ </prosody>
+ <prosody nite:id="7962" f0_mean="1.26572" f0_std="6.56544922222" duration="0.88667" energy="1.11549" tfidf="1.70409982175">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10205"/>
+ </prosody>
+ <prosody nite:id="7963" f0_mean="0.87439" f0_std="46.53416256" duration="1.02300" energy="1.04975" tfidf="0.519377037305">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10206"/>
+ </prosody>
+ <prosody nite:id="7964" f0_mean="0.84748" f0_std="28.3231874336" duration="1.25146" energy="1.00795" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10207"/>
+ </prosody>
+ <prosody nite:id="7965" f0_mean="1.09543" f0_std="4.92640470312" duration="0.51818" energy="0.98109" tfidf="1.17444717445">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10208"/>
+ </prosody>
+ <prosody nite:id="7966" f0_mean="1.03555" f0_std="12.5916562813" duration="0.51818" energy="0.91445" tfidf="1.17444717445">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10209"/>
+ </prosody>
+ <prosody nite:id="7967" f0_mean="1.11101" f0_std="17.4675746395" duration="1.31250" energy="1.02466" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10211"/>
+ </prosody>
+ <prosody nite:id="7968" f0_mean="0.94593" f0_std="35.8780461366" duration="1.14286" energy="0.97800" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10212"/>
+ </prosody>
+ <prosody nite:id="7969" f0_mean="0.72509" f0_std="50.0910415296" duration="2.35324" energy="0.93867" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10213"/>
+ </prosody>
+ <prosody nite:id="7970" f0_mean="1.08613" f0_std="1.13693889256" duration="1.69315" energy="0.98864" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10214"/>
+ </prosody>
+ <prosody nite:id="7971" f0_mean="1.12133" f0_std="10.9204020625" duration="0.40341" energy="1.10479" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10215"/>
+ </prosody>
+ <prosody nite:id="7972" f0_mean="1.15626" f0_std="7.25338871111" duration="0.60000" energy="0.98300" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10216"/>
+ </prosody>
+ <prosody nite:id="7973" f0_mean="0.51289" f0_std="51.1789485" duration="0.44105" energy="0.94167" tfidf="0.624980772189">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10217"/>
+ </prosody>
+ <prosody nite:id="7974" f0_mean="0.48153" f0_std="54.4565398844" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10218"/>
+ </prosody>
+ <prosody nite:id="7975" f0_mean="0.68903" f0_std="50.0039823471" duration="0.47431" energy="0.94004" tfidf="1.55194805195">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10219"/>
+ </prosody>
+ <prosody nite:id="7976" f0_mean="1.08276" f0_std="1.42108547152e-14" duration="0.32287" energy="0.96020" tfidf="0.687571921749">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10220"/>
+ </prosody>
+ <prosody nite:id="7977" f0_mean="0.61681" f0_std="49.23925664" duration="1.55769" energy="0.84974" tfidf="0.49947753396">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10221"/>
+ </prosody>
+ <prosody nite:id="7978" f0_mean="0.86032" f0_std="33.4819555106" duration="1.04000" energy="1.03813" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10222"/>
+ </prosody>
+ <prosody nite:id="7979" f0_mean="0.41506" f0_std="50.4911388637" duration="1.54515" energy="0.77990" tfidf="1.03463203463">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10223"/>
+ </prosody>
+ <prosody nite:id="7980" f0_mean="1.06388" f0_std="0.74446176" duration="1.14300" energy="1.01194" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10225"/>
+ </prosody>
+ <prosody nite:id="7981" f0_mean="0.51539" f0_std="55.384151929" duration="0.59623" energy="0.82189" tfidf="2.28708133971">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10226"/>
+ </prosody>
+ <prosody nite:id="7982" f0_mean="1.10316" f0_std="0.8195533125" duration="0.40341" energy="1.03555" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10227"/>
+ </prosody>
+ <prosody nite:id="7983" f0_mean="1.10185" f0_std="1.99705104132" duration="0.44334" energy="0.92944" tfidf="1.70409982175">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10228"/>
+ </prosody>
+ <prosody nite:id="7984" f0_mean="0.88264" f0_std="34.485589251" duration="1.04042" energy="0.87588" tfidf="2.71590909091">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10229"/>
+ </prosody>
+ <prosody nite:id="7985" f0_mean="0.94229" f0_std="21.2699778125" duration="0.75266" energy="0.85294" tfidf="2.64966740576">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10230"/>
+ </prosody>
+ <prosody nite:id="7986" f0_mean="0.46449" f0_std="16.948906" duration="1.25646" energy="0.80061" tfidf="0.535154500672">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10231"/>
+ </prosody>
+ <prosody nite:id="7987" f0_mean="0.14171" f0_std="21.9971398025" duration="0.36302" energy="0.79951" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10233"/>
+ </prosody>
+ <prosody nite:id="7988" f0_mean="0.73625" f0_std="53.430634314" duration="1.37313" energy="0.99530" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10234"/>
+ </prosody>
+ <prosody nite:id="7989" f0_mean="0.94795" f0_std="20.6325212022" duration="1.02388" energy="0.97607" tfidf="0.552388289676">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10237"/>
+ </prosody>
+ <prosody nite:id="7990" f0_mean="0.43861" f0_std="51.061808" duration="0.64916" energy="0.80789" tfidf="1.9252013809">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10240"/>
+ </prosody>
+ <prosody nite:id="7991" f0_mean="0.95465" f0_std="27.2173410748" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10241"/>
+ </prosody>
+ <prosody nite:id="7992" f0_mean="1.14525" f0_std="5.56705497959" duration="0.97674" energy="0.86238" tfidf="1.91711229947">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10242"/>
+ </prosody>
+ <prosody nite:id="7993" f0_mean="1.12641" f0_std="8.04163936095" duration="0.57871" energy="0.89721" tfidf="0.316724092234">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10243"/>
+ </prosody>
+ <prosody nite:id="7994" f0_mean="0.99778" f0_std="15.3011836" duration="0.84375" energy="0.95816" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10244"/>
+ </prosody>
+ <prosody nite:id="7995" f0_mean="0.83260" f0_std="40.7381010571" duration="1.12698" energy="0.92926" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10245"/>
+ </prosody>
+ <prosody nite:id="7996" f0_mean="0.77334" f0_std="44.2622975238" duration="0.87097" energy="0.90212" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10248"/>
+ </prosody>
+ <prosody nite:id="7997" f0_mean="0.90104" f0_std="28.6552009704" duration="0.85714" energy="0.88834" tfidf="2.71590909091">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10249"/>
+ </prosody>
+ <prosody nite:id="7998" f0_mean="0.86380" f0_std="33.7243201653" duration="0.80859" energy="0.95743" tfidf="0.624980772189">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10250"/>
+ </prosody>
+ <prosody nite:id="7999" f0_mean="0.82388" f0_std="41.8651978889" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10251"/>
+ </prosody>
+ <prosody nite:id="8000" f0_mean="1.10676" f0_std="1.37930732703" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10252"/>
+ </prosody>
+ <prosody nite:id="8001" f0_mean="0.83861" f0_std="39.1370888519" duration="1.25646" energy="0.88988" tfidf="0.535154500672">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10253"/>
+ </prosody>
+ <prosody nite:id="8002" f0_mean="1.13764" f0_std="3.795826" duration="0.61827" energy="0.97343" tfidf="0.726934775262">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10254"/>
+ </prosody>
+ <prosody nite:id="8003" f0_mean="1.05587" f0_std="2.21763408284" duration="0.73806" energy="0.94340" tfidf="1.48140495868">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10255"/>
+ </prosody>
+ <prosody nite:id="8004" f0_mean="1.04275" f0_std="0.244495226667" duration="1.58273" energy="0.90851" tfidf="2.21296296296">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10256"/>
+ </prosody>
+ <prosody nite:id="8005" f0_mean="0.93142" f0_std="41.3075846749" duration="1.00000" energy="0.96295" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10257"/>
+ </prosody>
+ <prosody nite:id="8006" f0_mean="1.07528" f0_std="0.266525333333" duration="0.19872" energy="0.91653" tfidf="0.00795246583482">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10258"/>
+ </prosody>
+ <prosody nite:id="8007" f0_mean="0.89886" f0_std="29.89774025" duration="0.65753" energy="0.92878" tfidf="0.434545454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10259"/>
+ </prosody>
+ <prosody nite:id="8008" f0_mean="0.58711" f0_std="50.2156335918" duration="0.42179" energy="0.80510" tfidf="0.886827458256">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10260"/>
+ </prosody>
+ <prosody nite:id="8009" f0_mean="0.65692" f0_std="48.5988368587" duration="0.89931" energy="0.85033" tfidf="3.1038961039">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10261"/>
+ </prosody>
+ <prosody nite:id="8010" f0_mean="0.56965" f0_std="62.0109034711" duration="0.44369" energy="0.87424" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10263"/>
+ </prosody>
+ <prosody nite:id="8011" f0_mean="0.54082" f0_std="50.00685" duration="2.18384" energy="0.85117" tfidf="0.161902181276">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10264"/>
+ </prosody>
+ <prosody nite:id="8012" f0_mean="1.54403" f0_std="2.88091883333" duration="0.12358" energy="0.67504" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10267"/>
+ </prosody>
+ <prosody nite:id="8013" f0_mean="0.69320" f0_std="46.1143621111" duration="0.12358" energy="0.96951" tfidf="0.070747270096">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10270"/>
+ </prosody>
+ <prosody nite:id="8014" f0_mean="0.67397" f0_std="49.7564612826" duration="1.28435" energy="0.96174" tfidf="18.1060606061">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10271"/>
+ </prosody>
+ <prosody nite:id="8015" f0_mean="0.59731" f0_std="50.4335055296" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10272"/>
+ </prosody>
+ <prosody nite:id="8016" f0_mean="1.03840" f0_std="25.9043577813" duration="0.42986" energy="0.96439" tfidf="2.89696969697">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10273"/>
+ </prosody>
+ <prosody nite:id="8017" f0_mean="1.11612" f0_std="2.96560353086" duration="0.51456" energy="0.96560" tfidf="0.624980772189">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10274"/>
+ </prosody>
+ <prosody nite:id="8018" f0_mean="0.83373" f0_std="45.3788836612" duration="0.92150" energy="0.95625" tfidf="9.65656565657">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10275"/>
+ </prosody>
+ <prosody nite:id="8019" f0_mean="0.80826" f0_std="34.6394231633" duration="1.46779" energy="0.95947" tfidf="0.770470664088">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10276"/>
+ </prosody>
+ <prosody nite:id="8020" f0_mean="0.85988" f0_std="25.0500919048" duration="1.11608" energy="0.88307" tfidf="0.21094439541">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10277"/>
+ </prosody>
+ <prosody nite:id="8021" f0_mean="0.59619" f0_std="39.9524030475" duration="1.25000" energy="0.91519" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10278"/>
+ </prosody>
+ <prosody nite:id="8023" f0_mean="0.49331" f0_std="49.2249135" duration="0.24201" energy="0.76714" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10282"/>
+ </prosody>
+ <prosody nite:id="8024" f0_mean="0.77335" f0_std="48.2306551172" duration="0.89883" energy="0.89793" tfidf="1.9252013809">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10285"/>
+ </prosody>
+ <prosody nite:id="8025" f0_mean="0.69877" f0_std="50.7108889917" duration="0.50909" energy="1.00618" tfidf="0.905303030303">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10286"/>
+ </prosody>
+ <prosody nite:id="8026" f0_mean="1.11461" f0_std="4.11108165" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10287"/>
+ </prosody>
+ <prosody nite:id="8027" f0_mean="1.09304" f0_std="0.687537125" duration="0.47065" energy="0.77727" tfidf="0.02861247456">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10288"/>
+ </prosody>
+ <prosody nite:id="8028" f0_mean="0.99912" f0_std="20.6272242307" duration="1.00000" energy="1.00000" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10289"/>
+ </prosody>
+ <prosody nite:id="8029" f0_mean="0.79808" f0_std="43.9374766421" duration="0.88489" energy="0.91369" tfidf="7.24242424242">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10290"/>
+ </prosody>
+ <prosody nite:id="8030" f0_mean="0.77193" f0_std="44.4509081837" duration="0.81081" energy="0.99761" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10292"/>
+ </prosody>
+ <prosody nite:id="8031" f0_mean="1.10022" f0_std="0.5967183125" duration="0.79227" energy="0.92872" tfidf="2.64966740576">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10293"/>
+ </prosody>
+ <prosody nite:id="8032" f0_mean="1.07755" f0_std="2.36590974222" duration="0.77987" energy="0.93604" tfidf="0.381180223285">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10296"/>
+ </prosody>
+ <prosody nite:id="8033" f0_mean="1.11964" f0_std="1.90571303125" duration="0.27525" energy="0.97793" tfidf="0.381180223285">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10299"/>
+ </prosody>
+ <prosody nite:id="8034" f0_mean="0.87688" f0_std="32.8341541361" duration="1.02198" energy="0.94171" tfidf="7.24242424242">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10300"/>
+ </prosody>
+ <prosody nite:id="8035" f0_mean="1.06152" f0_std="2.82946032653" duration="0.62005" energy="0.83878" tfidf="0.316724092234">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10301"/>
+ </prosody>
+ <prosody nite:id="8036" f0_mean="0.93893" f0_std="30.3222247551" duration="0.79740" energy="0.81478" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10302"/>
+ </prosody>
+ <prosody nite:id="8051" f0_mean="1.46201" f0_std="9.3353838" duration="0.44854" energy="0.97243" tfidf="1.88932806324">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10319"/>
+ </prosody>
+ <prosody nite:id="8052" f0_mean="1.35216" f0_std="2.5712360625" duration="0.34100" energy="0.87700" tfidf="0.519377037305">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10320"/>
+ </prosody>
+ <prosody nite:id="8053" f0_mean="1.07447" f0_std="32.828085875" duration="0.28094" energy="1.08245" tfidf="5.43181818182">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10321"/>
+ </prosody>
+ <prosody nite:id="8054" f0_mean="0.99730" f0_std="37.6782559752" duration="0.85714" energy="1.11801" tfidf="16.2954545455">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10322"/>
+ </prosody>
+ <prosody nite:id="8055" f0_mean="0.88628" f0_std="40.8176672485" duration="0.84135" energy="1.05650" tfidf="21.7272727273">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10323"/>
+ </prosody>
+ <prosody nite:id="8056" f0_mean="1.07885" f0_std="2.57225517333" duration="0.95550" energy="0.97287" tfidf="0.726934775262">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10324"/>
+ </prosody>
+ <prosody nite:id="8057" f0_mean="0.76598" f0_std="47.5241910194" duration="0.88073" energy="0.93494" tfidf="10.8636363636">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10325"/>
+ </prosody>
+ <prosody nite:id="8062" f0_mean="0.69038" f0_std="55.11213036" duration="1.04873" energy="0.88328" tfidf="0.646645021645">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10334"/>
+ </prosody>
+ <prosody nite:id="8072" f0_mean="1.14380" f0_std="1.29988111111" duration="0.19872" energy="0.99662" tfidf="0.00795246583482">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10352"/>
+ </prosody>
+ <prosody nite:id="8073" f0_mean="1.09127" f0_std="22.5534683636" duration="1.66957" energy="1.00027" tfidf="7.24242424242">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10353"/>
+ </prosody>
+ <prosody nite:id="8074" f0_mean="0.76030" f0_std="44.6274220761" duration="0.72022" energy="0.83977" tfidf="1.35795454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10354"/>
+ </prosody>
+ <prosody nite:id="8075" f0_mean="1.15255" f0_std="0.25944486" duration="0.21739" energy="0.99553" tfidf="0.361368361368">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10358"/>
+ </prosody>
+ <prosody nite:id="8076" f0_mean="0.41627" f0_std="48.8684810381" duration="0.67577" energy="0.92834" tfidf="9.65656565657">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10361"/>
+ </prosody>
+ <prosody nite:id="8077" f0_mean="0.68561" f0_std="48.2922685952" duration="0.72022" energy="0.77656" tfidf="1.35795454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10363"/>
+ </prosody>
+ <prosody nite:id="8090" f0_mean="0.95054" f0_std="23.3166088267" duration="0.61219" energy="0.89257" tfidf="1.35795454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10384"/>
+ </prosody>
+ <prosody nite:id="8122" f0_mean="0.94820" f0_std="36.3115138333" duration="0.46814" energy="0.85832" tfidf="1.35795454545">
+   <nite:child href="Bmr012.J.words.xml#Bmr012.w.10423"/>
+ </prosody>
+</nite:root>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr008.C.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr008.uncertain.5" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.847)..id(Bmr008.w.848)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.8" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.1,827)..id(Bmr008.w.1,828)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.20" type="uncertain" numsyllables="3.0">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.10,007)..id(Bmr008.w.10,008)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.30" type="uncertain">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.14,360)..id(Bmr008.w.14,362)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.31" type="uncertain">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.14,732)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.33" type="uncertain" numsyllables="4.0">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.15,198)..id(Bmr008.w.15,199)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.34" type="uncertain">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.15,664)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.35" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.15,792)..id(Bmr008.w.15,793)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.36" type="uncertain">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.15,897)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.emphasis.514" type="emphasis">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.15,911)..id(Bmr008.w.15,912)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr008.uncertain.39" type="uncertain">
+      <nite:child href="Bmr008.C.words.xml#id(Bmr008.w.17,499)..id(Bmr008.w.17,500)"/>
+   </speechquality>
+</nite:root>

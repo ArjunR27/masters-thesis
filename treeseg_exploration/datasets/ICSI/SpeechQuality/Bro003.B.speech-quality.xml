@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro003.B.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro003.uncertain.1" type="uncertain">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.1,403)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.22" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.6,017)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.34" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.9,062)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.40" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.9,897)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.41" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.9,899)..id(Bro003.w.9,900)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.44" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.10,212)..id(Bro003.w.10,213)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.108" type="emphasis">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.17,053)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.48" type="uncertain">
+      <nite:child href="Bro003.B.words.xml#id(Bro003.w.18,263)..id(Bro003.w.18,267)"/>
+   </speechquality>
+</nite:root>

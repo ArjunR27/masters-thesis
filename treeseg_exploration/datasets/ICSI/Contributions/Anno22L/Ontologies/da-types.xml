@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<da-type nite:id="cmrda" name="da-type" xmlns:nite="http://nite.sourceforge.net/" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <da-type nite:id="ami_da_1" name="Acknowledgment">
+         <da-type nite:id="ami_da_11" name="ack" gloss="Acknowledgment_Backchannel"/>
+      </da-type>
+      <da-type nite:id="ami_da_2" name="Inform">
+         <da-type nite:id="ami_da_21" name="i.ass" gloss="express assesment (explicitly/verbose)"/>
+         <da-type nite:id="ami_da_22" name="i.und" gloss="express understanding (explicitly/verbose)"/>
+         <da-type nite:id="ami_da_23" name="i.inf" gloss="gives information_opinion"/>
+      </da-type>
+      <da-type nite:id="ami_da_3" name="Request">
+         <da-type nite:id="ami_da_31" name="r.inf" gloss="request information_opinion"/>
+         <da-type nite:id="ami_da_32" name="r.sup" gloss="request support_agreement"/>
+         <da-type nite:id="ami_da_33" name="r.ela" gloss="request elaboration_explanation"/>
+         <da-type nite:id="ami_da_34" name="r.und" gloss="request understanding"/>
+         <da-type nite:id="ami_da_35" name="r.sug" gloss="request suggestion_action"/>
+         <da-type nite:id="ami_da_36" name="r.att" gloss="request attention"/>
+      </da-type>
+      <da-type nite:id="ami_da_4" name="Suggest">
+         <da-type nite:id="ami_da_41" name="s.spr" gloss="suggest speaker_action(offer_commit)"/>
+         <da-type nite:id="ami_da_42" name="s.gro" gloss="suggest group action"/>
+         <da-type nite:id="ami_da_43" name="s.fls" gloss="suggest speaker_takes_turn"/>
+         <da-type nite:id="ami_da_44" name="s.flo" gloss="suggest other_takes_turn"/>
+      </da-type>
+      <da-type nite:id="ami_da_5" name="Conventionals">
+         <da-type nite:id="ami_da_51" name="con" gloss="Conventional_politeness"/>
+      </da-type>
+      <da-type nite:id="ami_da_6" name="Turn Management">
+         <da-type nite:id="ami_da_61" name="hold" gloss="Turn holder"/>
+      </da-type>
+      <da-type nite:id="ami_da_7" name="Unclassifiable">
+         <da-type nite:id="ami_da_71" name="unc" gloss="Unclassifiable_undecipherable"/>
+      </da-type>
+</da-type>

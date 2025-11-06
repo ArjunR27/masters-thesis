@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed014.F.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed014.emphasis.1" type="emphasis">
+      <nite:child href="Bed014.F.words.xml#id(Bed014.w.29)..id(Bed014.w.30)"/>
+   </speechquality>
+   <speechquality nite:id="Bed014.uncertain.1" type="uncertain">
+      <nite:child href="Bed014.F.words.xml#id(Bed014.w.31)"/>
+   </speechquality>
+   <speechquality nite:id="Bed014.emphasis.4" type="emphasis">
+      <nite:child href="Bed014.F.words.xml#id(Bed014.w.102)"/>
+   </speechquality>
+   <speechquality nite:id="Bed014.emphasis.32" type="emphasis">
+      <nite:child href="Bed014.F.words.xml#id(Bed014.w.537)"/>
+   </speechquality>
+   <speechquality nite:id="Bed014.uncertain.40" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bed014.F.words.xml#id(Bed014.w.12,063)..id(Bed014.w.12,064)"/>
+   </speechquality>
+</nite:root>

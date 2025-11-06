@@ -1,0 +1,359 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bmr025.A.autosubj">
+   <autosubj nite:id="Bmr025.A.autosubj.0" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact13)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.1" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact14)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.2" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact15)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.3" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact17)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.4" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact19)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.5" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact20)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.6" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact21)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.7" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact22)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.8" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact23)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.9" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact29)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.10" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact30)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.11" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact34)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.12" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact36)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.13" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact40)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.14" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact42)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.15" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact58)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.16" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact59)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.17" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact61)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.18" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact65)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.19" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact67)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.20" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact74)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.21" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact86)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.22" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact131)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.23" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact133)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.24" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact134)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.25" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact135)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.26" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact138)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.27" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact142)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.28" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact145)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.29" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact148)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.30" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact150)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.31" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact178)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.32" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact179)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.33" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact240)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.34" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact244)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.35" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact329)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.36" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact331)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.37" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact334)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.38" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact335)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.39" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact336)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.40" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact438)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.41" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact440)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.42" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact480)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.43" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact482)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.44" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact486)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.45" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact589)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.46" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact590)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.47" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact592)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.48" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact595)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.49" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact596)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.50" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact615)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.51" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact654)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.52" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact655)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.53" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact656)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.54" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact657)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.55" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact659)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.56" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact661)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.57" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact668)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.58" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact669)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.59" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact670)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.60" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact673)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.61" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact675)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.62" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact684)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.63" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact687)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.64" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact690)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.65" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact693)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.66" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact701)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.67" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact702)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.68" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact703)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.69" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact704)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.70" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact705)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.71" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact706)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.72" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact707)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.73" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact708)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.74" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact709)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.75" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact710)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.76" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact711)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.77" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact724)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.78" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact744)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.79" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact745)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.80" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact748)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.81" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact749)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.82" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact750)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.83" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact753)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.84" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact755)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.85" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact781)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.86" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact798)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.87" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact800)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.88" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact802)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.89" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact808)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.90" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact810)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.91" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact812)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.92" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact813)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.93" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact814)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.94" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact815)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.95" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact816)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.96" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact818)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.97" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact822)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.98" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact824)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.99" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact826)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.100" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact827)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.101" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact897)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.102" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact898)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.103" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact903)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.104" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact907)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.105" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact914)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.106" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact915)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.107" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact923)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.108" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact925)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.109" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact926)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.110" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact928)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.111" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact929)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.112" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact930)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.113" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact932)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.114" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact934)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.115" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact935)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.116" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact942)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.117" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact1019)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr025.A.autosubj.118" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr025.A.dialogue-acts.xml#id(Bmr025.A.dialogueact1051)"/>
+   </autosubj>
+</nite:root>

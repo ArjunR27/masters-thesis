@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr024.G.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr024.uncertain.7" type="uncertain">
+      <nite:child href="Bmr024.G.words.xml#id(Bmr024.w.4,563)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr024.uncertain.9" type="uncertain">
+      <nite:child href="Bmr024.G.words.xml#id(Bmr024.w.5,341)..id(Bmr024.w.5,342)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr024.emphasis.103" type="emphasis">
+      <nite:child href="Bmr024.G.words.xml#id(Bmr024.w.7,943)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr024.emphasis.136" type="emphasis">
+      <nite:child href="Bmr024.G.words.xml#id(Bmr024.w.10,860)"/>
+   </speechquality>
+</nite:root>

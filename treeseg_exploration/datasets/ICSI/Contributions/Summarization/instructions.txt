@@ -1,0 +1,238 @@
+%history
+%v1.0 WX, 14 Oct 2004
+% add instructions for brand-new annotators 
+% to '0) preparation' in section 3 `how'
+%v0.9 WX, 24 Sep 2004
+% reorder section numbers
+%v0.8 WX, 23 Sep 2004
+% major changes:
+% $3.4 checkin howo => $3.4 step-by-step guide to summarization
+% minor changes
+%  $3.1 move 'topic' one paragraph down
+%  and others
+%v0.7 WX, 22 Sep 2004
+% move linking in $3.2 to $3.3 extract-abstract linking
+%v0.6 WX, 20 Sep 2004
+% major changes:
+%  $3.2, add `extract-abstract linking'
+%  $3.3, change `tips' to `checkin howto'
+% minor changes:
+%  $2, swap abstractive and extractive;
+%  $3.1, refine the relation between topic and abstract
+%v0.5 JC 13 Sep 2004
+% a-sum BEFORE e-sum
+%v0.4 WX 01 August 2004
+%v0.3 WX 02 july 04
+
+Instructions for ICSI Meeting Summarization
+
+0. Introduction
+
+The AMI project wants to figure out how to summarize meetings
+automatically.  In order to do this, we need to annotate the ICSI
+Meeting Corpus manually with example summaries.  This corpus consists
+of meetings of different work groups at ICSI, a research institution
+much like the HCRC.
+
+1. why
+
+When summarizing, it's important to keep in mind the purpose for which
+the summary is being constructed.  In this case, we want the summaries
+to be aimed at someone who is interested in the research being carried
+out at ICSI, for instance, someone who does similar research, but who
+works somewhere else.  Such a person might wish to see summaries of
+the meetings in order to understand what work is happening at ICSI so
+that they can relate it to other work in the field.  For them, the
+important questions are: What is the group working on? What decisions
+do the group make?  What progress are they making in their work, and
+what have they achieved?  What specific problems have they
+encountered?
+
+2. what
+
+We will be annotating two different kinds of summaries for this data,
+both aimed at the external researcher.  One is *abstractive*,
+which involves writing free text that summarizes the meeting, divided
+under headings that relate to the purpose for which the summary is
+constructed. The other is *extractive*, which is to identify extracts
+from the original data which together jointly convey the correct kind
+of information about the meeting to fit the required purpose. One can
+see them as indexes into the meeting video --- appending them
+together might give a sense of what happened, although it's likely to
+be very incoherently sequenced, and one might use them to navigate
+around the original recording. In addition, we want to establish some 
+links between the abstract and the extract.
+
+2.1 abstractive summarization
+
+For abstractive summarization, we have constructed a plain text
+template containing a set of headings; to summarize, simply type
+free text under each of the headings, making sure to leave the
+heading lines alone.  The heading lines begin with [ and end with .
+Please ensure that no other lines in the file contain square
+brackets, as we will be processing these files automatically.
+Also please ensure that you save them in plain text, and just use
+ordinary ASCII characters without formatting, even though you are
+free to edit them in any way you choose (e.g., emacs or Word).
+The categories for free text are as follows:
+
+[ABSTRACT]
+    This should just give a general sense of anything that happens
+    in the meeting that you think would be a useful summary for the
+    target user:  generally speaking, why are they meeting and
+    what do they talk about?
+[DECISIONS]
+    In most of the meetings, the group will make some decisions
+    w.r.t. the problems they discuss.
+[PROGRESS AND ACHIEVEMENTS]
+    In a group research meeting, they will introduce what they have done,
+    i.e., progress or achievements so far.
+[PROBLEMS]
+    In some meetings, there may be some open problems,
+    or problems they come up with.
+
+Please write a maximum of 200 words for each heading.
+We expect the abstract heading to have text in it for all the meetings.
+However, the other headings may not require any text at all.
+For instance, there may well be meetings that make no decisions.
+In these cases, please do not leave it blank, but fill it with ``*NA*''.
+Even in the best cases, these headings may require rather *less than
+200 words* to describe.
+
+You might find it helpful to have a view of the hierarchical structure
+of the meeting. Fortunately, we have done some topic segmentation
+in this way. What's more, there is topic description for each segment.
+You can load the meeting into the topic segmentation tool and view
+it that way while writing the abstractive summary. But remember:
+*although the free text summary should convey some information
+from the topic segmentation, we wouldn't expect that to look like a
+list of topics ("First they discussed this and then they discussed that")* 
+because we can derive that from the topic segmentation itself --- 
+we are looking for something more selective and preferably more
+coherent than that.
+
+2.2 extractive summarization
+
+We have written a special-purpose annotation tool for extractive
+summarization.  It shows one utterance or dialogue act (i.e., a
+stretch of speech that expresses one speaker intention) per line,
+with a speaker ID at the beginning (please note, the unit of
+utterance here is different from that for topic segmentation). To
+include an utterance in the summary, select it by left-clicking on
+it, and then right-click (noted as L-R-click). Another L-R-click
+removes it from the summary.  Remember that all the extracted 
+dialogue acts together should convey what the group is working on, 
+decisions, progress, achievements, and problems, in order to fit 
+the summary's purpose.
+
+2.3 extract-abstract linking
+
+It's very obvious that the extractive summary should
+support what's noted down in the abstractive summary. In order
+to show this we need to link the extracted utterances with some
+sentences in the abstractive summary. So after you finish extraction, 
+you should go through the extracted utterances one by one, 
+L-R-click its supported sentence(s) in the abstractive summary to make
+a link between the extracted utterance and abstractive sentence(s).
+A second L-R-click will remove the link. Sometimes it's possible 
+that you can not find any closely related abstractive sentence 
+for the extracted utterance. Do not bother if this happens. 
+
+3. How
+
+When you summarize a meeting, say, Bmr005 (i.e., <observation>), 
+follow the steps below
+
+0) preparation
+0.1) if you are new to AMI-related annnotation, you will need to apply 
+for AMI cvs access (filling in the online application form at 
+http://www.inf.ed.ac.uk/systems/cvs/new/). After receiving a confirmation,
+you can setup cvs as follows:
+
+0.1.1) first create a directory for ami cvs, say ~/ami/cvs (highly recommended).
+then set the environment variable by add the next line to your ~/.benv
+ _export CVSROOT=:pserver:<cvs-username>@cvs.inf.ed.ac.uk:/disk/cvs/ami_
+and run *source ~/.benv* to effect it without relogin.
+
+0.1.2) change to your local ami cvs directory and do cvs initialization
+   *cd ~/ami/cvs* (or somewhere alike),
+   *cvs -d <absolute path for local ami cvs> init*
+   *cvs login*
+
+0.1.3) checkout the data
+   *cvs co Data/ICSI/NXT-format/Main*
+   *cvs co Data/ICSI/NXT-format/Contributions/TopicSegmentation*
+   *cvs co Data/ICSI/NXT-format/Contributions/Summarization*
+   *ln -s /group/project/ami1/ICSI/audiomix Data/ICSI/NXT-format/Signals*
+
+0.2) if you are new to ami-summarization (including new to ami-related annotation),
+
+- change to the top directory of your AMI checkout of the 'Data', i.e., 
+   *cd ~/ami/cvs* (or somewhere alike),
+- log in to CVS server
+   *cvs login*
+- check out the latest tools
+   *cvs co Tools/NXTtools*
+- copy scripts from there to current directory
+   *cp Tools/NXTtools/startsumm ./*
+   *cp Tools/NXTtools/extractive ./*
+   *cp Tools/NXTtools/checkinsumm ./*
+   *cp Tools/NXTtools/topic.sh ./*
+- run the script for the first time to finally get you prepared
+   *perl startsumm -u <cvs-username>* 
+
+1) for abstractive summarization, give the text file the name
+*Bmr005.abssumm.txt* and put it under your subdirectory, i.e.
+    Data/ICSI/NXT-format/Contributions/Summarization/abstractive/<cvs-username>
+
+To view the segmentation, you need to make sure if there is a section for topic
+in the interaction-codings part (that is, within the
+<interaction-codings> tag) of the metadata file  
+(Data/ICSI/NXT-format/Main/ICSI-metadata.xml). 
+If no, please add the following to there
+
+            <!-- topic codings from the NXT topic Segmenter -->
+            <coding-file name="topic">
+                <structural-layer name="topic-layer" recursive-points-to="segment-layer">
+                    <code name="topic">
+                        <attribute name="type" value-type="string"/>
+                        <attribute name="description" value-type="string"/>
+                    </code>
+                </structural-layer>
+            </coding-file>
+
+
+then copy Bmr005* from Data/ICSI/NXT-format/Contributions/TopicSegmentation/sashby
+to Data/ICSI/NXT-format/Main, and start the segmentor with *sh topic.sh* and 
+select Bmr005.
+
+2) for extractive summarization, start the tool with 
+   *perl extractive -u <cvs-username> -o <observation>*. 
+Then L-R-click to select or deselect an utterance.
+NB: finish and save abstract FIRST and BEFORE starting the tool.
+
+3) After you finish extraction, go through the extracted utterances one by 
+one, judge if any sentence in the abstract is supported by the extracted 
+utterance. Then L-R-click on the abstractive sentence to make a link. 
+As usual, another L-R-click removes an existing link.
+
+4) After you finish summarizing a meeting, in order to check it into the CVS 
+repository, you will need to run the checkin script
+    *perl checkinsumm -u <cvs-username> -o <observation>*
+
+Please pay attention to the message from the checkin.
+If you suspect there is anything wrong with your checkin, 
+please contact the coordinator ASAP.
+
+Please quit the tool completely before opening another meeting,
+partly because this will free up memory on your machine,
+so the tool will run faster.
+
+------------ DETACH HERE FOR ABSTRACTIVE SUMMARIZATION TEMPLATE ---
+[ABSTRACT]
+
+[DECISIONS]
+
+[PROGRESS AND ACHIEVEMENTS]
+
+[PROBLEMS] 

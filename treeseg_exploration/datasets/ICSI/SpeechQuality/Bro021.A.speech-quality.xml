@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro021.A.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro021.emphasis.15" type="emphasis">
+      <nite:child href="Bro021.A.words.xml#id(Bro021.w.3,734)"/>
+   </speechquality>
+   <speechquality nite:id="Bro021.emphasis.16" type="emphasis">
+      <nite:child href="Bro021.A.words.xml#id(Bro021.w.3,847)"/>
+   </speechquality>
+</nite:root>

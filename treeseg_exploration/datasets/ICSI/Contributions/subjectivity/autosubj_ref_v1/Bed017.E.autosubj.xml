@@ -1,0 +1,47 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bed017.E.autosubj">
+   <autosubj nite:id="Bed017.E.autosubj.412" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact1)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.413" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact4)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.414" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact12)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.415" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact14)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.416" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact20)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.417" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact22)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.418" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact23)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.419" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact29)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.420" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact36)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.421" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact40)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.422" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact316)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.423" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact350)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.424" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact666)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.425" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact667)"/>
+   </autosubj>
+   <autosubj nite:id="Bed017.E.autosubj.426" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed017.E.dialogue-acts.xml#id(Bed017.E.dialogueact756)"/>
+   </autosubj>
+</nite:root>

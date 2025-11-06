@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr010.C.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr010.emphasis.13" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.404)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.36" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.1,023)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.41" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.1,454)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.42" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.1,457)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.46" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.1,569)..id(Bmr010.w.1,570)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.64" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.2,239)..id(Bmr010.w.2,240)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.65" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.2,257)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.66" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.2,296)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.346" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.11,815)..id(Bmr010.w.11,816)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.347" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.11,823)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.368" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.12,246)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.369" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.12,248)..id(Bmr010.w.12,249)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr010.emphasis.370" type="emphasis">
+      <nite:child href="Bmr010.C.words.xml#id(Bmr010.w.12,254)"/>
+   </speechquality>
+</nite:root>

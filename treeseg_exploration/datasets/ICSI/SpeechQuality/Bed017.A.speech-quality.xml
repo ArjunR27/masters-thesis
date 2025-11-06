@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed017.A.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed017.emphasis.1" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.1)..id(Bed017.w.2)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.2" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.15)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.3" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.19)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.6" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.76)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.10" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.107)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.11" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.109)..id(Bed017.w.110)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.12" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.122)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.13" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.128)..id(Bed017.w.129)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.uncertain.18" type="uncertain">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.2,980)..id(Bed017.w.2,982)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.uncertain.20" type="uncertain">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.3,094)..id(Bed017.w.3,096)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.uncertain.21" type="uncertain">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.3,104)..id(Bed017.w.3,105)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.105" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.3,220)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.106" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.3,223)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.160" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.5,140)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.173" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.5,724)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.174" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.5,750)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.uncertain.32" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,631)..id(Bed017.w.6,632)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.210" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,695)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.211" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,751)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.212" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,791)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.213" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,810)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.214" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,901)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.215" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,903)..id(Bed017.w.6,904)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.216" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.6,912)..id(Bed017.w.6,913)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.uncertain.36" type="uncertain">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.7,062)..id(Bed017.w.7,069)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.246" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.7,577)..id(Bed017.w.7,578)"/>
+   </speechquality>
+   <speechquality nite:id="Bed017.emphasis.247" type="emphasis">
+      <nite:child href="Bed017.A.words.xml#id(Bed017.w.7,592)"/>
+   </speechquality>
+</nite:root>

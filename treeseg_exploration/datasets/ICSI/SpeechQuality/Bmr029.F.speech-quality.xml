@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr029.F.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr029.emphasis.1" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.103)..id(Bmr029.w.105)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.10" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.1,495)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.11" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.1,525)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.14" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.2,195)..id(Bmr029.w.2,196)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.uncertain.2" type="uncertain" numsyllables="4.0">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.2,724)..id(Bmr029.w.2,725)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.23" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.3,533)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.25" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,109)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.26" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,190)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.27" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,238)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.28" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,269)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.29" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,298)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.32" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,555)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.36" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,745)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.37" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.4,766)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.42" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.5,349)..id(Bmr029.w.5,350)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.51" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.6,366)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.61" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,126)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.62" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,145)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.63" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,168)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.67" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,369)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.68" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,782)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.69" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,806)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.70" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,947)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.emphasis.71" type="emphasis">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.7,955)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr029.uncertain.3" type="uncertain">
+      <nite:child href="Bmr029.F.words.xml#id(Bmr029.w.8,019)..id(Bmr029.w.8,020)"/>
+   </speechquality>
+</nite:root>

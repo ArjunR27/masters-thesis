@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bmr005.D.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bmr005.uncertain.2" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.766)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.79" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.4,422)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.8" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.4,441)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.86" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.4,962)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.95" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,437)..id(Bmr005.w.5,438)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.96" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,441)..id(Bmr005.w.5,442)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.9" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,490)..id(Bmr005.w.5,492)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.99" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,514)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.10" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,561)..id(Bmr005.w.5,562)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.103" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,633)..id(Bmr005.w.5,634)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.11" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,664)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.105" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,761)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.106" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.5,798)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.12" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.6,018)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.13" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.6,688)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.127" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.6,749)..id(Bmr005.w.6,750)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.128" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.6,765)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.131" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.7,301)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.14" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.7,361)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.15" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.7,690)..id(Bmr005.disfmarker.457)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.138" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.7,708)..id(Bmr005.w.7,709)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.emphasis.146" type="emphasis">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.8,056)..id(Bmr005.w.8,057)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.21" type="uncertain" numsyllables="3.0">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.10,311)..id(Bmr005.w.10,312)"/>
+   </speechquality>
+   <speechquality nite:id="Bmr005.uncertain.22" type="uncertain">
+      <nite:child href="Bmr005.D.words.xml#id(Bmr005.w.10,378)..id(Bmr005.w.10,379)"/>
+   </speechquality>
+</nite:root>

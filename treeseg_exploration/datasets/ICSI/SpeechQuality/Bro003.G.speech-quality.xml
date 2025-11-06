@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro003.G.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro003.uncertain.2" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.1,845)..id(Bro003.w.1,846)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.4" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.2,168)..id(Bro003.w.2,169)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.8" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.3,998)..id(Bro003.w.3,999)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.13" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.6,726)..id(Bro003.w.6,727)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.14" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.6,776)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.15" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.6,814)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.18" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.6,995)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.27" type="emphasis">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.7,397)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.29" type="emphasis">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.8,250)..id(Bro003.w.8,251)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.30" type="emphasis">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.8,277)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.24" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.9,453)..id(Bro003.disfmarker.431)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.27" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.9,733)..id(Bro003.w.9,734)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.emphasis.38" type="emphasis">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.9,794)..id(Bro003.w.9,795)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.39" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.14,857)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.40" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.14,973)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.42" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.16,213)..id(Bro003.w.16,214)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.43" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.16,645)..id(Bro003.w.16,646)"/>
+   </speechquality>
+   <speechquality nite:id="Bro003.uncertain.44" type="uncertain">
+      <nite:child href="Bro003.G.words.xml#id(Bro003.w.16,991)"/>
+   </speechquality>
+</nite:root>

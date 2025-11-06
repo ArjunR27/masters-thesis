@@ -1,0 +1,29 @@
+
+Sabrina (Pei-Yun) Hsueh came up with an automatic topic segmenter. Her
+output format and the transform should be in CVS at:
+ Tools/Transforms/ICSI_Topics
+
+There are two subdirectories as she ran the segmenter at two levels of
+granularity: high-level, and sub-topic level. We have given these the
+same element names so they can be swapped in but not ever used at the
+same time (if you want to use at the same time, ask
+jonathan@inf.ed.ac.uk to change the transform or write one yourself
+and change the metadata).
+
+This is the metadata fragment for Top Level automatic topics.
+
+    <!-- automatic topic codings  -->
+    <coding-file name="autotopic" path="../Contributions/AutomaticTopics/TopLevel">
+        <structural-layer name="autopic-layer" recursive-points-to="asr-segment-layer">
+            <code name="autopic">
+                <attribute name="type" value-type="string"/>
+                <attribute name="description" value-type="string"/>
+                <attribute name="tstart" value-type="number"/>
+                <attribute name="tend" value-type="number"/>
+            </code>
+        </structural-layer>
+    </coding-file>
+
+
+last update
+Jonathan Kilgour 14/7/2006.

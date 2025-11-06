@@ -1,0 +1,38 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bmr013.E.autosubj">
+   <autosubj nite:id="Bmr013.E.autosubj.602" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact656)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.603" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact659)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.604" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact661)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.605" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact926)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.606" subjclass="subjective" wordclasspred="1" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact927)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.607" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact928)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.608" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact933)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.609" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact934)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.610" subjclass="subjective" wordclasspred="0" charclasspred="1">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact936)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.611" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact937)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.612" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact1015)"/>
+   </autosubj>
+   <autosubj nite:id="Bmr013.E.autosubj.613" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bmr013.E.dialogue-acts.xml#id(Bmr013.E.dialogueact1057)"/>
+   </autosubj>
+</nite:root>

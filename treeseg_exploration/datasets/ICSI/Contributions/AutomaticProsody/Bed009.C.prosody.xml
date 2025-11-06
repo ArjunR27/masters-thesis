@@ -1,0 +1,17 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bed009.C.prosody">
+ <prosody nite:id="2" f0_mean="0.93451" f0_std="53.8664301867" duration="0.51923" energy="0.69716" tfidf="31.6017316017">
+   <nite:child href="Bed009.C.words.xml#Bed009.w.1"/>
+ </prosody>
+ <prosody nite:id="3" f0_mean="0.72242" f0_std="53.4984650978" duration="1.00000" energy="1.00000" tfidf="34.7619047619">
+   <nite:child href="Bed009.C.words.xml#Bed009.w.3"/>
+ </prosody>
+ <prosody nite:id="4" f0_mean="1.15158" f0_std="34.8846435133" duration="1.00000" energy="1.00000" tfidf="65.1785714286">
+   <nite:child href="Bed009.C.words.xml#Bed009.w.4"/>
+ </prosody>
+ <prosody nite:id="5" f0_mean="1.08296" f0_std="55.4290238383" duration="2.53767" energy="1.15981" tfidf="144.841269841">
+   <nite:child href="Bed009.C.words.xml#Bed009.w.5"/>
+ </prosody>
+ <prosody nite:id="8" f0_mean="1.10854" f0_std="56.8388955312" duration="0.89041" energy="1.08756" tfidf="144.841269841">
+   <nite:child href="Bed009.C.words.xml#Bed009.w.11"/>
+ </prosody>
+</nite:root>

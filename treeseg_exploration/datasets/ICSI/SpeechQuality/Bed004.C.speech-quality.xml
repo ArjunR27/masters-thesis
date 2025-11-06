@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed004.C.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed004.emphasis.4" type="emphasis">
+      <nite:child href="Bed004.C.words.xml#id(Bed004.w.549)"/>
+   </speechquality>
+   <speechquality nite:id="Bed004.emphasis.21" type="emphasis">
+      <nite:child href="Bed004.C.words.xml#id(Bed004.w.983)"/>
+   </speechquality>
+   <speechquality nite:id="Bed004.emphasis.35" type="emphasis">
+      <nite:child href="Bed004.C.words.xml#id(Bed004.w.1,437)"/>
+   </speechquality>
+   <speechquality nite:id="Bed004.emphasis.36" type="emphasis">
+      <nite:child href="Bed004.C.words.xml#id(Bed004.w.1,453)"/>
+   </speechquality>
+</nite:root>

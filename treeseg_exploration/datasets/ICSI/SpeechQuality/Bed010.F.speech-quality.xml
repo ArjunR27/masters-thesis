@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed010.F.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed010.uncertain.7" type="uncertain">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.4,252)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.uncertain.14" type="uncertain">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.6,911)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.273" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.6,933)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.321" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.7,781)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.421" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,057)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.422" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,082)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.440" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,446)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.441" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,453)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.442" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,467)..id(Bed010.w.9,468)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.449" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,590)"/>
+   </speechquality>
+   <speechquality nite:id="Bed010.emphasis.450" type="emphasis">
+      <nite:child href="Bed010.F.words.xml#id(Bed010.w.9,596)"/>
+   </speechquality>
+</nite:root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<ne-type nite:id="ne_0" name="ne-root" xmlns:nite="http://nite.sourceforge.net/" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <ne-type nite:id="ne_1" name="ENAMEX" gloss="" abbrev="">
+      <ne-type nite:id="ne_11" name="PARTICIPANT" gloss="" abbrev="part"/>
+      <ne-type nite:id="ne_12" name="NON_PARTICIPANT" gloss="" abbrev="pers"/>
+      <ne-type nite:id="ne_13" name="LOCATION" gloss="" abbrev="loc"/>
+      <ne-type nite:id="ne_14" name="ORGANIZATION" gloss="" abbrev="org"/>
+   </ne-type>
+   <ne-type nite:id="ne_2" name="TIMEX" gloss="" abbrev="">
+      <ne-type nite:id="ne_21" name="TIME" gloss="" abbrev="time"/>
+      <ne-type nite:id="ne_22" name="DATE" gloss="" abbrev="date"/>
+      <ne-type nite:id="ne_23" name="DURACTION" gloss="" abbrev="dur"/>
+   </ne-type>
+   <ne-type nite:id="ne_3" name="NUMEX" gloss="" abbrev="">
+      <ne-type nite:id="ne_31" name="MONEY" gloss="" abbrev="mon"/>
+      <ne-type nite:id="ne_32" name="MEASURE" gloss="" abbrev="meas"/>
+      <ne-type nite:id="ne_33" name="PERCENT" gloss="" abbrev="pct"/>
+      <ne-type nite:id="ne_34" name="CARDINAL" gloss="" abbrev="card"/>
+   </ne-type>
+   <ne-type nite:id="ne_4" name="ARTIFACT" gloss="art">
+      <ne-type nite:id="ne_41" name="GENERIC_ARTIFACT" gloss="" abbrev="art"/>
+   </ne-type>
+</ne-type>

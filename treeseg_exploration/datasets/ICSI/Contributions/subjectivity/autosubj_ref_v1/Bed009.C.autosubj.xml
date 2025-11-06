@@ -1,0 +1,11 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bed009.C.autosubj">
+   <autosubj nite:id="Bed009.C.autosubj.244" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed009.C.dialogue-acts.xml#id(Bed009.C.dialogueact0)"/>
+   </autosubj>
+   <autosubj nite:id="Bed009.C.autosubj.245" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed009.C.dialogue-acts.xml#id(Bed009.C.dialogueact1)"/>
+   </autosubj>
+   <autosubj nite:id="Bed009.C.autosubj.246" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bed009.C.dialogue-acts.xml#id(Bed009.C.dialogueact4)"/>
+   </autosubj>
+</nite:root>

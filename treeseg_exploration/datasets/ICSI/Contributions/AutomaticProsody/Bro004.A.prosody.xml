@@ -1,0 +1,11 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bro004.A.prosody">
+ <prosody nite:id="4" f0_mean="0.95815" f0_std="40.5390138776" duration="1.09091" energy="0.89086" tfidf="0.0209638398212">
+   <nite:child href="Bro004.A.words.xml#Bro004.w.7"/>
+ </prosody>
+ <prosody nite:id="5" f0_mean="1.63103" f0_std="11.8135683061" duration="1.00000" energy="1.00000" tfidf="3.12998575499">
+   <nite:child href="Bro004.A.words.xml#Bro004.w.8"/>
+ </prosody>
+ <prosody nite:id="6" f0_mean="0.97970" f0_std="52.0994480052" duration="1.00000" energy="1.00000" tfidf="15.2586805556">
+   <nite:child href="Bro004.A.words.xml#Bro004.w.11"/>
+ </prosody>
+</nite:root>

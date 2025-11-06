@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bro026.C.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bro026.emphasis.84" type="emphasis">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.4,410)"/>
+   </speechquality>
+   <speechquality nite:id="Bro026.emphasis.85" type="emphasis">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.4,411)"/>
+   </speechquality>
+   <speechquality nite:id="Bro026.emphasis.90" type="emphasis">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.4,689)"/>
+   </speechquality>
+   <speechquality nite:id="Bro026.uncertain.9" type="uncertain">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.5,142)..id(Bro026.w.5,144)"/>
+   </speechquality>
+   <speechquality nite:id="Bro026.emphasis.146" type="emphasis">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.8,469)"/>
+   </speechquality>
+   <speechquality nite:id="Bro026.emphasis.205" type="emphasis">
+      <nite:child href="Bro026.C.words.xml#id(Bro026.w.11,181)"/>
+   </speechquality>
+</nite:root>

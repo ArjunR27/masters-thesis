@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed009.D.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed009.emphasis.1" type="emphasis">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.356)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.7" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.3,752)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.8" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.3,779)..id(Bed009.w.3,781)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.10" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.4,576)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.14" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.6,912)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.15" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.7,034)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.16" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.7,185)..id(Bed009.w.7,186)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.20" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.7,956)..id(Bed009.w.7,957)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.21" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.8,154)..id(Bed009.w.8,155)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.22" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.8,175)..id(Bed009.w.8,176)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.23" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.8,362)..id(Bed009.w.8,363)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.foreign.1" type="foreign" language="de" description="&quot;or&quot;">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.8,612)"/>
+   </speechquality>
+   <speechquality nite:id="Bed009.uncertain.24" type="uncertain">
+      <nite:child href="Bed009.D.words.xml#id(Bed009.w.8,618)"/>
+   </speechquality>
+</nite:root>

@@ -1,0 +1,8 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bmr027.G.prosody">
+ <prosody nite:id="20" f0_mean="0.78989" f0_std="46.5142323462" duration="1.00000" energy="1.00000" tfidf="124.96">
+   <nite:child href="Bmr027.G.words.xml#Bmr027.w.48"/>
+ </prosody>
+ <prosody nite:id="4769" f0_mean="1.21011" f0_std="34.4665649116" duration="1.04854" energy="0.97518" tfidf="1.24313569439">
+   <nite:child href="Bmr027.G.words.xml#Bmr027.w.6,587"/>
+ </prosody>
+</nite:root>

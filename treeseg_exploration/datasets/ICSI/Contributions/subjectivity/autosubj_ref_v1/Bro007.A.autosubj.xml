@@ -1,0 +1,17 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bro007.A.autosubj">
+   <autosubj nite:id="Bro007.A.autosubj.0" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bro007.A.dialogue-acts.xml#id(Bro007.A.dialogueact540)"/>
+   </autosubj>
+   <autosubj nite:id="Bro007.A.autosubj.1" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bro007.A.dialogue-acts.xml#id(Bro007.A.dialogueact541)"/>
+   </autosubj>
+   <autosubj nite:id="Bro007.A.autosubj.2" subjclass="subjective" wordclasspred="1" charclasspred="1">
+      <nite:child href="Bro007.A.dialogue-acts.xml#id(Bro007.A.dialogueact542)"/>
+   </autosubj>
+   <autosubj nite:id="Bro007.A.autosubj.3" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bro007.A.dialogue-acts.xml#id(Bro007.A.dialogueact545)"/>
+   </autosubj>
+   <autosubj nite:id="Bro007.A.autosubj.4" subjclass="objective" wordclasspred="0" charclasspred="0">
+      <nite:child href="Bro007.A.dialogue-acts.xml#id(Bro007.A.dialogueact552)"/>
+   </autosubj>
+</nite:root>

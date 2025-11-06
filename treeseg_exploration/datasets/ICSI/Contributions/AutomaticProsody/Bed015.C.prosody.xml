@@ -1,0 +1,8 @@
+<nite:root xmlns:nite="http://nite.sourceforge.net/" nite:id="Bed015.C.prosody">
+ <prosody nite:id="24" f0_mean="0.73139" f0_std="77.8981057562" duration="0.67568" energy="0.84054" tfidf="11.3531655225">
+   <nite:child href="Bed015.C.words.xml#Bed015.w.44"/>
+ </prosody>
+ <prosody nite:id="25" f0_mean="0.55863" f0_std="63.2427335385" duration="1.00000" energy="1.00000" tfidf="2.04002192982">
+   <nite:child href="Bed015.C.words.xml#Bed015.w.45"/>
+ </prosody>
+</nite:root>

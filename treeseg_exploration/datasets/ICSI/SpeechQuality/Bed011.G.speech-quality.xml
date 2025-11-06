@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bed011.G.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bed011.emphasis.2" type="emphasis">
+      <nite:child href="Bed011.G.words.xml#id(Bed011.w.8,120)"/>
+   </speechquality>
+   <speechquality nite:id="Bed011.uncertain.10" type="uncertain" numsyllables="5.0">
+      <nite:child href="Bed011.G.words.xml#id(Bed011.w.8,121)..id(Bed011.w.8,122)"/>
+   </speechquality>
+</nite:root>

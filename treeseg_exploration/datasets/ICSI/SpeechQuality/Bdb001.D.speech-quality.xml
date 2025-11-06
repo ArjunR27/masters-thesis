@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Bdb001.D.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Bdb001.emphasis.30" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.2,048)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.48" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.2,765)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.52" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.2,924)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.53" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.2,925)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.58" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.3,131)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.84" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.3,977)..id(Bdb001.w.3,978)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.148" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.7,072)..id(Bdb001.w.7,073)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.uncertain.22" type="uncertain" numsyllables="2.0">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.7,590)..id(Bdb001.w.7,591)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.198" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.9,038)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.199" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.9,120)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.200" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.9,140)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.uncertain.35" type="uncertain">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.9,746)..id(Bdb001.w.9,747)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.uncertain.36" type="uncertain" numsyllables="1.0">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.9,771)..id(Bdb001.w.9,772)"/>
+   </speechquality>
+   <speechquality nite:id="Bdb001.emphasis.252" type="emphasis">
+      <nite:child href="Bdb001.D.words.xml#id(Bdb001.w.11,610)"/>
+   </speechquality>
+</nite:root>

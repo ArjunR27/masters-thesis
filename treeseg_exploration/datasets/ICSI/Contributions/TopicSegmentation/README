@@ -1,0 +1,216 @@
+ICSI Meeting Topic Segmentation
+-------------------------------
+
+Added to the corpus by:
+Date: 20/09/2004
+Authored by: Jonathan/Weiqun
+Quality:
+Ref:
+
+This directory contains directories, one per coder, each of which
+contain files produced using the ICSITopicSegmenter NXT tool. 
+
+This file documents 
+- how to view the coded meetings, 
+- how to contribute to this coding, and
+- brief statistics of the coding.
+
+
+Using this data in NXT
+----------------------
+
+Note that as of NXT 1.3, you should no longer need to edit the
+metadata file: lazy loading is implemented so all codings can exist in
+the metadata file without being loaded (until they are requested).
+
+To view topic segmentations of a specific meeting, e.g., Bic001, 
+copy a group of XML files (Bic001.*.segs.xml and Bic001.topic.xml) 
+from some directory here into your local main ICSI meeting data directory
+(Data/ICSI/NXT-format/Main). Then add the following to
+the 'interaction-codings' section of your metadata file (normally
+called ICSI-metadata.xml, under Data/ICSI/NXT-format/Main):
+
+            <!-- topic codings from the NXT topic Segmenter -->
+            <coding-file name="topic">
+                <structural-layer name="topic-layer" recursive-points-to="segment-layer">
+                    <code name="topic">
+                        <attribute name="type" value-type="string"/>
+                        <attribute name="description" value-type="string"/>
+                    </code>
+                </structural-layer>
+            </coding-file>
+
+You will find that applications now load any data and the tool
+ICSITopicSegmentation will be usable to annotate the corpus.
+
+For coding instructions using the NXT tool, 
+please refer to instructions.pdf under the same directory.
+There is also a help menu on the tool itself.
+
+
+Committing Your Data
+--------------------
+
+Once you are happy with a topic segmentation you've produced
+(if it's called Bic001), please commit your data to CVS 
+in the following format: make yourself a directory under:
+ Data/ICSI/NXT-format/Contributions/TopicSegmentation
+called e.g. 'coder1' using this command (if you are at the root of
+your CVS repository):
+ cvs add Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1
+
+Now copy the file(s) you have produced using a command such as this:
+ cp Data/ICSI/NXT-format/Main/Bic001.topic.xml 
+	Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1
+ cp Data/ICSI/NXT-format/Main/Bic001.*.segs.xml 
+	Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1
+
+commit your new file via:
+ 
+ cvs add Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1/Bic001.topic.xml
+ cvs commit Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1/Bic001.topic.xml
+
+ cvs add Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1/Bic001.*.segs.xml
+ cvs commit Data/ICSI/NXT-format/Contributions/TopicSegmentation/coder1/Bic001.*.segs.xml
+
+Note that to create a directory in CVS you do not need the 'commit'
+command, but to add a file you need both 'add' and 'commit'.
+
+If there is any background information about your data you think it's
+important for people who use the repository to know, add a README file
+to your directory.
+
+
+To view Galley Segmentation
+---------------------------------------------
+
+Michel Galley et al have produced a top-level spanning topic
+segmentation for one third of the corpus that brings together codings
+from at least three coders per observation. 
+If you would like to view their codings, please find them at the directory:
+ Data/ICSI/NXT-format/Contributions/TopicSegmentation/Galley.
+Simply copy the data into your own NXT data directory (Data/ICSI/NXT-format/Main).
+You will be able to view them with our tool.
+
+
+The coded meetings
+---------------------------------------------
+
+All the meetins are now coded.
+
+Coder	codings	under
+1	47	sashby
+2	23	s0199920
+3	17	alastair
+G	25	Galley
+
+Below is a list of meetings with available coding(s).
+The extra column, G, indicates whether the meeting has
+also been coded for topic segments by Michel Galley, a
+separate contribution with a different format.  We suspect
+the Galley coding is highly related to the top level of
+our topic segmentation.  His coding is distributed as simple
+timestamps for the start and end time of segments.
+
+coder  1 2 3 G
+--------------
+Bdb001   * 
+Bed002   * *
+Bed003   *   *
+Bed004   *   *
+Bed005   * *
+Bed006   * *
+Bed008   * *
+Bed009 * * * 
+Bed010   * 
+Bed011   *   *
+Bed012   *  
+Bed013   *  
+Bed014   *  
+Bed015   *  
+Bed016   *  
+Bed017   *  
+Bmr001   *   *
+Bmr002   *   * 
+Bmr003 * *  
+Bmr005 *     *
+Bmr006 *   
+Bmr007 *     *
+Bmr008 *     *
+Bmr009 *     *
+Bmr010 *     *
+Bmr011 *     *
+Bmr012 *     *
+Bmr013 *     *
+Bmr014 *     *
+Bmr015 *   
+Bmr016 *   *
+Bmr018 *     *
+Bmr019   * *
+Bmr020 *    
+Bmr021     * *
+Bmr022     * *
+Bmr023     *
+Bmr024     * *
+Bmr025     * *
+Bmr026     * *
+Bmr027     * *
+Bmr028     *
+Bmr029 *     * 
+Bmr030 *   
+Bmr031 *   
+Bns001 *    
+Bns002 *    
+Bns003 *    
+Bro003 *    
+Bro004 *     *
+Bro005 *    
+Bro007 *     *
+Bro008 *    
+Bro010 *    
+Bro011 *    
+Bro012 *    
+Bro013 *    
+Bro014 *   *
+Bro015 *     *
+Bro016 *    
+Bro017 *    
+Bro018 * * *
+Bro019 *    
+Bro021 *    
+Bro022 *    
+Bro023 *    
+Bro024 *    
+Bro025 *    
+Bro026 *    
+Bro027 *    
+Bro028 *    
+Bsr001 *   
+Btr001   *  
+Btr002   *  
+Buw001 *    
+
+
+GOLD STANDARD
+-------------
+
+For abstractive summaries Jonathan Kilgour promoted the following set
+of annotators' codings to be treated as the 'gold standard' (though in
+fact there were only 12 cases of overlap between the annotators).
+ 13th Jan '05
+
+Simone Ashby (sashby)
+Bed009 Bmr003 Bmr005 Bmr006 Bmr007 Bmr008 Bmr009 Bmr010 Bmr011 Bmr012
+Bmr013 Bmr014 Bmr015 Bmr016 Bmr018 Bmr020 Bmr029 Bmr030 Bmr031 Bns001
+Bns002 Bns003 Bro003 Bro004 Bro005 Bro007 Bro008 Bro010 Bro011 Bro012
+Bro013 Bro014 Bro015 Bro016 Bro017 Bro018 Bro019 Bro021 Bro022 Bro023
+Bro024 Bro025 Bro026 Bro027 Bro028 Bsr001 Buw001
+
+Sasha Calhoun (s0199920)
+Bdb001 Bed002 Bed003 Bed004 Bed005 Bed006 Bed008 Bed009 Bed010 Bed011
+Bed012 Bed013 Bed014 Bed015 Bed016 Bed017 Bmr001 Bmr002 Bmr003 Bmr019
+Bro018 Btr001 Btr002
+
+Alastair Gill (alastair)
+Bed002 Bed005 Bed006 Bed008 Bed009 Bmr016 Bmr019 Bmr021 Bmr022 Bmr023
+Bmr024 Bmr025 Bmr026 Bmr027 Bmr028 Bro014 Bro018

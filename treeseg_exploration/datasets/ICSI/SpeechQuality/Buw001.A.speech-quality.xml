@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<nite:root nite:id="Buw001.A.speech-quality" xmlns:nite="http://nite.sourceforge.net/">
+   <speechquality nite:id="Buw001.emphasis.6" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.405)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.8" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.709)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.9" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.724)..id(Buw001.w.727)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.10" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.760)..id(Buw001.w.761)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.11" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.772)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.15" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.927)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.23" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.1,511)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.46" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,144)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.47" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,146)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.48" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,175)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.49" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,178)..id(Buw001.w.2,179)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.8" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,367)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.78" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,760)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.79" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,772)..id(Buw001.w.2,773)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.80" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,789)..id(Buw001.w.2,790)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.81" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,793)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.82" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,822)..id(Buw001.w.2,823)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.84" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,963)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.85" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.2,969)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.90" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,039)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.91" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,043)..id(Buw001.w.3,044)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.100" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,206)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.101" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,214)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.102" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,217)..id(Buw001.w.3,218)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.103" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,296)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.104" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,306)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.105" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,319)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.106" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,339)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.107" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,344)..id(Buw001.w.3,345)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.110" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,383)..id(Buw001.w.3,384)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.111" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,389)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.112" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.3,406)..id(Buw001.w.3,407)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.166" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,568)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.167" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,602)..id(Buw001.w.4,603)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.168" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,638)..id(Buw001.w.4,639)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.13" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,662)..id(Buw001.w.4,663)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.171" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,715)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.172" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.4,735)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.272" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,569)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.274" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,677)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.275" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,730)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.276" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,753)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.277" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,764)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.280" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,955)..id(Buw001.w.7,956)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.281" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,980)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.282" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,982)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.283" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,987)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.284" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,994)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.285" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.7,997)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.289" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.8,243)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.290" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.8,259)..id(Buw001.w.8,260)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.298" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.8,535)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.299" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.8,549)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.310" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.8,940)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.314" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.9,172)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.315" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.9,175)..id(Buw001.w.9,176)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.322" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.9,528)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.31" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.9,541)..id(Buw001.w.9,543)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.343" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.10,613)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.358" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.11,044)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.359" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.11,052)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.380" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.11,658)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.392" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.12,377)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.393" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.12,521)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.394" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.12,526)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.416" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.13,604)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.39" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.13,689)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.418" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.13,868)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.419" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.13,954)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.420" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,021)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.40" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,043)..id(Buw001.w.14,044)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.421" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,052)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.422" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,067)..id(Buw001.w.14,068)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.423" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,088)..id(Buw001.w.14,089)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.430" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,610)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.431" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,622)..id(Buw001.w.14,623)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.43" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,896)..id(Buw001.disfmarker.648)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.440" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,954)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.441" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,966)..id(Buw001.w.14,967)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.442" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.14,975)..id(Buw001.w.14,976)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.45" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.15,248)..id(Buw001.w.15,249)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.47" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.15,838)..id(Buw001.w.15,839)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.450" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.15,946)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.452" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,012)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.458" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,286)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.464" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,575)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.465" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,587)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.466" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,589)..id(Buw001.w.16,590)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.uncertain.52" type="uncertain">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.16,949)..id(Buw001.w.16,950)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.497" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,539)..id(Buw001.w.18,540)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.503" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,643)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.504" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,662)..id(Buw001.w.18,663)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.505" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,670)..id(Buw001.w.18,671)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.506" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,692)"/>
+   </speechquality>
+   <speechquality nite:id="Buw001.emphasis.507" type="emphasis">
+      <nite:child href="Buw001.A.words.xml#id(Buw001.w.18,716)"/>
+   </speechquality>
+</nite:root>
