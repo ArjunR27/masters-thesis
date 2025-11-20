@@ -71,23 +71,22 @@ def extract_utterances_from_transcripts(speaker, data_dir, course_dir, max_gap_s
                 break
         if transcripts_path is None:
             continue
-    
-    video_id = os.path.basename(transcripts_path).replace("_transcripts.csv", "")
 
-    rows = list(iter_transcript_rows(transcripts_path))
-    utts = group_words_into_utterances(rows, max_gap_s, lowercase)
-
-    for i, u in enumerate(utts):
-        u.update({
+        video_id = os.path.basename(transcripts_path).replace("_transcripts.csv", "")
+        rows = list(iter_transcript_rows(transcripts_path))
+        utts = group_words_into_utterances(rows, max_gap_s, lowercase)
+        for i, u in enumerate(utts):
+            u.update({
                 "meeting_id": meeting_id,
                 "video_id": video_id,
                 "idx": i,
                 "source": "transcripts",
                 "path": transcripts_path,
-        })
+            })
         all_utts.extend(utts)
-    
+
     return all_utts
+
 
 def extract_utterances_from_transcript_file(csv_path, max_gap_s, lowercase):
     rows = list(iter_transcript_rows(csv_path))
@@ -113,7 +112,7 @@ if __name__ == "__main__":
     )
     print(f"Extracted {len(utts)} utterances (transcripts)")
 
-    print(utts[0])
+    print(utts[3])
 
 
     
