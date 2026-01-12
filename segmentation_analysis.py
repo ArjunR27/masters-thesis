@@ -4,6 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import yake
+from wordcloud import WordCloud
+from collections import Counter
+from math import ceil
+
 
 from treeseg_lpm import (
     load_lpm_utterances,
@@ -126,7 +130,7 @@ def main():
     csv_path2 = "/Users/arjunranade/CP_CSC/MastersThesis/masters-thesis/lpm_data/ml-1/MultimodalMachineLearning/02/fBYu8I52nVM_transcripts.csv"
     csv_path3 = "/Users/arjunranade/CP_CSC/MastersThesis/masters-thesis/lpm_data/ml-1/MultimodalMachineLearning/08/2_dZ5GBlRgU_transcripts.csv"
     csv_path="./lpm_data/ml-1/MultimodalMachineLearning/01/VIq5r7mCAyw_transcripts.csv"
-    embeddings, segments = collect_segment_embeddings(csv_path3)
+    embeddings, segments = collect_segment_embeddings(csv_path)
 
     segment_vectors = convert_block_embedding_to_segment_embedding(embeddings, segments)
     segment_vectors = normalize(np.vstack(segment_vectors))
@@ -157,9 +161,30 @@ def main():
     # print(keywords_left)
     # print(keywords_right)
 
-    for idx, seg in enumerate(segments):
-        keywords = extract_segment_keywords(seg['text'])
-        print(f"{idx}: {keywords}")
+    max_segments = 10
+    cols = 5
+    segments_to_show = segments[:max_segments]
+    rows = ceil(len(segments_to_show) / cols)
+
+    fig, axes = plt.subplots(rows, cols, figsize=(cols * 3, rows * 3))
+    axes = np.atleast_1d(axes).flatten()
+
+    for ax in axes[len(segments_to_show):]:
+        ax.axis('off')
+
+    for ax, (idx, seg) in zip(axes, enumerate(segments_to_show)):
+        freqs = Counter(extract_segment_keywords(seg['text']))
+        wc = WordCloud(width=400, height=200, background_color='white')
+        wc.generate_from_frequencies(freqs)
+        ax.imshow(wc, interpolation='bilinear')
+        ax.set_title(f'Segment {idx}')
+        ax.axis('off')
+
+    plt.tight_layout()
+    plt.show()
+
+    plt.tight_layout()
+    plt.show()
 
     # printing how many utteracnes/blocks are in each segment
     # for seg in segments:

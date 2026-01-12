@@ -1,11 +1,145 @@
 import os
 import csv
+import bisect
+import re
 
-def iter_transcript_rows(csv_path):
+_SLIDE_OCR_RE = re.compile(r"slide_(\d+)_ocr\.csv$", re.IGNORECASE)
+
+def parse_float(value, default=None):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+    
+def parse_int(value, default=0):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+def iter_rows(csv_path):
     with open(csv_path, "r", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
             yield row
+
+def extract_ocr_text(csv_path, min_conf=0.0, line_sep="\n"):
+    tokens = []
+    for row in iter_rows(csv_path):
+        text = (row.get("text") or "").strip()
+        if not text:
+            continue
+        conf = parse_float(row.get("conf"), default=None)
+        if conf is not None and conf < min_conf:
+            continue
+        cleaned = " ".join(text.split())
+        block = parse_int(row.get("block_num"))
+        par = parse_int(row.get("par_num"))
+        line = parse_int(row.get("line_num"))
+        word = parse_int(row.get("word_num"))
+        tokens.append((block, par, line, word, cleaned))
+
+    if not tokens:
+        return ""
+
+    tokens.sort()
+    lines = []
+    current_key = None
+    current_words = []
+    for block, par, line, word, text in tokens:
+        key = (block, par, line)
+        if current_key is None:
+            current_key = key
+        if key != current_key:
+            lines.append(" ".join(current_words))
+            current_words = [text]
+            current_key = key
+        else:
+            current_words.append(text)
+    if current_words:
+        lines.append(" ".join(current_words))
+
+    return line_sep.join(lines).strip()
+
+
+def load_slide_end_times(segments_path):
+    end_times = []
+    with open(segments_path, "r") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            value = parse_float(line, default=None)
+            if value is None:
+                continue
+            end_times.append(value)
+    return end_times
+
+def load_slide_ocr_texts(slides_dir, min_conf=0.0, line_sep="\n"):
+    ocr_by_slide = {}
+    for filename in sorted(os.listdir(slides_dir)):
+        if not filename.endswith("_ocr.csv"):
+            continue
+        match = _SLIDE_OCR_RE.search(filename)
+        if not match:
+            continue
+        slide_idx = int(match.group(1))
+        path = os.path.join(slides_dir, filename)
+        text = extract_ocr_text(path, min_conf=min_conf, line_sep=line_sep)
+        if text:
+            ocr_by_slide[slide_idx] = text
+    return ocr_by_slide
+
+def attach_slide_ocr_to_utterances(
+    utterances,
+    segments_path,
+    slides_dir,
+    min_conf=0.0,
+    line_sep="\n",
+    attach_mode="midpoint",
+    attach_ocr_per_slide=1,
+):
+    end_times = load_slide_end_times(segments_path)
+    if not end_times:
+        return utterances
+    ocr_by_slide = load_slide_ocr_texts(slides_dir, min_conf=min_conf, line_sep=line_sep)
+
+    slide_counts = {}
+    for utt in utterances:
+        start = utt.get("start")
+        end = utt.get("end")
+        if start is None or end is None:
+            continue
+        if attach_mode == "start":
+            pivot = start
+        elif attach_mode == "end":
+            pivot = end
+        else:
+            pivot = (start + end) / 2.0
+
+        slide_idx = bisect.bisect_left(end_times, pivot)
+        if slide_idx >= len(end_times):
+            continue
+
+        slide_start = 0.0 if slide_idx == 0 else end_times[slide_idx - 1]
+        slide_end = end_times[slide_idx]
+        utt["slide_index"] = slide_idx
+        utt["slide_start"] = round(slide_start, 3)
+        utt["slide_end"] = round(slide_end, 3)
+
+        slide_counts[slide_idx] = slide_counts.get(slide_idx, 0) + 1
+        attach_limit = attach_ocr_per_slide
+        if attach_limit is None:
+            should_attach = True
+        elif attach_limit <= 0:
+            should_attach = False
+        else:
+            should_attach = slide_counts[slide_idx] <= attach_limit
+        if should_attach:
+            ocr_text = ocr_by_slide.get(slide_idx)
+            if ocr_text:
+                utt["ocr_text"] = ocr_text
+    return utterances
 
 def group_words_into_utterances(rows, max_gap_s, lowercase):
     utterances = []
@@ -58,7 +192,17 @@ def group_words_into_utterances(rows, max_gap_s, lowercase):
     flush()
     return utterances
 
-def extract_utterances_from_transcripts(speaker, data_dir, course_dir, max_gap_s, lowercase):
+def extract_utterances_from_transcripts(
+    speaker,
+    data_dir,
+    course_dir,
+    max_gap_s,
+    lowercase,
+    attach_ocr=False,
+    ocr_min_conf=0.0,
+    ocr_line_sep="\n",
+    ocr_per_slide=1,
+):
     base = os.path.join(data_dir, speaker, course_dir)
     all_utts = []
 
@@ -73,8 +217,21 @@ def extract_utterances_from_transcripts(speaker, data_dir, course_dir, max_gap_s
             continue
 
         video_id = os.path.basename(transcripts_path).replace("_transcripts.csv", "")
-        rows = list(iter_transcript_rows(transcripts_path))
+        rows = list(iter_rows(transcripts_path))
         utts = group_words_into_utterances(rows, max_gap_s, lowercase)
+
+        if attach_ocr:
+            segments_path = os.path.join(meet_dir, "segments.txt")
+            if os.path.exists(segments_path):
+                attach_slide_ocr_to_utterances(
+                    utts,
+                    segments_path=segments_path,
+                    slides_dir=meet_dir,
+                    min_conf=ocr_min_conf,
+                    line_sep=ocr_line_sep,
+                    attach_ocr_per_slide=ocr_per_slide,
+                )
+
         for i, u in enumerate(utts):
             u.update({
                 "meeting_id": meeting_id,
@@ -88,9 +245,29 @@ def extract_utterances_from_transcripts(speaker, data_dir, course_dir, max_gap_s
     return all_utts
 
 
-def extract_utterances_from_transcript_file(csv_path, max_gap_s, lowercase):
-    rows = list(iter_transcript_rows(csv_path))
-    return group_words_into_utterances(rows, max_gap_s, lowercase)
+def extract_utterances_from_transcript_file(
+    csv_path,
+    max_gap_s,
+    lowercase,
+    segments_path=None,
+    slides_dir=None,
+    ocr_min_conf=0.0,
+    ocr_line_sep="\n",
+    ocr_per_slide=1,
+):
+    rows = list(iter_rows(csv_path))
+    utterances = group_words_into_utterances(rows, max_gap_s, lowercase)
+    if segments_path and slides_dir and os.path.exists(segments_path):
+        attach_slide_ocr_to_utterances(
+            utterances,
+            segments_path=segments_path,
+            slides_dir=slides_dir,
+            min_conf=ocr_min_conf,
+            line_sep=ocr_line_sep,
+            attach_ocr_per_slide=ocr_per_slide,
+        )
+    return utterances
+
 
 if __name__ == "__main__":
     data_dir = os.path.join(os.path.dirname(__file__), "lpm_data")
@@ -98,21 +275,30 @@ if __name__ == "__main__":
     ### Extracts all utterances from the transcripts within a 'speaker' or subject
     # utts = extract_utterances_from_transcripts(
     #     speaker="ml-1",
-    #     data_dir=data_dir,
-    #     course_dir='MultimodalMachineLearning',
+    #     data_dir="./lpm_data",
+    #     course_dir="MultimodalMachineLearning",
     #     max_gap_s=0.8,
     #     lowercase=True,
+    #     attach_ocr=True,
+    #     ocr_min_conf=60.0,
     # )
+
 
     ### Extracts the utterances from 1 specified transcript
     utts = extract_utterances_from_transcript_file(
         csv_path="./lpm_data/ml-1/MultimodalMachineLearning/01/VIq5r7mCAyw_transcripts.csv",
         max_gap_s=0.8,
-        lowercase=True
+        lowercase=True,
+        segments_path="./lpm_data/ml-1/MultimodalMachineLearning/01/segments.txt",
+        slides_dir="./lpm_data/ml-1/MultimodalMachineLearning/01",
+        ocr_min_conf=60.0,
     )
-    print(f"Extracted {len(utts)} utterances (transcripts)")
 
-    print(utts[3])
+    print(f"Extracted {len(utts)} utterances (transcripts)")
+    for utt in utts[:10]:
+        print(utt)
+        print()
+
 
 
     

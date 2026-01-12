@@ -68,19 +68,28 @@ def load_lpm_utterances(csv_path, data_dir, speaker, course_dir, meeting_id, max
     return utterances
 
 # Convert the extracted utterances to treeseg compatible utterances
-def build_treeseg_entries(utterances):
+def build_treeseg_entries(utterances, include_ocr=False, ocr_prefix="[SLIDE] "):
     entries = []
     for idx, utt in enumerate(utterances):
         entry = dict(utt)
-        if 'utterance_index' not in entry:
-            entry['utterance_index'] = idx
-        
-        text = entry.get("text")
-        text = str(text).strip()
+        entry.setdefault("utterance_index", idx)
 
-        entry['composite'] = text if text else "<blank>"
+        spoken = (entry.get("text") or "").strip()
+        ocr = (entry.get("ocr_text") or "").strip()
+
+        if include_ocr and ocr:
+            composite = spoken
+            if composite:
+                composite = f"{composite}\n{ocr_prefix}{ocr}"
+            else:
+                composite = f"{ocr_prefix}{ocr}"
+        else:
+            composite = spoken
+
+        entry["composite"] = composite if composite else "<blank>"
         entries.append(entry)
     return entries
+
 
 def run_treeseg_on_entries(entries, target_segments):
     min_segment_size = 5
@@ -137,7 +146,7 @@ def main():
                                      meeting_id="",
                                      lowercase=True)
     
-    entries = build_treeseg_entries(utterances)
+    entries = build_treeseg_entries(utterances, include_ocr=True)
     ret = run_treeseg_on_entries(entries, target_segments=None)
 
     print(ret)
