@@ -26,6 +26,10 @@ logger = structlog.get_logger(__name__)
 from treeseg import TreeSeg
 from utterances import extract_utterances_from_transcript_file, extract_utterances_from_transcripts
 import torch
+from sentence_transformers import SentenceTransformer
+import numpy as np
+import faiss
+
 
 def build_lpm_config(min_segment_size, lambda_balance, context_width):
     config = {}
@@ -39,11 +43,31 @@ def build_lpm_config(min_segment_size, lambda_balance, context_width):
     return config
 
 
-def load_lpm_utterances(csv_path, data_dir, speaker, course_dir, meeting_id, max_gap_s=0.8, lowercase=True):
+def load_lpm_utterances(
+    csv_path,
+    data_dir,
+    speaker,
+    course_dir,
+    meeting_id,
+    max_gap_s=0.8,
+    lowercase=True,
+    attach_ocr=True,
+    ocr_min_conf=0.0,
+    ocr_per_slide=1,
+):
     if csv_path:
         logger.info("Loading utterances", source='csv', path=csv_path)
+        transcript_dir = os.path.dirname(csv_path)
+        segments_path = os.path.join(transcript_dir, "segments.txt")
+        slides_dir = transcript_dir
         return extract_utterances_from_transcript_file(
-            csv_path=csv_path, max_gap_s=max_gap_s, lowercase=lowercase
+            csv_path=csv_path,
+            max_gap_s=max_gap_s,
+            lowercase=lowercase,
+            segments_path=segments_path if attach_ocr else None,
+            slides_dir=slides_dir if attach_ocr else None,
+            ocr_min_conf=ocr_min_conf,
+            ocr_per_slide=ocr_per_slide,
         )
 
     logger.info(
@@ -60,6 +84,9 @@ def load_lpm_utterances(csv_path, data_dir, speaker, course_dir, meeting_id, max
         course_dir=course_dir,
         max_gap_s=max_gap_s,
         lowercase=lowercase,
+        attach_ocr=attach_ocr,
+        ocr_min_conf=ocr_min_conf,
+        ocr_per_slide=ocr_per_slide,
     )
 
     if meeting_id:
@@ -68,7 +95,7 @@ def load_lpm_utterances(csv_path, data_dir, speaker, course_dir, meeting_id, max
     return utterances
 
 # Convert the extracted utterances to treeseg compatible utterances
-def build_treeseg_entries(utterances, include_ocr=False, ocr_prefix="[SLIDE] "):
+def build_treeseg_entries(utterances, include_ocr=True, ocr_prefix="[SLIDE] "):
     entries = []
     for idx, utt in enumerate(utterances):
         entry = dict(utt)
@@ -121,6 +148,7 @@ def run_treeseg_on_entries(entries, target_segments):
             {
             "segment_id": seg_idx,
             "tree_path": leaf.identifier,
+            "is_leaf": True,
             "utterance_start": indices[0],
             "utterance_end": indices[-1],
             "n_utterances": len(indices),
@@ -135,6 +163,52 @@ def run_treeseg_on_entries(entries, target_segments):
         "segments": segments, 
     }
 
+def demo_vector_index_retrieval(output, interactive=True, top_k=10):
+    segments = [s for s in output["segments"] if s.get("is_leaf", True)]
+    seg_texts = [s["text"] for s in segments]
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    seg_emb = model.encode(seg_texts, normalize_embeddings=True)
+    seg_emb = np.asarray(seg_emb, dtype=np.float32)
+
+    index = faiss.IndexFlatIP(seg_emb.shape[1])
+    index.add(seg_emb)
+
+    def search_segments(query, k=5):
+        q = model.encode([query], normalize_embeddings=True).astype(np.float32)
+        scores, idxs = index.search(q, k)
+        results = []
+        for score, idx in zip(scores[0], idxs[0]):
+            seg = segments[idx]
+            results.append({
+                "score": float(score),
+                "segment_id": seg["segment_id"],
+                "tree_path": seg["tree_path"],
+                "utterance_start": seg["utterance_start"],
+                "utterance_end": seg["utterance_end"],
+                "start": seg.get("start"),
+                "end": seg.get("end"),
+                "text": seg["text"],
+            })
+        
+        return results
+
+    if not interactive or not sys.stdin.isatty():
+        hits = search_segments("representation learning", k=top_k)
+        for h in hits:
+            print(f"{h['score']:.3f} | seg {h['segment_id']} ({h['start']}–{h['end']}s)")
+            print(h['text'], "\n")
+        return
+
+    print("Type a query to search (empty or 'exit' to quit).")
+    while True:
+        query = input("search> ").strip()
+        if not query or query.lower() in {"exit", "quit", "q"}:
+            break
+        hits = search_segments(query, k=top_k)
+        for h in hits:
+            print(f"{h['score']:.3f} | seg {h['segment_id']} ({h['start']}–{h['end']}s)")
+            print(h['text'], "\n")
+
 
 
 def main():
@@ -144,17 +218,15 @@ def main():
                                      course_dir='MultimodalMachineLearning',
                                      max_gap_s=0.8,
                                      meeting_id="",
-                                     lowercase=True)
+                                     lowercase=True,
+                                     attach_ocr=True,
+                                     ocr_min_conf=60.0,
+                                     ocr_per_slide=1)
     
-    entries = build_treeseg_entries(utterances, include_ocr=True)
+    entries = build_treeseg_entries(utterances, include_ocr=True, ocr_prefix="[SLIDE] ")
     ret = run_treeseg_on_entries(entries, target_segments=None)
-
-    print(ret)
+    demo_vector_index_retrieval(ret)
 
 if __name__ == "__main__":
     main()
         
-
-
-
-
