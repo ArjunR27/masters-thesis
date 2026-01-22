@@ -173,7 +173,7 @@ def demo_vector_index_retrieval(output, interactive=True, top_k=10):
     index = faiss.IndexFlatIP(seg_emb.shape[1])
     index.add(seg_emb)
 
-    def search_segments(query, k=5):
+    def search_segments(query, k=10):
         q = model.encode([query], normalize_embeddings=True).astype(np.float32)
         scores, idxs = index.search(q, k)
         results = []
@@ -193,7 +193,7 @@ def demo_vector_index_retrieval(output, interactive=True, top_k=10):
         return results
 
     if not interactive or not sys.stdin.isatty():
-        hits = search_segments("representation learning", k=top_k)
+        hits = search_segments("what are the four eras of machine", k=top_k)
         for h in hits:
             print(f"{h['score']:.3f} | seg {h['segment_id']} ({h['start']}–{h['end']}s)")
             print(h['text'], "\n")
