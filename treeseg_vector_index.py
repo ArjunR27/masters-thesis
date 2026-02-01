@@ -8,7 +8,7 @@ import faiss
 import numpy as np
 import structlog
 import torch
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import CrossEncoder, SentenceTransformer
 
 from utterances import extract_utterances_from_transcript_file
 
@@ -21,6 +21,7 @@ sys.path.insert(0, str(TREESEG_EXPLORATION))
 from treeseg import TreeSeg
 
 logger = structlog.get_logger(__name__)
+SLIDE_TOKEN = "[SLIDE]"
 
 
 @dataclass(frozen=True)
@@ -236,6 +237,62 @@ def build_segments_for_lecture(
     return segments
 
 
+def split_segment_text(text, slide_token=SLIDE_TOKEN):
+    if not text:
+        return "", ""
+    spoken_lines = []
+    ocr_lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith(slide_token):
+            ocr_line = stripped[len(slide_token) :].lstrip(" :\t")
+            if ocr_line:
+                ocr_lines.append(ocr_line)
+        else:
+            spoken_lines.append(stripped)
+    return "\n".join(spoken_lines).strip(), "\n".join(ocr_lines).strip()
+
+
+def build_rerank_input(text, slide_token=SLIDE_TOKEN):
+    spoken, ocr = split_segment_text(text, slide_token=slide_token)
+    segment_block = spoken if spoken else "<blank>"
+    parts = [f"Segment:\n{segment_block}"]
+    if ocr:
+        ocr_lines = [line.strip() for line in ocr.splitlines() if line.strip()]
+        ocr_block = "\n".join(f"{slide_token} {line}" for line in ocr_lines)
+        parts.append(f"{slide_token}\nSlide OCR:\n{ocr_block}")
+    else:
+        parts.append("Slide OCR:\n<blank>")
+    return "\n\n".join(parts)
+
+
+class CrossEncoderReranker:
+    def __init__(self, model_name, device=None):
+        if device is None:
+            device = resolve_device()
+        self.model = CrossEncoder(model_name, device=device)
+
+    def rerank(self, query, results, top_n=5, slide_token=SLIDE_TOKEN):
+        if not results:
+            return []
+        pairs = []
+        for hit in results:
+            rerank_text = build_rerank_input(hit.get("text", ""), slide_token=slide_token)
+            pairs.append((query, rerank_text))
+        scores = self.model.predict(pairs)
+        rescored = []
+        for score, hit in zip(scores, results):
+            updated = dict(hit)
+            updated["rerank_score"] = float(score)
+            rescored.append(updated)
+        rescored.sort(key=lambda item: item["rerank_score"], reverse=True)
+        if top_n is None:
+            return rescored
+        return rescored[: min(top_n, len(rescored))]
+
+
 class LpmVectorIndex:
     def __init__(self, model_name, device=None, normalize=True, build_global=True):
         if device is None:
@@ -359,16 +416,25 @@ def resolve_lecture_choice(lectures, choice, allow_all=True):
 
 
 def print_results(results, max_chars=500):
-    for hit in results:
-        header = (
-            f"{hit['score']:.3f} | {hit['lecture_key']} | seg {hit['segment_id']} "
-            f"({hit['start']}-{hit['end']}s)"
-        )
+    for rank, hit in enumerate(results, start=1):
+        if "rerank_score" in hit:
+            header = (
+                f"{rank}. {hit['rerank_score']:.3f} (rerank) | "
+                f"{hit['lecture_key']} | seg {hit['segment_id']} "
+                f"({hit['start']}-{hit['end']}s)"
+            )
+        else:
+            header = (
+                f"{rank}. {hit['score']:.3f} | {hit['lecture_key']} | seg "
+                f"{hit['segment_id']} ({hit['start']}-{hit['end']}s)"
+            )
         print(header)
         text = hit["text"] or ""
-        if max_chars and len(text) > max_chars:
-            text = text[:max_chars].rstrip() + "..."
-        print(text)
+        # if max_chars and len(text) > max_chars:
+        #     text = text[:max_chars].rstrip() + "..."
+        if text:
+            for line in text.splitlines():
+                print(f"    {line}")
         print()
 
 
@@ -441,6 +507,22 @@ def parse_args():
         default=None,
         help="Single query to run (non-interactive).",
     )
+    parser.add_argument(
+        "--rerank",
+        action="store_true",
+        help="Rerank retrieved segments with a cross-encoder.",
+    )
+    parser.add_argument(
+        "--rerank-model",
+        default="cross-encoder/ms-marco-MiniLM-L-6-v2",
+        help="Cross-encoder model for reranking.",
+    )
+    parser.add_argument(
+        "--rerank-top-n",
+        type=int,
+        default=5,
+        help="Number of results to return after reranking.",
+    )
     return parser.parse_args()
 
 
@@ -448,7 +530,8 @@ def main():
     args = parse_args()
     data_dir = PROJECT_DIR / "lpm_data"
     embedding_model = "sentence-transformers/all-MiniLM-L6-v2"
-    top_k = 5
+    top_k = 50
+    top_n = args.rerank_top_n
     max_chars = 500
 
     lectures = discover_lectures(
@@ -506,11 +589,17 @@ def main():
         target_segments=None,
     )
 
+    reranker = None
+    if args.rerank:
+        reranker = CrossEncoderReranker(args.rerank_model, device=resolve_device())
+
     if args.query:
         if not args.query.strip():
             print("Empty query. Provide text for --query.")
             return
         results = store.search(args.query, top_k=top_k, lecture_key=lecture_key)
+        if reranker:
+            results = reranker.rerank(args.query, results, top_n=top_n)
         print_results(results, max_chars=max_chars)
         return
 
@@ -520,6 +609,8 @@ def main():
         if not query or query.lower() in {"exit", "quit", "q"}:
             break
         results = store.search(query, top_k=top_k, lecture_key=lecture_key)
+        if reranker:
+            results = reranker.rerank(query, results, top_n=top_n)
         print_results(results, max_chars=max_chars)
 
 
