@@ -11,7 +11,11 @@ import torch
 from sentence_transformers import CrossEncoder, SentenceTransformer
 import ollama
 
-from utterances import extract_utterances_from_transcript_file
+from utterances import (
+    extract_utterances_from_transcript_file,
+    load_slide_end_times,
+    load_slide_ocr_texts,
+)
 
 HERE = Path(__file__).resolve()
 PROJECT_DIR = HERE.parent
@@ -189,6 +193,46 @@ def build_treeseg_entries(utterances, include_ocr=True, ocr_prefix="[SLIDE] "):
     return entries
 
 
+def build_ocr_slide_entries(lecture, ocr_min_conf=60.0, line_sep="\n"):
+    segments_path = os.path.join(lecture.meeting_dir, "segments.txt")
+    slides_dir = lecture.meeting_dir
+    if not os.path.exists(segments_path):
+        return []
+
+    end_times = load_slide_end_times(segments_path)
+    if not end_times:
+        return []
+
+    ocr_by_slide = load_slide_ocr_texts(
+        slides_dir, min_conf=ocr_min_conf, line_sep=line_sep
+    )
+    if not ocr_by_slide:
+        return []
+
+    entries = []
+    for slide_idx, end_time in enumerate(end_times):
+        ocr_text = ocr_by_slide.get(slide_idx)
+        if not ocr_text:
+            continue
+        start_time = 0.0 if slide_idx == 0 else end_times[slide_idx - 1]
+        entries.append(
+            {
+                "segment_id": slide_idx + 1,
+                "slide_index": slide_idx,
+                "start": round(start_time, 3),
+                "end": round(end_time, 3),
+                "text": ocr_text,
+                "lecture_key": lecture.key,
+                "speaker": lecture.speaker,
+                "course_dir": lecture.course_dir,
+                "meeting_id": lecture.meeting_id,
+                "video_id": lecture.video_id,
+                "modality": "ocr",
+            }
+        )
+    return entries
+
+
 def build_segments_for_lecture(
     lecture,
     utterances,
@@ -269,18 +313,28 @@ def build_rerank_input(text, slide_token=SLIDE_TOKEN):
     return "\n\n".join(parts)
 
 
+def build_rerank_input_ocr(text, slide_token=SLIDE_TOKEN):
+    ocr = (text or "").strip()
+    if not ocr:
+        ocr = "<blank>"
+    return f"Slide OCR:\n{ocr}"
+
+
 class CrossEncoderReranker:
-    def __init__(self, model_name, device=None):
+    def __init__(self, model_name, device=None, input_builder=None):
         if device is None:
             device = resolve_device()
         self.model = CrossEncoder(model_name, device=device)
+        self.input_builder = input_builder or build_rerank_input
 
     def rerank(self, query, results, top_n=5, slide_token=SLIDE_TOKEN):
         if not results:
             return []
         pairs = []
         for hit in results:
-            rerank_text = build_rerank_input(hit.get("text", ""), slide_token=slide_token)
+            rerank_text = self.input_builder(
+                hit.get("text", ""), slide_token=slide_token
+            )
             pairs.append((query, rerank_text))
         scores = self.model.predict(pairs)
         rescored = []
@@ -371,6 +425,8 @@ class LpmVectorIndex:
                     "meeting_id": seg.get("meeting_id"),
                     "video_id": seg.get("video_id"),
                     "segment_id": seg.get("segment_id"),
+                    "slide_index": seg.get("slide_index"),
+                    "modality": seg.get("modality"),
                     "tree_path": seg.get("tree_path"),
                     "utterance_start": seg.get("utterance_start"),
                     "utterance_end": seg.get("utterance_end"),
@@ -439,6 +495,29 @@ def print_results(results, max_chars=500):
         print()
 
 
+def print_ocr_results(results, max_chars=500):
+    for rank, hit in enumerate(results, start=1):
+        slide_idx = hit.get("slide_index")
+        if slide_idx is None:
+            slide_idx = hit.get("segment_id")
+        if "rerank_score" in hit:
+            header = (
+                f"{rank}. {hit['rerank_score']:.3f} (rerank) | "
+                f"{hit['lecture_key']} | slide {slide_idx}"
+            )
+        else:
+            header = (
+                f"{rank}. {hit['score']:.3f} | {hit['lecture_key']} | "
+                f"slide {slide_idx}"
+            )
+        print(header)
+        text = hit.get("text") or ""
+        if text:
+            for line in text.splitlines():
+                print(f"    {line}")
+        print()
+
+
 def _format_context_header(hit, rank):
     parts = [f"[{rank}]"]
     score = hit.get("rerank_score", hit.get("score"))
@@ -447,8 +526,11 @@ def _format_context_header(hit, rank):
     lecture_key = hit.get("lecture_key")
     if lecture_key:
         parts.append(str(lecture_key))
+    slide_index = hit.get("slide_index")
     segment_id = hit.get("segment_id")
-    if segment_id is not None:
+    if slide_index is not None:
+        parts.append(f"slide={slide_index}")
+    elif segment_id is not None:
         parts.append(f"seg={segment_id}")
     start = hit.get("start")
     end = hit.get("end")
@@ -482,6 +564,44 @@ def build_context(results, max_chars=8000, include_ocr=True, slide_token=SLIDE_T
         total_chars += len(block) + 2
 
     return "\n\n".join(blocks).strip()
+
+
+def build_ocr_context(results, max_chars=8000):
+    if not results:
+        return ""
+
+    blocks = []
+    total_chars = 0
+    for rank, hit in enumerate(results, start=1):
+        text = (hit.get("text") or "").strip()
+        if not text:
+            continue
+
+        header = _format_context_header(hit, rank)
+        block = "\n".join([header, f"Slide OCR:\n{text}"])
+
+        if max_chars is not None and total_chars + len(block) > max_chars:
+            break
+
+        blocks.append(block)
+        total_chars += len(block) + 2
+
+    return "\n\n".join(blocks).strip()
+
+
+def build_separate_context(asr_results, ocr_results, max_chars=8000):
+    asr_context = build_context(
+        asr_results, max_chars=max_chars, include_ocr=False
+    )
+    ocr_context = build_ocr_context(ocr_results, max_chars=max_chars)
+
+    parts = []
+    if asr_context:
+        parts.append(f"ASR Context:\n{asr_context}")
+    if ocr_context:
+        parts.append(f"OCR Context:\n{ocr_context}")
+
+    return "\n\n".join(parts).strip()
 
 
 def query_response(
@@ -556,6 +676,7 @@ def build_vector_store(
     max_gap_s=0.8,
     lowercase=True,
     attach_ocr=True,
+    include_ocr_in_treeseg=None,
     ocr_min_conf=60.0,
     ocr_per_slide=1,
     target_segments=None,
@@ -566,6 +687,9 @@ def build_vector_store(
         normalize=normalize,
         build_global=build_global,
     )
+
+    if include_ocr_in_treeseg is None:
+        include_ocr_in_treeseg = attach_ocr
 
     for lecture in lectures:
         logger.info("Indexing lecture", lecture=lecture.key)
@@ -585,12 +709,42 @@ def build_vector_store(
             utterances,
             treeseg_config=treeseg_config,
             target_segments=target_segments,
-            include_ocr=attach_ocr,
+            include_ocr=include_ocr_in_treeseg,
         )
         if not segments:
             logger.warning("No segments built", lecture=lecture.key)
             continue
         store.add_lecture(lecture, segments)
+
+    store.finalize()
+    return store
+
+
+def build_ocr_vector_store(
+    lectures,
+    embed_model="sentence-transformers/all-MiniLM-L6-v2",
+    device=None,
+    normalize=True,
+    build_global=True,
+    ocr_min_conf=60.0,
+    ocr_line_sep="\n",
+):
+    store = LpmVectorIndex(
+        model_name=embed_model,
+        device=device,
+        normalize=normalize,
+        build_global=build_global,
+    )
+
+    for lecture in lectures:
+        logger.info("Indexing OCR slides", lecture=lecture.key)
+        slides = build_ocr_slide_entries(
+            lecture, ocr_min_conf=ocr_min_conf, line_sep=ocr_line_sep
+        )
+        if not slides:
+            logger.warning("No OCR slides found", lecture=lecture.key)
+            continue
+        store.add_lecture(lecture, slides)
 
     store.finalize()
     return store
@@ -616,6 +770,12 @@ def parse_args():
         help="Single query to run (non-interactive).",
     )
     parser.add_argument(
+        "--retrieval-mode",
+        choices=["combined", "separate"],
+        default="combined",
+        help="Use combined (ASR+OCR) or separate (ASR-only + OCR-only) retrieval.",
+    )
+    parser.add_argument(
         "--rerank",
         action="store_true",
         help="Rerank retrieved segments with a cross-encoder.",
@@ -624,6 +784,11 @@ def parse_args():
         "--rerank-model",
         default="cross-encoder/ms-marco-MiniLM-L-6-v2",
         help="Cross-encoder model for reranking.",
+    )
+    parser.add_argument(
+        "--ocr-rerank-model",
+        default="BAAI/bge-reranker-v2-m3",
+        help="Cross-encoder model for OCR-only reranking.",
     )
     parser.add_argument(
         "--rerank-top-n",
@@ -683,32 +848,92 @@ def main():
                 continue
         target_lectures = [lec for lec in lectures if lec.key == lecture_key]
 
-    store = build_vector_store(
-        target_lectures,
-        treeseg_config=treeseg_config,
-        embed_model=embedding_model,
-        normalize=True,
-        build_global=False,
-        max_gap_s=0.8,
-        lowercase=True,
-        attach_ocr=True,
-        ocr_min_conf=60.0,
-        ocr_per_slide=1,
-        target_segments=None,
-    )
+    retrieval_mode = args.retrieval_mode
+    if retrieval_mode == "combined":
+        store = build_vector_store(
+            target_lectures,
+            treeseg_config=treeseg_config,
+            embed_model=embedding_model,
+            normalize=True,
+            build_global=False,
+            max_gap_s=0.8,
+            lowercase=True,
+            attach_ocr=True,
+            ocr_min_conf=60.0,
+            ocr_per_slide=1,
+            target_segments=None,
+        )
+        reranker = None
+        if args.rerank:
+            reranker = CrossEncoderReranker(
+                args.rerank_model, device=resolve_device()
+            )
+    else:
+        asr_store = build_vector_store(
+            target_lectures,
+            treeseg_config=treeseg_config,
+            embed_model=embedding_model,
+            normalize=True,
+            build_global=False,
+            max_gap_s=0.8,
+            lowercase=True,
+            attach_ocr=True,
+            include_ocr_in_treeseg=False,
+            ocr_min_conf=60.0,
+            ocr_per_slide=1,
+            target_segments=None,
+        )
+        ocr_store = build_ocr_vector_store(
+            target_lectures,
+            embed_model=embedding_model,
+            normalize=True,
+            build_global=False,
+            ocr_min_conf=60.0,
+        )
 
-    reranker = None
-    if args.rerank:
-        reranker = CrossEncoderReranker(args.rerank_model, device=resolve_device())
+        asr_reranker = None
+        ocr_reranker = None
+        if args.rerank:
+            asr_reranker = CrossEncoderReranker(
+                args.rerank_model, device=resolve_device()
+            )
+            ocr_reranker = CrossEncoderReranker(
+                args.ocr_rerank_model,
+                device=resolve_device(),
+                input_builder=build_rerank_input_ocr,
+            )
 
     if args.query:
         if not args.query.strip():
             print("Empty query. Provide text for --query.")
             return
-        results = store.search(args.query, top_k=top_k, lecture_key=lecture_key)
-        if reranker:
-            results = reranker.rerank(args.query, results, top_n=top_n)
-        print_results(results, max_chars=max_chars)
+        if retrieval_mode == "combined":
+            results = store.search(args.query, top_k=top_k, lecture_key=lecture_key)
+            if reranker:
+                results = reranker.rerank(args.query, results, top_n=top_n)
+            print_results(results, max_chars=max_chars)
+        else:
+            asr_results = asr_store.search(
+                args.query, top_k=top_k, lecture_key=lecture_key
+            )
+            if lecture_key not in ocr_store.lecture_indices:
+                ocr_results = []
+            else:
+                ocr_results = ocr_store.search(
+                    args.query, top_k=top_k, lecture_key=lecture_key
+                )
+            if asr_reranker:
+                asr_results = asr_reranker.rerank(
+                    args.query, asr_results, top_n=top_n
+                )
+            if ocr_reranker:
+                ocr_results = ocr_reranker.rerank(
+                    args.query, ocr_results, top_n=top_n
+                )
+            print("ASR results:")
+            print_results(asr_results, max_chars=max_chars)
+            print("OCR results:")
+            print_ocr_results(ocr_results, max_chars=max_chars)
         return
 
     print("Type a query to search (empty or 'exit' to quit).")
@@ -716,11 +941,36 @@ def main():
         query = input("search> ").strip()
         if not query or query.lower() in {"exit", "quit", "q"}:
             break
-        results = store.search(query, top_k=top_k, lecture_key=lecture_key)
-        if reranker:
-            results = reranker.rerank(query, results, top_n=top_n)
+        if retrieval_mode == "combined":
+            results = store.search(query, top_k=top_k, lecture_key=lecture_key)
+            if reranker:
+                results = reranker.rerank(query, results, top_n=top_n)
+            context = build_context(results)
+        else:
+            asr_results = asr_store.search(
+                query, top_k=top_k, lecture_key=lecture_key
+            )
+            if lecture_key not in ocr_store.lecture_indices:
+                ocr_results = []
+            else:
+                ocr_results = ocr_store.search(
+                    query, top_k=top_k, lecture_key=lecture_key
+                )
+            if asr_reranker:
+                asr_results = asr_reranker.rerank(
+                    query, asr_results, top_n=top_n
+                )
+            if ocr_reranker:
+                ocr_results = ocr_reranker.rerank(
+                    query, ocr_results, top_n=top_n
+                )
 
-        context = build_context(results)
+            print("ASR results:")
+            print_results(asr_results, max_chars=max_chars)
+            print("OCR results:")
+            print_ocr_results(ocr_results, max_chars=max_chars)
+            context = build_separate_context(asr_results, ocr_results)
+
         response = query_response(query, context)
         print(response)
 

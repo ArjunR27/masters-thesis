@@ -271,18 +271,6 @@ def extract_utterances_from_transcript_file(
 
 if __name__ == "__main__":
     data_dir = os.path.join(os.path.dirname(__file__), "lpm_data")
-    
-    ### Extracts all utterances from the transcripts within a 'speaker' or subject
-    # utts = extract_utterances_from_transcripts(
-    #     speaker="ml-1",
-    #     data_dir="./lpm_data",
-    #     course_dir="MultimodalMachineLearning",
-    #     max_gap_s=0.8,
-    #     lowercase=True,
-    #     attach_ocr=True,
-    #     ocr_min_conf=60.0,
-    # )
-
 
     ### Extracts the utterances from 1 specified transcript
     utts = extract_utterances_from_transcript_file(
@@ -293,11 +281,6 @@ if __name__ == "__main__":
         slides_dir="./lpm_data/ml-1/MultimodalMachineLearning/01",
         ocr_min_conf=60.0,
     )
-
-    print(f"Extracted {len(utts)} utterances (transcripts)")
-    for utt in utts[:10]:
-        print(utt)
-        print()
 
 
 
