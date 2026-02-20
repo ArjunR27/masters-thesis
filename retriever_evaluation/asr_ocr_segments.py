@@ -6,11 +6,10 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR))
 
 from utterances import extract_utterances_from_transcript_file
-from treeseg_vector_index import (
-    build_lpm_config,
-    build_ocr_slide_entries,
-    build_segments_for_lecture,
-    discover_lectures,
+from treeseg_vector_index_modular import (
+    LectureCatalog,
+    LectureSegmentBuilder,
+    LpmConfigBuilder,
 )
 
 
@@ -25,12 +24,12 @@ OCR_OUT_PATH = ROOT_DIR / "retriever_evaluation" / "segment_dumps" / "ocr_slides
 
 def main():
     data_dir = ROOT_DIR / "lpm_data"
-    lectures = discover_lectures(data_dir=data_dir)
+    lectures = LectureCatalog.discover_lectures(data_dir=data_dir)
     if not lectures:
         print("No lectures found. Check the data directory.")
         return
 
-    treeseg_config = build_lpm_config(
+    treeseg_config = LpmConfigBuilder.build_lpm_config(
         embedding_model="sentence-transformers/all-MiniLM-L6-v2",
     )
     asr_results = []
@@ -47,7 +46,7 @@ def main():
         ocr_per_slide=OCR_PER_SLIDE,
     )
 
-    segments = build_segments_for_lecture(
+    segments = LectureSegmentBuilder.build_segments_for_lecture(
         lecture,
         utterances,
         treeseg_config=treeseg_config,
@@ -55,7 +54,7 @@ def main():
         include_ocr=False,
     )
 
-    slides = build_ocr_slide_entries(
+    slides = LectureSegmentBuilder.build_ocr_slide_entries(
         lecture, ocr_min_conf=OCR_MIN_CONF, line_sep="\n"
     )
 

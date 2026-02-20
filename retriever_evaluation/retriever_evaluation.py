@@ -19,14 +19,13 @@ PROJECT_DIR = HERE.parents[1]
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
-from treeseg_vector_index import (
+from treeseg_vector_index_modular import (
     CrossEncoderReranker,
-    build_lpm_config,
-    build_ocr_vector_store,
-    build_rerank_input_ocr,
-    build_vector_store,
-    discover_lectures,
-    resolve_device,
+    DeviceResolver,
+    LectureCatalog,
+    LpmConfigBuilder,
+    RerankInputBuilder,
+    VectorStoreFactory,
 )
 
 ASR_SEGMENTS = RETRIEVER_EVAL_DIR / "segment_dumps" / "asr_segments.json"
@@ -44,7 +43,7 @@ TARGET_COURSE = "AnatomyPhysiology"
 TARGET_MEETING_IDS = ["01"]
 
 data_dir = PROJECT_DIR / "lpm_data"
-target_lectures = discover_lectures(
+target_lectures = LectureCatalog.discover_lectures(
     data_dir=data_dir,
     speaker=TARGET_SPEAKER,
     course_dir=TARGET_COURSE,
@@ -244,6 +243,7 @@ def display_df(df, title):
 class RetrieverEvaluation:
     def __init__(self, eval_dataset_path):
         self.retriever_dataset = pd.read_csv(eval_dataset_path, skipinitialspace=True)
+        self.store_factory = VectorStoreFactory()
 
     def read_json(self, filepath):
         with open(filepath, "r", encoding="utf-8") as file:
@@ -253,8 +253,8 @@ class RetrieverEvaluation:
         return self.retriever_dataset
 
     def create_combined_retriever(self):
-        treeseg_config = build_lpm_config()
-        store = build_vector_store(
+        treeseg_config = LpmConfigBuilder.build_lpm_config()
+        store = self.store_factory.build_vector_store(
             target_lectures,
             treeseg_config=treeseg_config,
             embed_model=EMBEDDING_MODEL,
@@ -267,12 +267,15 @@ class RetrieverEvaluation:
             ocr_per_slide=1,
             target_segments=None,
         )
-        reranker = CrossEncoderReranker(RERANK_MODEL, device=resolve_device())
+        reranker = CrossEncoderReranker(
+            RERANK_MODEL,
+            device=DeviceResolver.resolve_device(),
+        )
         return store, reranker
 
     def create_separate_retriever(self):
-        treeseg_config = build_lpm_config()
-        asr_store = build_vector_store(
+        treeseg_config = LpmConfigBuilder.build_lpm_config()
+        asr_store = self.store_factory.build_vector_store(
             target_lectures,
             treeseg_config=treeseg_config,
             embed_model=EMBEDDING_MODEL,
@@ -286,18 +289,21 @@ class RetrieverEvaluation:
             ocr_per_slide=1,
             target_segments=None,
         )
-        ocr_store = build_ocr_vector_store(
+        ocr_store = self.store_factory.build_ocr_vector_store(
             target_lectures,
             embed_model=EMBEDDING_MODEL,
             normalize=True,
             build_global=False,
             ocr_min_conf=60.0,
         )
-        asr_reranker = CrossEncoderReranker(RERANK_MODEL, device=resolve_device())
+        asr_reranker = CrossEncoderReranker(
+            RERANK_MODEL,
+            device=DeviceResolver.resolve_device(),
+        )
         ocr_reranker = CrossEncoderReranker(
             OCR_RERANK_MODEL,
-            device=resolve_device(),
-            input_builder=build_rerank_input_ocr,
+            device=DeviceResolver.resolve_device(),
+            input_builder=RerankInputBuilder.build_rerank_input_ocr,
         )
         return asr_store, ocr_store, asr_reranker, ocr_reranker
 
