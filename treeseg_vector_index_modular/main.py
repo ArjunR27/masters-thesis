@@ -23,6 +23,10 @@ class TreeSegVectorIndexCLI:
         self.store_factory = store_factory or VectorStoreFactory()
 
     @staticmethod
+    def print_turn_separator():
+        print("\n" + "=" * 72 + "\n")
+
+    @staticmethod
     def parse_args(argv=None):
         parser = argparse.ArgumentParser(
             description="Build a TreeSeg-based vector index over LPM lectures."
@@ -151,7 +155,7 @@ class TreeSegVectorIndexCLI:
                 build_global=False,
                 max_gap_s=0.8,
                 lowercase=True,
-                attach_ocr=True,
+                attach_ocr=False,
                 include_ocr_in_treeseg=False,
                 ocr_min_conf=60.0,
                 ocr_per_slide=1,
@@ -247,6 +251,7 @@ class TreeSegVectorIndexCLI:
 
             response = OllamaResponder.query_response(query, context)
             print(response)
+            self.print_turn_separator()
 
 def main():
     app = TreeSegVectorIndexCLI(project_dir=PROJECT_DIR)

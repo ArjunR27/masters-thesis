@@ -30,6 +30,7 @@ class SegNode:
         self.identifier = identifier
 
         self.is_leaf = len(entries) < 2 * self.MIN_SEGMENT_SIZE
+        self.summary = None
 
         if self.is_leaf:
             return

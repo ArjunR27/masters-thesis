@@ -2,6 +2,62 @@ import ollama
 
 
 class OllamaResponder:
+
+    @staticmethod
+    def generate_summary(
+        text,
+        model="llama3.2",
+        system_prompt=None,
+        temperature=0.2,
+        keep_alive=None,
+        client=None,
+        host=None,
+    ):
+        if not text or not text.strip():
+            return "Empty"
+
+        if system_prompt is None:
+            system_prompt = ()
+        
+        prompt = f"Context:\n{text}\n\n"
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
+        ]
+
+        options = {"temperature": temperature} if temperature is not None else None
+
+        if client is None:
+            if host:
+                client = ollama.Client(host=host)
+            else:
+                client = ollama
+        
+        response = client.chat(
+            model=model,
+            messages=messages,
+            options=options,
+            keep_alive=keep_alive,
+        )
+
+        message = getattr(response, "message", None)
+        if message is not None:
+            content = getattr(message, "content", None)
+            if content is not None:
+                return str(content).strip()
+
+        if isinstance(response, dict):
+            message = response.get("message") or {}
+            content = message.get("content")
+            if content is not None:
+                return str(content).strip()
+            response_text = response.get("response")
+            if response_text is not None:
+                return str(response_text).strip()
+
+        return str(response).strip()
+
     @staticmethod
     def query_response(
         query,

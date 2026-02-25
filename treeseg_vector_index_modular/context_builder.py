@@ -1,7 +1,8 @@
 from .constants import SLIDE_TOKEN
 from .rerank_input_builder import RerankInputBuilder
 
-
+# Builds the "context" for the LLM before getting passed in with the prompt
+# formatting purposes
 class ContextBuilder:
     @staticmethod
     def _format_context_header(hit, rank):

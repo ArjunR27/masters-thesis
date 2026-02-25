@@ -13,6 +13,7 @@ if str(TREESEG_EXPLORATION) not in sys.path:
     sys.path.insert(0, str(TREESEG_EXPLORATION))
 
 from treeseg import TreeSeg
+from ollama_responder import OllamaResponder
 
 
 class LectureSegmentBuilder:
@@ -118,6 +119,82 @@ class LectureSegmentBuilder:
             )
         return entries
 
+    def dfs(node, entries):
+        # if the node is None (no entries exist)
+        if not node:
+            return ""
+        
+        if node.left:
+            left_summary = LectureSegmentBuilder.dfs(node.left, entries)
+        else:
+            left_summary = ""
+        
+        if node.right:
+            right_summary = LectureSegmentBuilder.dfs(node.right, entries)
+        else:
+            right_summary = ""
+        
+        # leaf node (so we must generate a summary from its entries/utterances)
+        if node.left is None and node.right is None:
+            indices = node.segment
+            # get the segment utterances for each entry
+            segment_utts = [entries[i] for i in indices]
+            start_time = segment_utts[0].get("start")
+            end_time = segment_utts[-1].get("end")
+            text = "\n".join(utt.get("composite", "") for utt in segment_utts).strip()
+
+            ### generate a summary for this node
+            node.summary = OllamaResponder.generate_summary(text)
+            return node.summary
+    
+        # internal node
+        else:
+            child_summaries = []
+            if left_summary:
+                child_summaries.append(f"Left child summary: \n {left_summary}")
+            if right_summary:
+                child_summaries.append(f"Right child summary: \n {right_summary}")
+            
+            # create the summary composition of the two children
+            child_text = "\n\n".join(child_summaries).strip()
+            if not child_text:
+                child_text = "<blank>"
+            
+            # create the summary for THIS node based off its children
+            node.summary = OllamaResponder.generate_summary(child_text)
+            return node.summary
+
+
+    @staticmethod
+    def build_summary_tree_for_lecture(
+        lecture,
+        utterances,
+        treeseg_config,
+        target_segments=None,
+        include_ocr=False,
+    ):
+        entries = LectureSegmentBuilder.build_treeseg_entries(
+            utterances, include_ocr=include_ocr
+        )
+
+        if not entries:
+            return []
+
+        model = TreeSeg(configs=treeseg_config, entries=list(entries))
+        k = float("inf") if target_segments is None else target_segments
+
+        model.segment_meeting(K=k)
+
+        segments = []
+        root = model.root
+        # need to build the llm summaries (bottom up) so i can look at the
+            # child nodes summary first to build my own summaries
+        
+        root_summary = LectureSegmentBuilder.dfs(root, entries)
+
+        return root
+
+
     @staticmethod
     def build_segments_for_lecture(
         lecture,
@@ -166,3 +243,5 @@ class LectureSegmentBuilder:
                 }
             )
         return segments
+
+
