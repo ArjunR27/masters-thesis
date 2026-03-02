@@ -30,6 +30,14 @@ class SegNode:
         self.identifier = identifier
 
         self.is_leaf = len(entries) < 2 * self.MIN_SEGMENT_SIZE
+        
+        
+        # Custom defined for Hierarchical Summarization and Traversal
+        self.depth = None
+        self.start = None
+        self.end = None
+        self.summary = None
+        self.embedding = None
 
         if self.is_leaf:
             return
