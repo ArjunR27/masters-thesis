@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-03-11T16:51:07+00:00",
+  "total_candidates": 21,
+  "evaluated_lectures": 20,
+  "skipped_lectures": 1,
+  "stats": {
+    "n_slides_mean": 57.65,
+    "n_slides_median": 55.5,
+    "n_treeseg_segments_mean": 42.15,
+    "n_treeseg_segments_median": 40.0,
+    "diff_mean": -15.5,
+    "diff_median": -19.0,
+    "abs_diff_mean": 18.1,
+    "abs_diff_median": 19.5,
+    "ratio_mean": 0.7698463103705772,
+    "ratio_median": 0.6845710165825523,
+    "max_gap_s_used_mean": 0.6861,
+    "max_gap_s_used_median": 0.7
+  },
+  "ratio_bands": {
+    "ratio_lt_0_8": {
+      "count": 13,
+      "percent": 65.0
+    },
+    "ratio_0_8_to_1_2": {
+      "count": 6,
+      "percent": 30.0
+    },
+    "ratio_gt_1_2": {
+      "count": 1,
+      "percent": 5.0
+    }
+  },
+  "skip_reasons": {
+    "no_numeric_slide_boundaries": 1
+  }
+}

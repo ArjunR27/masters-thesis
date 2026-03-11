@@ -1,4 +1,3 @@
-from .main import TreeSegVectorIndexCLI
 from .constants import PROJECT_DIR, SLIDE_TOKEN
 from .context_builder import ContextBuilder
 from .cross_encoder_reranker import CrossEncoderReranker
@@ -7,11 +6,39 @@ from .lecture_catalog import LectureCatalog
 from .lecture_descriptor import LectureDescriptor
 from .lecture_segment_builder import LectureSegmentBuilder
 from .lpm_config_builder import LpmConfigBuilder
-from .lpm_vector_index import LpmVectorIndex
-from .ollama_responder import OllamaResponder
 from .rerank_input_builder import RerankInputBuilder
 from .result_formatter import ResultFormatter
-from .vector_store_factory import VectorStoreFactory
+try:
+    from .lpm_vector_index import LpmVectorIndex
+except ModuleNotFoundError as exc:
+    if exc.name == "faiss":
+        LpmVectorIndex = None
+    else:
+        raise
+
+try:
+    from .vector_store_factory import VectorStoreFactory
+except ModuleNotFoundError as exc:
+    if exc.name == "faiss":
+        VectorStoreFactory = None
+    else:
+        raise
+
+try:
+    from .main import TreeSegVectorIndexCLI
+except ModuleNotFoundError as exc:
+    if exc.name == "ollama":
+        TreeSegVectorIndexCLI = None
+    else:
+        raise
+
+try:
+    from .ollama_responder import OllamaResponder
+except ModuleNotFoundError as exc:
+    if exc.name == "ollama":
+        OllamaResponder = None
+    else:
+        raise
 
 __all__ = [
     "ContextBuilder",

@@ -14,7 +14,13 @@ if str(TREESEG_EXPLORATION) not in sys.path:
     sys.path.insert(0, str(TREESEG_EXPLORATION))
 
 from treeseg import TreeSeg
-from ollama_responder import OllamaResponder
+try:
+    from .ollama_responder import OllamaResponder
+except ModuleNotFoundError as exc:
+    if exc.name == "ollama":
+        OllamaResponder = None
+    else:
+        raise
 
 
 logger = structlog.get_logger()
@@ -24,7 +30,7 @@ class LectureSegmentBuilder:
     @staticmethod
     def load_lecture_utterances(
         lecture,
-        max_gap_s=0.8,
+        max_gap_s='auto',
         lowercase=True,
         attach_ocr=True,
         ocr_min_conf=60.0,
@@ -124,6 +130,10 @@ class LectureSegmentBuilder:
         return entries
     
     def dfs(node, entries, all_nodes, embedder, depth=0):
+        if OllamaResponder is None:
+            raise RuntimeError(
+                "Summary tree features require optional dependency 'ollama'."
+            )
         if node is None:
             return ""
 
@@ -276,4 +286,3 @@ class LectureSegmentBuilder:
                 }
             )
         return segments
-
