@@ -4,6 +4,8 @@ import bisect
 import re
 
 _SLIDE_OCR_RE = re.compile(r"slide_(\d+)_ocr\.csv$", re.IGNORECASE)
+_DEFAULT_MAX_GAP_S = 0.8
+_AUTO_MAX_GAP_PERCENTILE = 97.5
 
 def parse_float(value, default=None):
     try:
@@ -16,6 +18,73 @@ def parse_int(value, default=0):
         return int(value)
     except (TypeError, ValueError):
         return default
+
+
+def _percentile(values, percentile):
+    if not values:
+        return None
+    ordered = sorted(values)
+    rank = (len(ordered) - 1) * (percentile / 100.0)
+    lo = int(rank)
+    hi = min(lo + 1, len(ordered) - 1)
+    frac = rank - lo
+    return ordered[lo] * (1.0 - frac) + ordered[hi] * frac
+
+
+def _iter_timed_words(rows):
+    for row in rows:
+        word = (row.get("Word") or "").strip()
+        if not word:
+            continue
+        try:
+            start = float(row.get("Start") or 0.0)
+        except (ValueError, TypeError):
+            start = 0.0
+        try:
+            end = float(row.get("End") or start)
+        except (ValueError, TypeError):
+            end = start
+        if end < start:
+            end = start
+        yield word, start, end
+
+
+def estimate_max_gap_s_from_rows(
+    rows,
+    default=_DEFAULT_MAX_GAP_S,
+    percentile=_AUTO_MAX_GAP_PERCENTILE,
+):
+    gaps = []
+    last_end = None
+    for _, start, end in _iter_timed_words(rows):
+        if last_end is not None:
+            gap = start - last_end
+            if gap < 0:
+                gap = 0.0
+            gaps.append(gap)
+        last_end = end
+
+    if not gaps:
+        return float(default)
+
+    inferred = _percentile(gaps, percentile)
+    if inferred is None:
+        return float(default)
+    return float(inferred)
+
+
+def resolve_max_gap_s(rows, max_gap_s, default=_DEFAULT_MAX_GAP_S):
+    if max_gap_s is None:
+        return estimate_max_gap_s_from_rows(rows, default=default)
+    if isinstance(max_gap_s, str):
+        raw = max_gap_s.strip().lower()
+        if raw == "auto":
+            return estimate_max_gap_s_from_rows(rows, default=default)
+        max_gap_s = float(raw)
+    resolved = float(max_gap_s)
+    if resolved <= 0:
+        raise ValueError(f"max_gap_s must be > 0; got {resolved}")
+    return resolved
 
 def iter_rows(csv_path):
     with open(csv_path, "r", newline="") as f:
@@ -167,19 +236,7 @@ def group_words_into_utterances(rows, max_gap_s, lowercase):
         start_time = None
         last_end = None
 
-    for row in rows:
-        wtext = (row.get("Word") or "").strip()
-        if not wtext:
-            continue
-        try:
-            w_start = float(row.get("Start") or 0.0)
-        except (ValueError, TypeError):
-            w_start = 0.0
-        try:
-            w_end = float(row.get("End") or w_start)
-        except (ValueError, TypeError):
-            w_end = w_start
-        
+    for wtext, w_start, w_end in _iter_timed_words(rows):
         if last_end is not None and (w_start - last_end) >= max_gap_s and words_buf:
             flush()
         
@@ -196,8 +253,8 @@ def extract_utterances_from_transcripts(
     speaker,
     data_dir,
     course_dir,
-    max_gap_s,
-    lowercase,
+    max_gap_s="auto",
+    lowercase=True,
     attach_ocr=False,
     ocr_min_conf=0.0,
     ocr_line_sep="\n",
@@ -218,7 +275,8 @@ def extract_utterances_from_transcripts(
 
         video_id = os.path.basename(transcripts_path).replace("_transcripts.csv", "")
         rows = list(iter_rows(transcripts_path))
-        utts = group_words_into_utterances(rows, max_gap_s, lowercase)
+        resolved_gap = resolve_max_gap_s(rows, max_gap_s=max_gap_s)
+        utts = group_words_into_utterances(rows, resolved_gap, lowercase)
 
         if attach_ocr:
             segments_path = os.path.join(meet_dir, "segments.txt")
@@ -239,6 +297,7 @@ def extract_utterances_from_transcripts(
                 "idx": i,
                 "source": "transcripts",
                 "path": transcripts_path,
+                "max_gap_s": round(resolved_gap, 3),
             })
         all_utts.extend(utts)
 
@@ -247,8 +306,8 @@ def extract_utterances_from_transcripts(
 
 def extract_utterances_from_transcript_file(
     csv_path,
-    max_gap_s,
-    lowercase,
+    max_gap_s="auto",
+    lowercase=True,
     segments_path=None,
     slides_dir=None,
     ocr_min_conf=0.0,
@@ -256,7 +315,8 @@ def extract_utterances_from_transcript_file(
     ocr_per_slide=1,
 ):
     rows = list(iter_rows(csv_path))
-    utterances = group_words_into_utterances(rows, max_gap_s, lowercase)
+    resolved_gap = resolve_max_gap_s(rows, max_gap_s=max_gap_s)
+    utterances = group_words_into_utterances(rows, resolved_gap, lowercase)
     if segments_path and slides_dir and os.path.exists(segments_path):
         attach_slide_ocr_to_utterances(
             utterances,
@@ -266,6 +326,8 @@ def extract_utterances_from_transcript_file(
             line_sep=ocr_line_sep,
             attach_ocr_per_slide=ocr_per_slide,
         )
+    for utt in utterances:
+        utt["max_gap_s"] = round(resolved_gap, 3)
     return utterances
 
 

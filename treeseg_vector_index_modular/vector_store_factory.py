@@ -17,7 +17,7 @@ class VectorStoreFactory:
         device=None,
         normalize=True,
         build_global=True,
-        max_gap_s=0.8,
+        max_gap_s="auto",
         lowercase=True,
         attach_ocr=True,
         include_ocr_in_treeseg=None,

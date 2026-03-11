@@ -35,7 +35,7 @@ def main():
     asr_results = []
     ocr_results = []
 
-    lecture = lectures[0]
+    lecture = lectures[272]
     utterances = extract_utterances_from_transcript_file(
         csv_path=lecture.transcripts_path,
         max_gap_s=MAX_GAP_S,
