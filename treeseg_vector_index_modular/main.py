@@ -18,6 +18,8 @@ from treeseg_vector_index_modular.vector_store_factory import VectorStoreFactory
 
 
 class TreeSegVectorIndexCLI:
+    SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
+
     def __init__(self, project_dir=PROJECT_DIR, store_factory=None):
         self.project_dir = project_dir
         self.store_factory = store_factory or VectorStoreFactory()
@@ -53,6 +55,12 @@ class TreeSegVectorIndexCLI:
             help="Use combined (ASR+OCR) or separate (ASR-only + OCR-only) retrieval.",
         )
         parser.add_argument(
+            "--index-kind",
+            choices=["leaf", "summary_tree"],
+            default="leaf",
+            help="Use leaf segments or a flattened summary-tree index for ASR retrieval.",
+        )
+        parser.add_argument(
             "--rerank",
             action="store_true",
             help="Rerank retrieved segments with a cross-encoder.",
@@ -74,6 +82,52 @@ class TreeSegVectorIndexCLI:
             help="Number of results to return after reranking.",
         )
         return parser.parse_args(argv)
+
+    @staticmethod
+    def _build_asr_reranker(args, index_kind):
+        if not args.rerank:
+            return None
+        input_builder = None
+        if index_kind == "summary_tree":
+            input_builder = RerankInputBuilder.build_summary_tree_rerank_input
+        return CrossEncoderReranker(
+            args.rerank_model,
+            device=DeviceResolver.resolve_device(),
+            input_builder=input_builder,
+        )
+
+    def _search_asr_store(
+        self,
+        store,
+        query,
+        lecture_key,
+        top_k,
+        top_n,
+        index_kind,
+        reranker=None,
+    ):
+        if index_kind == "summary_tree":
+            query_embedding = store.encode_query(query)
+            results = store.search_with_embedding(
+                query_embedding, top_k=top_k, lecture_key=lecture_key
+            )
+            results = store.expand_summary_tree_results(
+                query=query,
+                results=results,
+                lecture_key=lecture_key,
+                top_descendant_leaves=self.SUMMARY_TREE_TOP_DESCENDANT_LEAVES,
+                query_embedding=query_embedding,
+            )
+        else:
+            results = store.search(query, top_k=top_k, lecture_key=lecture_key)
+
+        if reranker:
+            results = reranker.rerank(query, results, top_n=top_n)
+
+        if index_kind == "summary_tree":
+            results = store.deduplicate_summary_tree_results(results)
+
+        return results
 
     def run(self, args=None):
         if args is None:
@@ -127,6 +181,7 @@ class TreeSegVectorIndexCLI:
             target_lectures = [lec for lec in lectures if lec.key == lecture_key]
 
         retrieval_mode = args.retrieval_mode
+        index_kind = args.index_kind
         if retrieval_mode == "combined":
             store = self.store_factory.build_vector_store(
                 target_lectures,
@@ -140,12 +195,9 @@ class TreeSegVectorIndexCLI:
                 ocr_min_conf=60.0,
                 ocr_per_slide=1,
                 target_segments=None,
+                index_kind=index_kind,
             )
-            reranker = None
-            if args.rerank:
-                reranker = CrossEncoderReranker(
-                    args.rerank_model, device=DeviceResolver.resolve_device()
-                )
+            reranker = self._build_asr_reranker(args, index_kind)
         else:
             asr_store = self.store_factory.build_vector_store(
                 target_lectures,
@@ -160,6 +212,7 @@ class TreeSegVectorIndexCLI:
                 ocr_min_conf=60.0,
                 ocr_per_slide=1,
                 target_segments=None,
+                index_kind=index_kind,
             )
             ocr_store = self.store_factory.build_ocr_vector_store(
                 target_lectures,
@@ -172,9 +225,7 @@ class TreeSegVectorIndexCLI:
             asr_reranker = None
             ocr_reranker = None
             if args.rerank:
-                asr_reranker = CrossEncoderReranker(
-                    args.rerank_model, device=DeviceResolver.resolve_device()
-                )
+                asr_reranker = self._build_asr_reranker(args, index_kind)
                 ocr_reranker = CrossEncoderReranker(
                     args.ocr_rerank_model,
                     device=DeviceResolver.resolve_device(),
@@ -186,23 +237,31 @@ class TreeSegVectorIndexCLI:
                 print("Empty query. Provide text for --query.")
                 return
             if retrieval_mode == "combined":
-                results = store.search(args.query, top_k=top_k, lecture_key=lecture_key)
-                if reranker:
-                    results = reranker.rerank(args.query, results, top_n=top_n)
+                results = self._search_asr_store(
+                    store,
+                    args.query,
+                    lecture_key,
+                    top_k=top_k,
+                    top_n=top_n,
+                    index_kind=index_kind,
+                    reranker=reranker,
+                )
                 ResultFormatter.print_results(results, max_chars=max_chars)
             else:
-                asr_results = asr_store.search(
-                    args.query, top_k=top_k, lecture_key=lecture_key
+                asr_results = self._search_asr_store(
+                    asr_store,
+                    args.query,
+                    lecture_key,
+                    top_k=top_k,
+                    top_n=top_n,
+                    index_kind=index_kind,
+                    reranker=asr_reranker,
                 )
                 if lecture_key not in ocr_store.lecture_indices:
                     ocr_results = []
                 else:
                     ocr_results = ocr_store.search(
                         args.query, top_k=top_k, lecture_key=lecture_key
-                    )
-                if asr_reranker:
-                    asr_results = asr_reranker.rerank(
-                        args.query, asr_results, top_n=top_n
                     )
                 if ocr_reranker:
                     ocr_results = ocr_reranker.rerank(
@@ -220,23 +279,31 @@ class TreeSegVectorIndexCLI:
             if not query or query.lower() in {"exit", "quit", "q"}:
                 break
             if retrieval_mode == "combined":
-                results = store.search(query, top_k=top_k, lecture_key=lecture_key)
-                if reranker:
-                    results = reranker.rerank(query, results, top_n=top_n)
+                results = self._search_asr_store(
+                    store,
+                    query,
+                    lecture_key,
+                    top_k=top_k,
+                    top_n=top_n,
+                    index_kind=index_kind,
+                    reranker=reranker,
+                )
                 context = ContextBuilder.build_context(results)
             else:
-                asr_results = asr_store.search(
-                    query, top_k=top_k, lecture_key=lecture_key
+                asr_results = self._search_asr_store(
+                    asr_store,
+                    query,
+                    lecture_key,
+                    top_k=top_k,
+                    top_n=top_n,
+                    index_kind=index_kind,
+                    reranker=asr_reranker,
                 )
                 if lecture_key not in ocr_store.lecture_indices:
                     ocr_results = []
                 else:
                     ocr_results = ocr_store.search(
                         query, top_k=top_k, lecture_key=lecture_key
-                    )
-                if asr_reranker:
-                    asr_results = asr_reranker.rerank(
-                        query, asr_results, top_n=top_n
                     )
                 if ocr_reranker:
                     ocr_results = ocr_reranker.rerank(

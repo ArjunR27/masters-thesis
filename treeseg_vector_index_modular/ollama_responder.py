@@ -19,8 +19,9 @@ class OllamaResponder:
     2-4 sentences."""
 
     INTERNAL_SYSTEM_PROMPT = """You are an expert at synthesising educational content.
-    You will be given two summaries (Section A and Section B) from consecutive parts
-    of a lecture.
+    You will be given two pieces of lecture content (Section A and Section B) from
+    consecutive parts of a lecture. Each section may be either a raw transcript excerpt
+    or a previously generated summary.
 
     Your job is to write a single unified summary that captures the overall topic and
     key ideas covered across both sections. Focus on:
@@ -35,9 +36,10 @@ class OllamaResponder:
     QUERY_SYSTEM_PROMPT = """You are an intelligent teaching assistant helping a student \
     understand material from a college-level lecture.
 
-    You will be given retrieved segments from the lecture, which include:
-    - Spoken context from a lecture relevant to the user query
-    - Slide text from a slide relevant to the user query
+    You will be given retrieved evidence from the lecture, which may include:
+    - High-level summary nodes that describe a larger section of the lecture
+    - Supporting leaf segments containing grounded spoken context from the lecture
+    - Slide text from slides relevant to the user query
 
     Your job is to answer the student's question using ONLY the provided context. Follow these rules:
 
@@ -50,6 +52,10 @@ class OllamaResponder:
 
     3. DEPTH: This is college-level material. Give a thorough, accurate answer that a \
     student could use to understand the concept — not just a one-liner.
+
+    3a. USE OF EVIDENCE: Use high-level summary nodes to understand the overall topic and \
+    progression of ideas. Use supporting leaf segments for concrete details, examples, \
+    timestamps, and factual grounding.
 
     4. STRUCTURE: Format your answer clearly:
     - Use bullet points for lists of facts, properties, or steps
@@ -84,7 +90,7 @@ class OllamaResponder:
         if is_leaf:
             user_content = f"Transcript excerpt:\n{text}"
         else:
-            user_content = f"Summaries to synthesise:\n{text}"
+            user_content = f"Lecture content to synthesise:\n{text}"
 
         messages = [
             {"role": "system", "content": system_prompt},

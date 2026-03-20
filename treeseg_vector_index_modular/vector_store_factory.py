@@ -24,6 +24,7 @@ class VectorStoreFactory:
         ocr_min_conf=60.0,
         ocr_per_slide=1,
         target_segments=None,
+        index_kind="leaf",
     ):
         store = LpmVectorIndex(
             model_name=embed_model,
@@ -48,13 +49,23 @@ class VectorStoreFactory:
             if not utterances:
                 self.logger.warning("No utterances found", lecture=lecture.key)
                 continue
-            segments = self.segment_builder.build_segments_for_lecture(
-                lecture,
-                utterances,
-                treeseg_config=treeseg_config,
-                target_segments=target_segments,
-                include_ocr=include_ocr_in_treeseg,
-            )
+            if index_kind == "summary_tree":
+                segments = self.segment_builder.build_summary_tree_index_records_for_lecture(
+                    lecture,
+                    utterances,
+                    treeseg_config=treeseg_config,
+                    target_segments=target_segments,
+                    include_ocr=include_ocr_in_treeseg,
+                    normalize_embeddings=normalize,
+                )
+            else:
+                segments = self.segment_builder.build_segments_for_lecture(
+                    lecture,
+                    utterances,
+                    treeseg_config=treeseg_config,
+                    target_segments=target_segments,
+                    include_ocr=include_ocr_in_treeseg,
+                )
             if not segments:
                 self.logger.warning("No segments built", lecture=lecture.key)
                 continue
