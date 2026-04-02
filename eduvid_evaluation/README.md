@@ -1,4 +1,4 @@
-# EduVidQA Preprocessing Pipeline
+# EduVidQA Preprocessing And Evaluation
 
 This directory contains the batch preprocessing pipeline for the EduVidQA dataset.
 It reads an EduVidQA CSV, deduplicates rows by YouTube `id`, downloads each unique
@@ -7,7 +7,7 @@ Successful runs delete temporary source media to save space.
 The default batch settings also use stricter scene detection, OCR-based boundary pruning,
 edge masking, and visual slide deduplication to reduce noisy lecture-camera transitions.
 
-## Main command
+## Preprocessing
 
 From the workspace root:
 
@@ -26,11 +26,44 @@ python masters-thesis/eduvid_evaluation/process_dataset.py --video-id F9-yqoS7b8
 python masters-thesis/eduvid_evaluation/process_dataset.py --limit 5 --dry-run
 ```
 
-`eduvid_evaluation.py` is a thin wrapper around the same entrypoint if you prefer:
+## Evaluation
+
+`eduvid_evaluation.py` evaluates the `real_world_test.csv` split with the existing
+ASR-only transcript bundles and compares two retrievers:
+
+- `leaf`
+- `summary_tree`
+
+It generates answers with the same Ollama-backed responder for both retrievers and
+writes:
+
+- `storage/evaluation_outputs/leaf_predictions.jsonl`
+- `storage/evaluation_outputs/summary_tree_predictions.jsonl`
+- `storage/evaluation_outputs/metrics_per_question.csv`
+- `storage/evaluation_outputs/summary.json`
+
+Main command:
 
 ```bash
 python masters-thesis/eduvid_evaluation/eduvid_evaluation.py
 ```
+
+Optional runs:
+
+```bash
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --limit 10
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --leaf
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --summary_tree
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --leaf --limit 10
+```
+
+The evaluator uses only ASR transcripts and computes:
+
+- `BLEU-1`
+- `ROUGE-L`
+- `METEOR`
+- `FactQA-Precision`
+- `FactQA-Recall`
 
 ## Storage layout
 
@@ -65,6 +98,7 @@ Global manifests:
 - `videos.csv`: one row per unique video with artifact paths and status
 - `failures.csv`: failed videos with stage and error message
 - `run_summary.json`: aggregate run counts
+- `evaluation_outputs/`: answer-generation outputs and metric summaries from `eduvid_evaluation.py`
 
 ## Behavior
 

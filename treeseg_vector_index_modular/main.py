@@ -288,6 +288,7 @@ class TreeSegVectorIndexCLI:
                     index_kind=index_kind,
                     reranker=reranker,
                 )
+                ResultFormatter.print_results(results, max_chars=max_chars)
                 context = ContextBuilder.build_context(results)
             else:
                 asr_results = self._search_asr_store(

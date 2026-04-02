@@ -76,16 +76,14 @@ class ResultFormatter:
             slide_idx = hit.get("slide_index")
             if slide_idx is None:
                 slide_idx = hit.get("segment_id")
+            start = hit.get("start")
+            end = hit.get("end")
             if "rerank_score" in hit:
-                header = (
-                    f"{rank}. {hit['rerank_score']:.3f} (rerank) | "
-                    f"{hit['lecture_key']} | slide {slide_idx}"
-                )
+                header = f"{rank}. {hit['rerank_score']:.3f} (rerank) | {hit['lecture_key']} | slide {slide_idx}"
             else:
-                header = (
-                    f"{rank}. {hit['score']:.3f} | {hit['lecture_key']} | "
-                    f"slide {slide_idx}"
-                )
+                header = f"{rank}. {hit['score']:.3f} | {hit['lecture_key']} | slide {slide_idx}"
+            if start is not None and end is not None:
+                header += f" ({start}-{end}s)"
             print(header)
             text = hit.get("text") or ""
             if text:
