@@ -28,6 +28,29 @@ logger = structlog.get_logger()
 
 class LectureSegmentBuilder:
     @staticmethod
+    def _compose_segment_text(segment_utts):
+        text = "\n".join(utt.get("composite", "") for utt in segment_utts).strip()
+        return text or "<blank>"
+
+    @staticmethod
+    def _encode_text(embedder, text, normalize_embeddings=True):
+        embedding = embedder.encode(
+            text,
+            convert_to_numpy=True,
+            normalize_embeddings=normalize_embeddings,
+        )
+        return embedding
+
+    @staticmethod
+    def _build_internal_summary_input(left_content, right_content):
+        sections = []
+        if left_content:
+            sections.append(f"Section A:\n{left_content}")
+        if right_content:
+            sections.append(f"Section B:\n{right_content}")
+        return "\n\n".join(sections).strip() or "<blank>"
+
+    @staticmethod
     def load_lecture_utterances(
         lecture,
         max_gap_s='auto',
@@ -129,7 +152,8 @@ class LectureSegmentBuilder:
             )
         return entries
     
-    def dfs(node, entries, all_nodes, embedder, depth=0):
+    @staticmethod
+    def dfs(node, entries, all_nodes, embedder, depth=0, normalize_embeddings=True):
         if OllamaResponder is None:
             raise RuntimeError(
                 "Summary tree features require optional dependency 'ollama'."
@@ -142,44 +166,55 @@ class LectureSegmentBuilder:
         segment_utts = [entries[i] for i in node.segment]
         node.start = segment_utts[0].get("start")
         node.end = segment_utts[-1].get("end")
+        node.utterance_start = node.segment[0]
+        node.utterance_end = node.segment[-1]
+        node.n_utterances = len(node.segment)
+        node.raw_text = LectureSegmentBuilder._compose_segment_text(segment_utts)
 
         if node.left is None and node.right is None:
             node.is_leaf = True
 
-            raw_text = "\n".join(
-                utt.get("composite", "") for utt in segment_utts
-            ).strip() or "<blank>"
-
             logger.info(
-                "Summarising leaf node",
+                "Processing leaf node",
                 identifier=node.identifier,
                 depth=depth,
                 n_utterances=len(node.segment)
             )
 
-            node.summary = OllamaResponder.generate_summary(raw_text)
+            node.summary = None
+            node.embedding = LectureSegmentBuilder._encode_text(
+                embedder,
+                node.raw_text,
+                normalize_embeddings=normalize_embeddings,
+            )
+            node.descendant_leaf_tree_paths = [node.identifier]
             all_nodes.append(node)
-            return node.summary
+            return node.raw_text
         
         else:
             node.is_leaf = False
 
-            left_summary = LectureSegmentBuilder.dfs(
-                node.left, entries, all_nodes, embedder, depth + 1
+            left_content = LectureSegmentBuilder.dfs(
+                node.left,
+                entries,
+                all_nodes,
+                embedder,
+                depth + 1,
+                normalize_embeddings=normalize_embeddings,
             )
 
-            right_summary = LectureSegmentBuilder.dfs(
-                node.right, entries, all_nodes, embedder, depth + 1
+            right_content = LectureSegmentBuilder.dfs(
+                node.right,
+                entries,
+                all_nodes,
+                embedder,
+                depth + 1,
+                normalize_embeddings=normalize_embeddings,
             )
 
-            child_summaries = []
-
-            if left_summary:
-                child_summaries.append(f"Left child summary: \n {left_summary}")
-            if right_summary:
-                child_summaries.append(f"Right child summary: \n {right_summary}")
-            
-            combined = "\n\n".join(child_summaries).strip() or "<blank>"
+            combined = LectureSegmentBuilder._build_internal_summary_input(
+                left_content, right_content
+            )
 
             logger.info(
                 "Summarising internal node",
@@ -190,12 +225,15 @@ class LectureSegmentBuilder:
 
             node.summary = OllamaResponder.generate_summary(combined, is_leaf=False)
 
-            # Embed the summary for flattneed vector search
-            node.embedding = embedder.encode(
+            node.embedding = LectureSegmentBuilder._encode_text(
+                embedder,
                 node.summary,
-                convert_to_numpy=True,
-                normalize_embeddings=True
+                normalize_embeddings=normalize_embeddings,
             )
+            node.descendant_leaf_tree_paths = []
+            for child in (node.left, node.right):
+                child_leaf_paths = getattr(child, "descendant_leaf_tree_paths", [])
+                node.descendant_leaf_tree_paths.extend(child_leaf_paths)
 
             all_nodes.append(node)
 
@@ -209,6 +247,7 @@ class LectureSegmentBuilder:
         treeseg_config,
         target_segments=None,
         include_ocr=False,
+        normalize_embeddings=True,
     ):
         entries = LectureSegmentBuilder.build_treeseg_entries(
             utterances, include_ocr=include_ocr
@@ -226,7 +265,14 @@ class LectureSegmentBuilder:
         embedder = model.embedder
 
         all_nodes = []
-        LectureSegmentBuilder.dfs(root, entries, all_nodes, embedder, depth=0)
+        LectureSegmentBuilder.dfs(
+            root,
+            entries,
+            all_nodes,
+            embedder,
+            depth=0,
+            normalize_embeddings=normalize_embeddings,
+        )
 
         logger.info(
             "Summary tree built",
@@ -237,6 +283,65 @@ class LectureSegmentBuilder:
 
         return root, all_nodes
 
+    @staticmethod
+    def build_summary_tree_index_records_for_lecture(
+        lecture,
+        utterances,
+        treeseg_config,
+        target_segments=None,
+        include_ocr=True,
+        normalize_embeddings=True,
+    ):
+        _, all_nodes = LectureSegmentBuilder.build_summary_tree_for_lecture(
+            lecture=lecture,
+            utterances=utterances,
+            treeseg_config=treeseg_config,
+            target_segments=target_segments,
+            include_ocr=include_ocr,
+            normalize_embeddings=normalize_embeddings,
+        )
+        if not all_nodes:
+            return []
+
+        leaf_segment_ids = {}
+        next_segment_id = 1
+        for node in all_nodes:
+            if not getattr(node, "is_leaf", False):
+                continue
+            leaf_segment_ids[node.identifier] = next_segment_id
+            next_segment_id += 1
+
+        records = []
+        for node in all_nodes:
+            node_id = getattr(node, "identifier", None)
+            is_leaf = bool(getattr(node, "is_leaf", False))
+            record = {
+                "index_kind": "summary_tree",
+                "node_id": node_id,
+                "tree_path": node_id,
+                "segment_id": leaf_segment_ids.get(node_id) if is_leaf else None,
+                "is_leaf": is_leaf,
+                "depth": getattr(node, "depth", None),
+                "utterance_start": getattr(node, "utterance_start", None),
+                "utterance_end": getattr(node, "utterance_end", None),
+                "n_utterances": getattr(node, "n_utterances", 0),
+                "start": getattr(node, "start", None),
+                "end": getattr(node, "end", None),
+                "text": getattr(node, "raw_text", None) if is_leaf else getattr(node, "summary", None),
+                "summary_text": getattr(node, "summary", None),
+                "raw_text": getattr(node, "raw_text", None),
+                "descendant_leaf_tree_paths": list(
+                    getattr(node, "descendant_leaf_tree_paths", [node_id] if is_leaf else [])
+                ),
+                "lecture_key": lecture.key,
+                "speaker": lecture.speaker,
+                "course_dir": lecture.course_dir,
+                "meeting_id": lecture.meeting_id,
+                "video_id": lecture.video_id,
+                "embedding": getattr(node, "embedding", None),
+            }
+            records.append(record)
+        return records
 
     @staticmethod
     def build_segments_for_lecture(
@@ -269,9 +374,12 @@ class LectureSegmentBuilder:
 
             segments.append(
                 {
+                    "index_kind": "leaf",
+                    "node_id": leaf.identifier,
                     "segment_id": seg_idx,
                     "tree_path": leaf.identifier,
                     "is_leaf": True,
+                    "depth": None,
                     "utterance_start": indices[0],
                     "utterance_end": indices[-1],
                     "n_utterances": len(indices),

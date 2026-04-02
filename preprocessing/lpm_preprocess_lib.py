@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import csv
+import math
+import os
 import re
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, Sequence
@@ -18,7 +21,7 @@ from pytesseract import Output as TesseractOutput
 from scenedetect import SceneManager, open_video
 from scenedetect.detectors import ContentDetector
 
-device = "cpu"
+_WHISPER_MODEL_CACHE: dict[tuple[str, str], object] = {}
 
 
 TRANSCRIPT_COLUMNS = ["Word", "Start", "End"]
@@ -37,9 +40,71 @@ OCR_REQUIRED_COLUMNS = [
     "text",
 ]
 
+VIDEO_EXTENSIONS = {".mp4", ".mkv", ".webm", ".mov"}
+AUDIO_EXTENSIONS = {".m4a", ".mp3", ".wav", ".webm", ".opus", ".aac", ".flac", ".ogg"}
 SLIDE_IMAGE_RE = re.compile(r"^slide_(\d+)\.jpg$", re.IGNORECASE)
 SLIDE_OCR_RE = re.compile(r"^slide_(\d+)_ocr\.csv$", re.IGNORECASE)
 _TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
+
+DEFAULT_SCENE_THRESHOLD = 25.0
+DEFAULT_MIN_SCENE_LEN = 3.0
+DEFAULT_TEXT_SIM_THRESHOLD = 0.85
+DEFAULT_OCR_MASK_TOP_RATIO = 0.03
+DEFAULT_OCR_MASK_BOTTOM_RATIO = 0.18
+DEFAULT_OCR_MASK_LEFT_RATIO = 0.04
+DEFAULT_OCR_MASK_RIGHT_RATIO = 0.04
+DEFAULT_SLIDE_DEDUPE_HAMMING_DISTANCE = 6
+
+
+def resolve_command_path(command_name: str, env_var: str | None = None) -> str:
+    if env_var:
+        explicit = os.environ.get(env_var, "").strip()
+        if explicit:
+            return str(Path(explicit).expanduser().resolve())
+
+    script_dir_name = "Scripts" if os.name == "nt" else "bin"
+    venv_sibling = Path(sys.prefix) / script_dir_name / command_name
+    if venv_sibling.exists():
+        return str(venv_sibling)
+
+    python_bin = Path(sys.executable).parent
+    sibling = python_bin / command_name
+    if sibling.exists():
+        return str(sibling)
+
+    resolved = shutil.which(command_name)
+    if resolved:
+        return resolved
+    return command_name
+
+
+def yt_dlp_auth_args() -> list[str]:
+    cookies_file = os.environ.get("YT_DLP_COOKIES_FILE", "").strip()
+    if cookies_file:
+        return ["--cookies", str(Path(cookies_file).expanduser().resolve())]
+
+    cookies_from_browser = os.environ.get("YT_DLP_COOKIES_FROM_BROWSER", "").strip()
+    if cookies_from_browser:
+        return ["--cookies-from-browser", cookies_from_browser]
+
+    return []
+
+
+def yt_dlp_runtime_args() -> list[str]:
+    args: list[str] = []
+
+    js_runtimes = os.environ.get("YT_DLP_JS_RUNTIMES", "").strip()
+    if js_runtimes:
+        args.extend(["--js-runtimes", js_runtimes])
+
+    remote_components = os.environ.get("YT_DLP_REMOTE_COMPONENTS", "").strip()
+    if remote_components:
+        for component in remote_components.split(","):
+            value = component.strip()
+            if value:
+                args.extend(["--remote-components", value])
+
+    return args
 
 
 def _run(
@@ -63,7 +128,11 @@ def _run(
 
 
 def require_commands(commands: Iterable[str], *, dry_run: bool = False) -> None:
-    missing = [name for name in commands if shutil.which(name) is None]
+    missing: list[str] = []
+    for name in commands:
+        resolved = resolve_command_path(name, env_var="YT_DLP_BIN" if name == "yt-dlp" else None)
+        if shutil.which(resolved) is None and not Path(resolved).exists():
+            missing.append(name)
     if missing and not dry_run:
         joined = ", ".join(sorted(missing))
         raise RuntimeError(
@@ -94,8 +163,11 @@ def ensure_meeting_dir(
 def fetch_video_id(youtube_url: str, *, dry_run: bool = False) -> str:
     if dry_run:
         return "dryrun_video_id"
+    auth_args = yt_dlp_auth_args()
+    runtime_args = yt_dlp_runtime_args()
+    yt_dlp_bin = resolve_command_path("yt-dlp", env_var="YT_DLP_BIN")
     proc = _run(
-        ["yt-dlp", "--no-playlist", "--get-id", youtube_url],
+        [yt_dlp_bin, "--no-playlist", *auth_args, *runtime_args, "--get-id", youtube_url],
         dry_run=False,
         capture_output=True,
     )
@@ -115,10 +187,15 @@ def download_video(
 ) -> tuple[str, Path]:
     resolved_video_id = video_id or fetch_video_id(youtube_url, dry_run=dry_run)
     output_template = str(meeting_dir / f"{resolved_video_id}.%(ext)s")
+    auth_args = yt_dlp_auth_args()
+    runtime_args = yt_dlp_runtime_args()
+    yt_dlp_bin = resolve_command_path("yt-dlp", env_var="YT_DLP_BIN")
     _run(
         [
-            "yt-dlp",
+            yt_dlp_bin,
             "--no-playlist",
+            *auth_args,
+            *runtime_args,
             "-f",
             "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
             "--merge-output-format",
@@ -129,24 +206,80 @@ def download_video(
         ],
         dry_run=dry_run,
     )
+    existing_path = find_local_video_file(meeting_dir, resolved_video_id)
     expected_path = meeting_dir / f"{resolved_video_id}.mp4"
     if dry_run:
         return resolved_video_id, expected_path
 
-    if expected_path.exists():
+    if existing_path is not None:
+        return resolved_video_id, existing_path
+
+    raise RuntimeError(
+        "yt-dlp completed but no local video file was found for "
+        f"{resolved_video_id}."
+    )
+
+
+def download_audio(
+    youtube_url: str,
+    meeting_dir: Path,
+    *,
+    video_id: str | None = None,
+    dry_run: bool = False,
+) -> tuple[str, Path]:
+    resolved_video_id = video_id or fetch_video_id(youtube_url, dry_run=dry_run)
+    output_template = str(meeting_dir / f"{resolved_video_id}.%(ext)s")
+    auth_args = yt_dlp_auth_args()
+    runtime_args = yt_dlp_runtime_args()
+    yt_dlp_bin = resolve_command_path("yt-dlp", env_var="YT_DLP_BIN")
+    _run(
+        [
+            yt_dlp_bin,
+            "--no-playlist",
+            *auth_args,
+            *runtime_args,
+            "-f",
+            "bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best",
+            "-o",
+            output_template,
+            youtube_url,
+        ],
+        dry_run=dry_run,
+    )
+    existing_path = find_local_audio_file(meeting_dir, resolved_video_id)
+    expected_path = meeting_dir / f"{resolved_video_id}.m4a"
+    if dry_run:
         return resolved_video_id, expected_path
 
+    if existing_path is not None:
+        return resolved_video_id, existing_path
+
+    raise RuntimeError(
+        "yt-dlp completed but no local audio file was found for "
+        f"{resolved_video_id}."
+    )
+
+
+def find_local_video_file(meeting_dir: Path, video_id: str) -> Path | None:
+    expected_path = meeting_dir / f"{video_id}.mp4"
+    if expected_path.exists():
+        return expected_path
+
     candidates = sorted(
-        p
-        for p in meeting_dir.glob(f"{resolved_video_id}.*")
-        if p.suffix.lower() in {".mp4", ".mkv", ".webm", ".mov"}
+        p for p in meeting_dir.glob(f"{video_id}.*") if p.suffix.lower() in VIDEO_EXTENSIONS
     )
     if not candidates:
-        raise RuntimeError(
-            "yt-dlp completed but no local video file was found for "
-            f"{resolved_video_id}."
-        )
-    return resolved_video_id, candidates[0]
+        return None
+    return candidates[0]
+
+
+def find_local_audio_file(meeting_dir: Path, video_id: str) -> Path | None:
+    candidates = sorted(
+        p for p in meeting_dir.glob(f"{video_id}.*") if p.suffix.lower() in AUDIO_EXTENSIONS
+    )
+    if not candidates:
+        return None
+    return candidates[0]
 
 
 def extract_audio_to_wav(
@@ -173,6 +306,37 @@ def extract_audio_to_wav(
     return audio_path
 
 
+def resolve_whisper_device() -> str:
+    requested = os.environ.get("WHISPER_DEVICE", "").strip().lower()
+    if requested == "cuda":
+        if torch.cuda.is_available():
+            return "cuda"
+        print("WHISPER_DEVICE=cuda requested but CUDA is unavailable; falling back to cpu.")
+        return "cpu"
+    if requested == "mps":
+        mps_backend = getattr(torch.backends, "mps", None)
+        if mps_backend is not None and mps_backend.is_available():
+            return "mps"
+        print("WHISPER_DEVICE=mps requested but MPS is unavailable; falling back to cpu.")
+        return "cpu"
+    if requested == "cpu":
+        return "cpu"
+    return "cpu"
+
+
+def load_whisper_model(model_name: str) -> tuple[object, str]:
+    device = resolve_whisper_device()
+    cache_key = (model_name, device)
+    cached_model = _WHISPER_MODEL_CACHE.get(cache_key)
+    if cached_model is not None:
+        return cached_model, device
+
+    print(f"Loading Whisper model '{model_name}' on device '{device}'...")
+    model = whisper.load_model(model_name, device=device)
+    _WHISPER_MODEL_CACHE[cache_key] = model
+    return model, device
+
+
 def transcribe_with_whisper(
     audio_path: Path,
     transcript_csv_path: Path,
@@ -188,13 +352,19 @@ def transcribe_with_whisper(
         )
         return 0
 
-    model = whisper.load_model(model_name, device=device)
+    model, device = load_whisper_model(model_name)
+    transcribe_kwargs = {
+        "language": language,
+        "word_timestamps": True,
+        "task": "transcribe",
+        "verbose": False,
+    }
+    if device == "cpu":
+        transcribe_kwargs["fp16"] = False
+
     result = model.transcribe(
         str(audio_path),
-        language=language,
-        word_timestamps=True,
-        task="transcribe",
-        verbose=False,
+        **transcribe_kwargs,
     )
 
     rows: list[dict[str, float | str]] = []
@@ -238,8 +408,8 @@ def get_video_duration_seconds(video_path: Path) -> float:
 def detect_scene_end_times(
     video_path: Path,
     *,
-    threshold: float = 2.0,
-    min_scene_len: float = 1.0,
+    threshold: float = DEFAULT_SCENE_THRESHOLD,
+    min_scene_len: float = DEFAULT_MIN_SCENE_LEN,
     dry_run: bool = False,
 ) -> list[float]:
     if dry_run:
@@ -272,14 +442,150 @@ def detect_scene_end_times(
     return normalize_end_times(end_times)
 
 
+def mask_frame_for_slide_content(
+    frame,
+    *,
+    top_ratio: float = DEFAULT_OCR_MASK_TOP_RATIO,
+    bottom_ratio: float = DEFAULT_OCR_MASK_BOTTOM_RATIO,
+    left_ratio: float = DEFAULT_OCR_MASK_LEFT_RATIO,
+    right_ratio: float = DEFAULT_OCR_MASK_RIGHT_RATIO,
+):
+    if frame is None:
+        return None
+
+    masked = frame.copy()
+    height, width = masked.shape[:2]
+    if height <= 0 or width <= 0:
+        return masked
+
+    top_px = max(0, min(height, int(math.floor(height * max(0.0, top_ratio)))))
+    bottom_px = max(0, min(height, int(math.floor(height * max(0.0, bottom_ratio)))))
+    left_px = max(0, min(width, int(math.floor(width * max(0.0, left_ratio)))))
+    right_px = max(0, min(width, int(math.floor(width * max(0.0, right_ratio)))))
+
+    if top_px > 0:
+        masked[:top_px, :] = 255
+    if bottom_px > 0:
+        masked[height - bottom_px :, :] = 255
+    if left_px > 0:
+        masked[:, :left_px] = 255
+    if right_px > 0:
+        masked[:, width - right_px :] = 255
+    return masked
+
+
+def _frame_difference_hash(frame) -> tuple[int, ...]:
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    resized = cv2.resize(gray, (9, 8), interpolation=cv2.INTER_AREA)
+    diff = resized[:, 1:] > resized[:, :-1]
+    return tuple(int(value) for value in diff.flatten())
+
+
+def _hash_hamming_distance(left: tuple[int, ...], right: tuple[int, ...]) -> int:
+    return sum(1 for lval, rval in zip(left, right) if lval != rval)
+
+
+def dedupe_slide_images(
+    slide_image_paths: Sequence[Path],
+    end_times: Sequence[float],
+    *,
+    hamming_distance_threshold: int = DEFAULT_SLIDE_DEDUPE_HAMMING_DISTANCE,
+    mask_top_ratio: float = DEFAULT_OCR_MASK_TOP_RATIO,
+    mask_bottom_ratio: float = DEFAULT_OCR_MASK_BOTTOM_RATIO,
+    mask_left_ratio: float = DEFAULT_OCR_MASK_LEFT_RATIO,
+    mask_right_ratio: float = DEFAULT_OCR_MASK_RIGHT_RATIO,
+    dry_run: bool = False,
+) -> tuple[list[Path], list[float]]:
+    if len(slide_image_paths) != len(end_times):
+        raise RuntimeError(
+            "Slide image count must match end time count for visual dedupe: "
+            f"{len(slide_image_paths)} vs {len(end_times)}"
+        )
+
+    cleaned_end_times = normalize_end_times(end_times)
+    if dry_run or len(slide_image_paths) <= 1:
+        return list(slide_image_paths), cleaned_end_times
+
+    slide_hashes: list[tuple[int, ...]] = []
+    for image_path in slide_image_paths:
+        image = cv2.imread(str(image_path))
+        if image is None:
+            raise RuntimeError(f"Failed to read slide image for dedupe: {image_path}")
+        masked = mask_frame_for_slide_content(
+            image,
+            top_ratio=mask_top_ratio,
+            bottom_ratio=mask_bottom_ratio,
+            left_ratio=mask_left_ratio,
+            right_ratio=mask_right_ratio,
+        )
+        slide_hashes.append(_frame_difference_hash(masked))
+
+    kept_paths = [slide_image_paths[0]]
+    kept_end_times = [float(cleaned_end_times[0])]
+    duplicate_paths: list[Path] = []
+    last_hash = slide_hashes[0]
+
+    for image_path, end_time, image_hash in zip(
+        slide_image_paths[1:],
+        cleaned_end_times[1:],
+        slide_hashes[1:],
+    ):
+        distance = _hash_hamming_distance(last_hash, image_hash)
+        if distance <= hamming_distance_threshold:
+            kept_end_times[-1] = float(end_time)
+            duplicate_paths.append(image_path)
+            continue
+        kept_paths.append(image_path)
+        kept_end_times.append(float(end_time))
+        last_hash = image_hash
+
+    if not duplicate_paths:
+        return list(slide_image_paths), normalize_end_times(kept_end_times)
+
+    for duplicate_path in duplicate_paths:
+        if duplicate_path.exists():
+            duplicate_path.unlink()
+
+    temp_paths: list[Path] = []
+    for idx, kept_path in enumerate(kept_paths):
+        temp_path = kept_path.parent / f".slide_tmp_{idx:03d}.jpg"
+        if temp_path.exists():
+            temp_path.unlink()
+        kept_path.rename(temp_path)
+        temp_paths.append(temp_path)
+
+    final_paths: list[Path] = []
+    for idx, temp_path in enumerate(temp_paths):
+        final_path = temp_path.parent / f"slide_{idx:03d}.jpg"
+        if final_path.exists():
+            final_path.unlink()
+        temp_path.rename(final_path)
+        final_paths.append(final_path)
+
+    print(f"Visual dedupe: {len(slide_image_paths)} -> {len(final_paths)} slides")
+    return final_paths, normalize_end_times(kept_end_times)
+
+
 def _ocr_tokens_from_frame(
     frame,
     *,
     min_conf: float = 60.0,
     min_token_len: int = 2,
+    mask_top_ratio: float = DEFAULT_OCR_MASK_TOP_RATIO,
+    mask_bottom_ratio: float = DEFAULT_OCR_MASK_BOTTOM_RATIO,
+    mask_left_ratio: float = DEFAULT_OCR_MASK_LEFT_RATIO,
+    mask_right_ratio: float = DEFAULT_OCR_MASK_RIGHT_RATIO,
 ) -> set[str]:
     if frame is None:
         return set()
+
+    frame = mask_frame_for_slide_content(
+        frame,
+        top_ratio=mask_top_ratio,
+        bottom_ratio=mask_bottom_ratio,
+        left_ratio=mask_left_ratio,
+        right_ratio=mask_right_ratio,
+    )
 
     # Light preprocessing improves OCR robustness on low-contrast slides.
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -331,11 +637,15 @@ def filter_end_times_by_ocr_text_change(
     video_path: Path,
     end_times: Sequence[float],
     *,
-    similarity_threshold: float = 0.80,
+    similarity_threshold: float = DEFAULT_TEXT_SIM_THRESHOLD,
     ocr_min_conf: float = 60.0,
     ocr_min_token_len: int = 2,
     ocr_min_tokens: int = 6,
     max_same_text_span: float = 900.0,
+    mask_top_ratio: float = DEFAULT_OCR_MASK_TOP_RATIO,
+    mask_bottom_ratio: float = DEFAULT_OCR_MASK_BOTTOM_RATIO,
+    mask_left_ratio: float = DEFAULT_OCR_MASK_LEFT_RATIO,
+    mask_right_ratio: float = DEFAULT_OCR_MASK_RIGHT_RATIO,
     dry_run: bool = False,
 ) -> list[float]:
     """
@@ -384,6 +694,10 @@ def filter_end_times_by_ocr_text_change(
             frame if ok else None,
             min_conf=ocr_min_conf,
             min_token_len=ocr_min_token_len,
+            mask_top_ratio=mask_top_ratio,
+            mask_bottom_ratio=mask_bottom_ratio,
+            mask_left_ratio=mask_left_ratio,
+            mask_right_ratio=mask_right_ratio,
         )
 
         if idx == 0:
@@ -510,7 +824,15 @@ def extract_slide_images(
     return image_paths
 
 
-def run_ocr_on_slides(slide_image_paths: Sequence[Path], *, dry_run: bool = False) -> list[Path]:
+def run_ocr_on_slides(
+    slide_image_paths: Sequence[Path],
+    *,
+    mask_top_ratio: float = DEFAULT_OCR_MASK_TOP_RATIO,
+    mask_bottom_ratio: float = DEFAULT_OCR_MASK_BOTTOM_RATIO,
+    mask_left_ratio: float = DEFAULT_OCR_MASK_LEFT_RATIO,
+    mask_right_ratio: float = DEFAULT_OCR_MASK_RIGHT_RATIO,
+    dry_run: bool = False,
+) -> list[Path]:
     ocr_csv_paths: list[Path] = []
     for image_path in slide_image_paths:
         match = SLIDE_IMAGE_RE.match(image_path.name)
@@ -527,7 +849,14 @@ def run_ocr_on_slides(slide_image_paths: Sequence[Path], *, dry_run: bool = Fals
         image = cv2.imread(str(image_path))
         if image is None:
             raise RuntimeError(f"Failed to read slide image for OCR: {image_path}")
-        df = pytesseract.image_to_data(image, output_type=TesseractOutput.DATAFRAME)
+        prepared_image = mask_frame_for_slide_content(
+            image,
+            top_ratio=mask_top_ratio,
+            bottom_ratio=mask_bottom_ratio,
+            left_ratio=mask_left_ratio,
+            right_ratio=mask_right_ratio,
+        )
+        df = pytesseract.image_to_data(prepared_image, output_type=TesseractOutput.DATAFRAME)
         if df is None:
             df = pd.DataFrame(columns=OCR_REQUIRED_COLUMNS)
 

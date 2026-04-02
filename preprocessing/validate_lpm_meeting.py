@@ -13,7 +13,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--meeting-dir",
         required=True,
-        help="Path to one meeting directory under lpm_data/<speaker>/<course>/<meeting>.",
+        help="Path to one meeting directory under <data_root>/<speaker>/<course>/<meeting>.",
     )
     parser.add_argument(
         "--min-slides",

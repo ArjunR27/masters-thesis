@@ -1,3 +1,9 @@
+from treeseg import TreeSeg
+from utterances import extract_utterances_from_transcript_file, extract_utterances_from_transcripts
+import torch
+from sentence_transformers import SentenceTransformer
+import numpy as np
+import faiss
 import sys
 from pathlib import Path
 import importlib.util
@@ -22,13 +28,6 @@ spec.loader.exec_module(configs_module)
 treeseg_configs = configs_module.treeseg_configs
 
 logger = structlog.get_logger(__name__)
-
-from treeseg import TreeSeg
-from utterances import extract_utterances_from_transcript_file, extract_utterances_from_transcripts
-import torch
-from sentence_transformers import SentenceTransformer
-import numpy as np
-import faiss
 
 
 def build_lpm_config(min_segment_size, lambda_balance, context_width):

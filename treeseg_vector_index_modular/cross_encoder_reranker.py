@@ -17,9 +17,7 @@ class CrossEncoderReranker:
             return []
         pairs = []
         for hit in results:
-            rerank_text = self.input_builder(
-                hit.get("text", ""), slide_token=slide_token
-            )
+            rerank_text = self.input_builder(hit, slide_token=slide_token)
             pairs.append((query, rerank_text))
         scores = self.model.predict(pairs)
         rescored = []

@@ -77,7 +77,10 @@ def print_node(node, max_summary_chars=None):
 
     depth = _node_depth(node)
     depth_indent = " " * depth
-    summary = _format_summary(getattr(node, "summary", None), max_summary_chars=max_summary_chars)
+    is_leaf = bool(getattr(node, "is_leaf", False))
+    content_label = "text" if is_leaf else "summary"
+    content = getattr(node, "raw_text", None) if is_leaf else getattr(node, "summary", None)
+    formatted_content = _format_summary(content, max_summary_chars=max_summary_chars)
     start = _format_seconds(getattr(node, "start", None))
     end = _format_seconds(getattr(node, "end", None))
     segment = getattr(node, "segment", []) or []
@@ -89,7 +92,7 @@ def print_node(node, max_summary_chars=None):
         f"utterances={len(segment)}"
     )
     print(f"{depth_indent}         embedding={'yes' if embedding is not None else 'MISSING'}")
-    print(f"{depth_indent}         summary: {summary}")
+    print(f"{depth_indent}         {content_label}: {formatted_content}")
     print()
 
 
@@ -101,7 +104,7 @@ def print_tree_stats(all_nodes):
     missing_depth = [n for n in all_nodes if getattr(n, "depth", None) is None]
     missing_summary = [
         n
-        for n in all_nodes
+        for n in internals
         if not str(getattr(n, "summary", "")).strip()
         or str(getattr(n, "summary", "")).strip() == "<blank>"
     ]
@@ -214,9 +217,14 @@ def main():
 
     # ── Root summary ──────────────────────────────────────────────────────────
     print_separator("=")
-    print("ROOT NODE SUMMARY (full):")
+    if getattr(root, "is_leaf", False):
+        print("ROOT NODE TEXT (full):")
+        root_content = getattr(root, "raw_text", None)
+    else:
+        print("ROOT NODE SUMMARY (full):")
+        root_content = getattr(root, "summary", None)
     print_separator()
-    print(_format_summary(getattr(root, "summary", None), max_summary_chars=None))
+    print(_format_summary(root_content, max_summary_chars=None))
     print_separator("=")
 
 
