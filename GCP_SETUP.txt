@@ -1,0 +1,163 @@
+GCP A100 Setup Instructions
+============================
+Machine: a2-highgpu-1g (12 vCPUs, 85 GB RAM, NVIDIA A100 40 GB)
+OS: Ubuntu 20.04 / 22.04 (standard GCP Deep Learning VM image recommended)
+
+
+STEP 1: Verify NVIDIA drivers and CUDA
+---------------------------------------
+Run:
+    nvidia-smi
+    nvcc --version
+
+You should see the A100 listed and a CUDA version (12.x recommended).
+
+If nvcc is missing, install the CUDA toolkit:
+    sudo apt update
+    sudo apt install -y cuda-toolkit-12-4
+
+Note your CUDA version — you will need it in Step 4 (e.g. cu124 for CUDA 12.4).
+
+
+STEP 2: Install system dependencies
+-------------------------------------
+These replace the macOS `brew install` commands from CLAUDE.md:
+
+    sudo apt update && sudo apt install -y \
+        ffmpeg \
+        tesseract-ocr \
+        python3.11 \
+        python3.11-venv \
+        python3-pip \
+        git
+
+Install yt-dlp:
+    sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+        -o /usr/local/bin/yt-dlp
+    sudo chmod a+rx /usr/local/bin/yt-dlp
+
+Verify:
+    ffmpeg -version
+    tesseract --version
+    yt-dlp --version
+
+
+STEP 3: Install Ollama with GPU support
+-----------------------------------------
+The official Linux installer auto-detects NVIDIA drivers and enables GPU offload:
+
+    curl -fsSL https://ollama.com/install.sh | sh
+
+Start the Ollama service:
+    ollama serve &
+
+Pull the model used by the system:
+    ollama pull llama3.2
+
+Verify GPU is being used:
+    ollama run llama3.2 "hello"
+    # In another terminal: nvidia-smi  (should show GPU memory usage)
+
+
+STEP 4: Clone the repo
+------------------------
+    git clone <your-repo-url>
+    cd masters-thesis
+
+
+STEP 5: Set up the retrieval + evaluation venv
+------------------------------------------------
+PyTorch must be installed with CUDA wheels BEFORE the rest of the requirements.
+Replace cu124 below with your actual CUDA version (cu121, cu124, etc.):
+
+    python3.11 -m venv .venv
+    source .venv/bin/activate
+    pip install --upgrade pip
+
+    pip install torch torchvision \
+        --index-url https://download.pytorch.org/whl/cu124
+
+    pip install -r requirements/lpm_requirements.txt
+
+Verify GPU is visible to PyTorch:
+    python3 -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
+    # Expected: True  /  NVIDIA A100-SXM4-40GB (or similar)
+
+
+STEP 6: Set up the preprocessing venv
+----------------------------------------
+    python3.11 -m venv .venv_lpm_preproc
+    source .venv_lpm_preproc/bin/activate
+    pip install --upgrade pip
+
+    pip install torch \
+        --index-url https://download.pytorch.org/whl/cu124
+
+    pip install -r preprocessing/requirements_preprocessing.txt
+
+To use the GPU for Whisper transcription, set the env var before running:
+    export WHISPER_DEVICE=cuda
+
+
+STEP 7: Transfer your lpm_data
+---------------------------------
+Copy your local lpm_data directory to the GCP VM using gcloud or scp:
+
+    # From your local machine:
+    gcloud compute scp --recurse ./lpm_data <instance-name>:~/masters-thesis/lpm_data \
+        --zone <your-zone>
+
+    # Or with rsync over SSH:
+    rsync -avz ./lpm_data <user>@<external-ip>:~/masters-thesis/lpm_data
+
+
+STEP 8: Run the system
+------------------------
+All CLI commands from CLAUDE.md work identically on GCP.
+
+Activate the correct venv first:
+
+    # Retrieval:
+    source .venv/bin/activate
+    python -m treeseg_vector_index_modular.main --list-lectures
+    python -m treeseg_vector_index_modular.main \
+        --lecture "ml-1/MultimodalMachineLearning/1" \
+        --query "What is self-attention?" \
+        --index-kind summary_tree --rerank
+
+    # Preprocessing:
+    source .venv_lpm_preproc/bin/activate
+    export WHISPER_DEVICE=cuda
+    python preprocessing/youtube_to_lpm.py \
+        --youtube-url "https://www.youtube.com/watch?v=VIDEO_ID" \
+        --speaker ml-1 --course-dir MultimodalMachineLearning --meeting-id 99
+
+    # Evaluation:
+    source .venv/bin/activate
+    python eduvid_evaluation/eduvid_evaluation.py
+
+
+SUMMARY OF CHANGES MADE TO THE CODEBASE
+-----------------------------------------
+1. treeseg_lpm.py  — Fixed build_lpm_config() to check CUDA before MPS.
+                     (Previously it skipped CUDA entirely and fell back to CPU on Linux.)
+
+2. requirements/lpm_requirements.txt
+   - faiss-cpu  →  faiss-gpu   (uses cuBLAS on A100)
+   - torch / torchvision removed from file (must be installed from the
+     PyTorch CUDA wheel index as shown in Step 5 above)
+
+
+TROUBLESHOOTING
+----------------
+- "CUDA out of memory": reduce batch sizes or use a smaller Whisper model
+  (--whisper-model base instead of turbo).
+
+- faiss-gpu install fails: check that your CUDA version matches the wheel.
+  Try: pip install faiss-gpu-cu12  (explicit CUDA 12 variant)
+
+- Ollama not using GPU: run `ollama ps` to check. Restart with:
+  sudo systemctl restart ollama
+
+- nvidia-smi shows GPU but torch.cuda.is_available() is False: the PyTorch
+  wheel was installed without CUDA. Re-run Step 5 using the --index-url flag.

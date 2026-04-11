@@ -36,7 +36,13 @@ def build_lpm_config(min_segment_size, lambda_balance, context_width):
     config['LAMBDA_BALANCE'] = lambda_balance
     config['UTTERANCE_EXPANSION_WIDTH'] = context_width
     config['HF_EMBEDDING_MODEL'] = "sentence-transformers/all-MiniLM-L6-v2"
-    config['HF_DEVICE'] = HF_DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
+    if torch.cuda.is_available():
+        HF_DEVICE = "cuda"
+    elif torch.backends.mps.is_available():
+        HF_DEVICE = "mps"
+    else:
+        HF_DEVICE = "cpu"
+    config['HF_DEVICE'] = HF_DEVICE
     config['HF_BATCH_SIZE'] = 32
     config['HF_NORMALIZE'] = True
     return config
