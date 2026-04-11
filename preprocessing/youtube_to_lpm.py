@@ -21,6 +21,7 @@ from lpm_preprocess_lib import (
     extract_audio_to_wav,
     extract_slide_images,
     fetch_video_id,
+    find_local_audio_file,
     find_local_video_file,
     filter_end_times_by_ocr_text_change,
     print_validation_result,
@@ -212,6 +213,9 @@ def run_single_video_pipeline(config: SingleVideoPipelineConfig) -> SingleVideoP
     transcript_path = output_dir / f"{resolved_video_id}_transcripts.csv"
     segments_path = None if config.asr_only else output_dir / "segments.txt"
     existing_video_path = find_local_video_file(output_dir, resolved_video_id)
+    existing_audio_path = (
+        find_local_audio_file(output_dir, resolved_video_id) if config.asr_only else None
+    )
 
     if config.skip_existing and not config.dry_run:
         existing_validation = (
@@ -237,10 +241,14 @@ def run_single_video_pipeline(config: SingleVideoPipelineConfig) -> SingleVideoP
 
     reused_steps: list[str] = []
 
+    video_path: Path | None = existing_video_path
     try:
         if config.skip_existing and existing_video_path is not None:
-            video_path = existing_video_path
+            media_input_path = existing_video_path
             reused_steps.append("video")
+        elif config.asr_only and config.skip_existing and existing_audio_path is not None:
+            media_input_path = existing_audio_path
+            reused_steps.append("audio")
         else:
             _, video_path = download_video(
                 youtube_url=config.youtube_url,
@@ -248,6 +256,7 @@ def run_single_video_pipeline(config: SingleVideoPipelineConfig) -> SingleVideoP
                 video_id=resolved_video_id,
                 dry_run=config.dry_run,
             )
+            media_input_path = video_path
     except Exception as exc:
         raise PipelineStepError("download", str(exc)) from exc
     audio_source_path = output_dir / f"{resolved_video_id}.wav"
@@ -269,7 +278,7 @@ def run_single_video_pipeline(config: SingleVideoPipelineConfig) -> SingleVideoP
         result.reused_steps.append("transcript")
     else:
         try:
-            extract_audio_to_wav(video_path, audio_source_path, dry_run=config.dry_run)
+            extract_audio_to_wav(media_input_path, audio_source_path, dry_run=config.dry_run)
             result.num_words = transcribe_with_whisper(
                 audio_path=audio_source_path,
                 transcript_csv_path=transcript_path,

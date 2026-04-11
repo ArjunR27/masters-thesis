@@ -26,9 +26,9 @@ from lpm_preprocess_lib import find_local_video_file  # noqa: E402
 
 DEFAULT_SPLIT = "real_world_test"
 DEFAULT_DATASET_PATHS = {
-    "real_world_test": WORKSPACE_DIR / "eduvidqa-emnlp25" / "data" / "real_world_test.csv",
-    "synthetic_test": WORKSPACE_DIR / "eduvidqa-emnlp25" / "data" / "synthetic_test.csv",
-    "synthetic_train": WORKSPACE_DIR / "eduvidqa-emnlp25" / "data" / "synthetic_train.csv",
+    "real_world_test": SCRIPT_DIR / "storage" / "eduvid_data" / "real_world_test.csv",
+    "synthetic_test": SCRIPT_DIR / "storage" / "eduvid_data" / "synthetic_test.csv",
+    "synthetic_train": SCRIPT_DIR / "storage" / "eduvid_data" / "synthetic_train.csv",
 }
 STORAGE_ROOT = SCRIPT_DIR / "storage"
 VIDEOS_ROOT = STORAGE_ROOT / "videos"

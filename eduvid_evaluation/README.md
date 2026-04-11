@@ -15,7 +15,7 @@ From the workspace root:
 python masters-thesis/eduvid_evaluation/process_dataset.py
 ```
 
-That defaults to `eduvidqa-emnlp25/data/real_world_test.csv`.
+That defaults to `masters-thesis/eduvid_evaluation/storage/eduvid_data/real_world_test.csv`.
 
 Optional filters:
 
@@ -55,6 +55,9 @@ python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --limit 10
 python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --leaf
 python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --summary_tree
 python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --leaf --limit 10
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --ollama-host http://127.0.0.1:11434
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --summary_tree --summary-tree-workers 2
+python masters-thesis/eduvid_evaluation/eduvid_evaluation.py --summary_tree --rebuild-summary-tree-cache
 ```
 
 The evaluator uses only ASR transcripts and computes:
@@ -62,8 +65,11 @@ The evaluator uses only ASR transcripts and computes:
 - `BLEU-1`
 - `ROUGE-L`
 - `METEOR`
-- `FactQA-Precision`
-- `FactQA-Recall`
+
+For `summary_tree`, the evaluator can now parallelize **across lectures** and persist
+per-video cached trees under `storage/summary_tree_cache/`. By default it uses a
+conservative `auto` worker count that caps at `2`. When multiple workers are used,
+TreeSeg embedding is forced onto CPU to avoid MPS/GPU worker initialization issues.
 
 ## Storage layout
 
@@ -113,12 +119,28 @@ Global manifests:
 
 ## Requirements
 
-Use the same prerequisites as `masters-thesis/preprocessing/README.md`:
+Use the same prerequisites as `masters-thesis/preprocessing/README.md`, plus the
+retrieval stack dependencies:
 
 - `yt-dlp`
 - `ffmpeg`
 - `tesseract`
 - Python dependencies from `masters-thesis/preprocessing/requirements_preprocessing.txt`
+- Python dependencies from `masters-thesis/requirements/lpm_requirements.txt`
+- Python `ollama` client package
+
+Example setup from the workspace root:
+
+```bash
+cd masters-thesis
+source ../venv_lpm_preproc/bin/activate
+pip install -r preprocessing/requirements_preprocessing.txt
+pip install -r requirements/lpm_requirements.txt
+pip install ollama
+```
+
+If your Ollama server is running somewhere other than the default local endpoint,
+set `OLLAMA_HOST` or pass `--ollama-host`.
 
 ## YouTube cookies
 

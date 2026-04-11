@@ -1,4 +1,5 @@
 import os
+import threading
 
 import structlog
 
@@ -140,10 +141,42 @@ class SegNode:
 
 
 class TreeSeg:
+    _worker_local = threading.local()
 
-    def __init__(self, configs, entries):
+    @staticmethod
+    def get_thread_local_embedder(model_name, device):
+        cache = getattr(TreeSeg._worker_local, "embedder_cache", None)
+        if cache is None:
+            cache = {}
+            TreeSeg._worker_local.embedder_cache = cache
+
+        key = (model_name, device)
+        embedder = cache.get(key)
+        if embedder is None:
+            try:
+                embedder = SentenceTransformer(model_name, device=device)
+            except NotImplementedError as exc:
+                if device in {None, "cpu"} or "meta tensor" not in str(exc).lower():
+                    raise
+                logger.warning(
+                    "Falling back to CPU embedder initialization",
+                    model_name=model_name,
+                    requested_device=device,
+                    error=str(exc),
+                )
+                embedder = SentenceTransformer(model_name, device="cpu")
+                cache[(model_name, "cpu")] = embedder
+            cache[key] = embedder
+        return embedder
+
+    def __init__(self, configs, entries, embedder=None):
         self.configs = configs
-        self.embedder = SentenceTransformer(self.configs["HF_EMBEDDING_MODEL"], device=self.configs["HF_DEVICE"])
+        if embedder is None:
+            embedder = TreeSeg.get_thread_local_embedder(
+                self.configs["HF_EMBEDDING_MODEL"],
+                self.configs["HF_DEVICE"],
+            )
+        self.embedder = embedder
         self.hf_normalize = bool(self.configs.get("HF_NORMALIZE", True))
         self.hf_batch_size = int(self.configs.get("HF_BATCH_SIZE", 64))
         self.entries = entries

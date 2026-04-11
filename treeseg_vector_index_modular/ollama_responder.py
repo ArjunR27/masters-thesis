@@ -58,10 +58,7 @@ class OllamaResponder:
     timestamps, and factual grounding.
 
     4. STRUCTURE: Format your answer clearly:
-    - Use bullet points for lists of facts, properties, or steps
-    - Use numbered lists for sequences or procedures
-    - Use plain prose for conceptual explanations
-    - Bold key terms on first use
+    - Use plain prose
 
     5. HONESTY: If the context is insufficient to answer the question, say: \
     "The retrieved lecture segments do not contain enough information to answer this question. \
