@@ -1,3 +1,5 @@
+import threading
+
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -6,10 +8,13 @@ from .device_resolver import DeviceResolver
 
 
 class LpmVectorIndex:
+    _shared_models = {}
+    _shared_models_lock = threading.Lock()
+
     def __init__(self, model_name, device=None, normalize=True, build_global=True):
         if device is None:
             device = DeviceResolver.resolve_device()
-        self.model = SentenceTransformer(model_name, device=device)
+        self.model = self._get_or_create_shared_model(model_name, device)
         self.normalize = normalize
         self.build_global = build_global
         self.lecture_indices = {}
@@ -17,6 +22,25 @@ class LpmVectorIndex:
         self.global_index = None
         self._global_embeddings = []
         self._global_segment_keys = []
+
+    @classmethod
+    def _shared_model_key(cls, model_name, device):
+        return (str(model_name), str(device))
+
+    @classmethod
+    def _get_or_create_shared_model(cls, model_name, device):
+        key = cls._shared_model_key(model_name, device)
+        with cls._shared_models_lock:
+            model = cls._shared_models.get(key)
+            if model is None:
+                model = SentenceTransformer(model_name, device=device)
+                cls._shared_models[key] = model
+            return model
+
+    @classmethod
+    def clear_shared_model_cache(cls):
+        with cls._shared_models_lock:
+            cls._shared_models = {}
 
     def _build_faiss_index(self, embeddings):
         dim = embeddings.shape[1]
