@@ -39,12 +39,13 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
-LIMIT = 5 
-TOP_K = 10 
-TOP_N = 5 
+LIMIT = 5
+TOP_K = 10
+TOP_N = 5
 MAX_CONTEXT_CHARS = 8000
 EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
 SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
+MAX_GENERATION_WORKERS = 10  # parallel OpenAI generation calls per system
 
 DATASET_PATH = MASTERS_THESIS_DIR / "LPM_QA_DATASET" / "lpm_qa_labeled.csv"
 LPM_DATA_DIR = MASTERS_THESIS_DIR / "lpm_data"
@@ -384,6 +385,8 @@ def run_system(
     examples: list[dict],
     openai_client=None,
 ) -> list:
+    from concurrent.futures import ThreadPoolExecutor
+
     from ragas import SingleTurnSample
 
     name = system["name"]
@@ -402,33 +405,44 @@ def run_system(
     print(f"  Loading reranker ({RERANKER_MODEL})...")
     reranker = build_reranker(kind)
 
-    samples: list[SingleTurnSample] = []
+    # Phase A: retrieval (sequential — avoids contention on shared FAISS/model state)
+    retrieval_results: list[tuple[dict, str, list[str]]] = []
     for i, ex in enumerate(usable, start=1):
-        print(f"  [{i}/{len(usable)}] {ex['example_id']}: {ex['question'][:70]}...")
-
+        print(f"  [retrieval {i}/{len(usable)}] {ex['example_id']}: {ex['question'][:70]}...")
         if ex["lecture_key"] not in store.lecture_indices:
             print(f"    [skip] lecture not indexed: {ex['lecture_key']}")
             continue
-
         hits = retrieve_hits(system, store, ex["question"], ex["lecture_key"], reranker)
         context = build_context(hits, kind)
         context_texts = extract_context_texts(hits, kind)
+        retrieval_results.append((ex, context, context_texts))
 
+    if not retrieval_results:
+        return []
+
+    # Phase B: generation (parallel — OpenAI calls are I/O-bound, no shared state)
+    def _generate(args: tuple[dict, str, list[str]]) -> tuple[dict, str, list[str]]:
+        ex, context, context_texts = args
         if GENERATOR_BACKEND == "openai":
             generated = generate_answer_openai(ex["question"], context, openai_client)
         else:
             generated = generate_answer_ollama(ex["question"], context)
+        return ex, generated, context_texts
 
-        samples.append(
-            SingleTurnSample(
-                user_input=ex["question"],
-                response=generated,
-                retrieved_contexts=context_texts,
-                reference=ex["answer"],
-            )
+    workers = min(MAX_GENERATION_WORKERS, len(retrieval_results))
+    print(f"  Generating answers ({len(retrieval_results)} questions, {workers} workers)...")
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        gen_results = list(pool.map(_generate, retrieval_results))
+
+    return [
+        SingleTurnSample(
+            user_input=ex["question"],
+            response=generated,
+            retrieved_contexts=context_texts,
+            reference=ex["answer"],
         )
-
-    return samples
+        for ex, generated, context_texts in gen_results
+    ]
 
 
 def save_results(df, system_name: str, scores: dict, output_dir: Path) -> None:

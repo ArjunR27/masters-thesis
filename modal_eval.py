@@ -65,12 +65,6 @@ def _ignore_source(p: Path) -> bool:
     return any(part in s for part in _SKIP)
 
 
-# ── Images ─────────────────────────────────────────────────────────────────────
-# We do NOT use pip_install_from_requirements with the local requirements file
-# because that file was pinned on macOS/Python 3.13 and contains packages
-# (torch==2.9.0, hf-xet, ir-measures) that may not have Linux wheels.
-# Instead we install only what the eval scripts actually need.
-
 _CORE_PKGS = [
     "torch",
     "faiss-cpu",
@@ -102,6 +96,12 @@ cpu_image = (
     .pip_install(*_CORE_PKGS)
     .pip_install(*_RAGAS_PKGS)
     .env({"TOKENIZERS_PARALLELISM": "false"})
+    # Pre-cache HuggingFace models into the image layer so cold containers
+    # start immediately instead of downloading ~1.5 GB on every cold start.
+    .run_commands(
+        "python -c \"from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-base-en-v1.5')\"",
+        "python -c \"from sentence_transformers import CrossEncoder; CrossEncoder('BAAI/bge-reranker-v2-m3')\"",
+    )
     .add_local_dir(str(REPO_ROOT), remote_path="/repo", ignore=_ignore_source)
 )
 
@@ -199,14 +199,14 @@ def upload_eduvid():
     image=cpu_image,
     secrets=[modal.Secret.from_name("thesis-openai")],
     volumes={
-        "/repo/lpm_data": lpm_vol,
+        "/lpm_volume": lpm_vol,
         "/outputs": output_vol,
     },
     timeout=60 * 120,
     cpu=4.0,
     memory=16384,
 )
-def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str) -> dict:
+def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str, max_workers: int) -> dict:
     import json
     import os
     import sys
@@ -222,6 +222,10 @@ def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str) -> dict:
     script.GENERATOR_OPENAI_MODEL = generator_model
     script.RAGAS_JUDGE_MODEL = ragas_judge_model
     script.OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+    script.MAX_GENERATION_WORKERS = max_workers
+    # The volume was uploaded as `modal volume put ... ./lpm_data /`, so inside
+    # the volume the data lives under /lpm_data/. Correct the path accordingly.
+    script.LPM_DATA_DIR = Path("/lpm_volume/lpm_data")
 
     out_dir = Path("/outputs/ragas")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -238,7 +242,8 @@ def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str) -> dict:
 def ragas(
     limit: int = 5,
     generator_model: str = "gpt-4o-mini",
-    ragas_judge_model: str = "gpt-4o",
+    ragas_judge_model: str = "gpt-5.4-mini",
+    max_workers: int = 20,
 ):
     """RAGAS evaluation on the LPM QA dataset (CPU, OpenAI backend).
 
@@ -246,17 +251,20 @@ def ragas(
         modal run modal_eval.py::ragas
         modal run modal_eval.py::ragas --limit 20
         modal run modal_eval.py::ragas --generator-model gpt-4o
+        modal run modal_eval.py::ragas --limit 50 --max-workers 30
     """
     import json
 
     print(
         f"Starting RAGAS eval  "
-        f"limit={limit}  generator={generator_model}  judge={ragas_judge_model}"
+        f"limit={limit}  generator={generator_model}  judge={ragas_judge_model}  "
+        f"max_workers={max_workers}"
     )
     summary = _ragas_fn.remote(
         limit=limit,
         generator_model=generator_model,
         ragas_judge_model=ragas_judge_model,
+        max_workers=max_workers,
     )
     print("\n── Scores ──────────────────────────────────────────────────────")
     print(json.dumps(summary, indent=2))
