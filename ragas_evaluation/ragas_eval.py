@@ -3,6 +3,8 @@ from __future__ import annotations
 import csv
 import json
 import os
+import tempfile
+import time
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import sys
@@ -14,7 +16,6 @@ MASTERS_THESIS_DIR = SCRIPT_DIR.parent
 if str(MASTERS_THESIS_DIR) not in sys.path:
     sys.path.insert(0, str(MASTERS_THESIS_DIR))
 
-# Load .env from the project root
 _dotenv_path = MASTERS_THESIS_DIR / ".env"
 if _dotenv_path.exists():
     from dotenv import load_dotenv
@@ -26,15 +27,17 @@ from treeseg_vector_index_modular.lecture_catalog import LectureCatalog  # noqa:
 from treeseg_vector_index_modular.lecture_descriptor import LectureDescriptor  # noqa: E402
 from treeseg_vector_index_modular.lpm_config_builder import LpmConfigBuilder  # noqa: E402
 from treeseg_vector_index_modular.cross_encoder_reranker import CrossEncoderReranker  # noqa: E402
+from treeseg_vector_index_modular.lecture_segment_builder import SummaryTreeBuildOptions  # noqa: E402
 from treeseg_vector_index_modular.ollama_responder import OllamaResponder  # noqa: E402
 from treeseg_vector_index_modular.rerank_input_builder import RerankInputBuilder  # noqa: E402
 from treeseg_vector_index_modular.vector_store_factory import VectorStoreFactory  # noqa: E402
 
 GENERATOR_BACKEND = "ollama"        # "ollama" | "openai"
 GENERATOR_OLLAMA_MODEL = "llama3.2"
-GENERATOR_OPENAI_MODEL = "gpt-5.4-nano"
+GENERATOR_OPENAI_MODEL = "gpt-4o-mini"
+SUMMARY_OPENAI_MODEL = "gpt-4o-mini"   # model used to build summary tree nodes
 
-RAGAS_JUDGE_MODEL = "gpt-5.4"
+RAGAS_JUDGE_MODEL = "gpt-4.1-mini"
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
@@ -45,7 +48,6 @@ TOP_N = 5
 MAX_CONTEXT_CHARS = 8000
 EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
 SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
-MAX_GENERATION_WORKERS = 10  # parallel OpenAI generation calls per system
 
 DATASET_PATH = MASTERS_THESIS_DIR / "LPM_QA_DATASET" / "lpm_qa_labeled.csv"
 LPM_DATA_DIR = MASTERS_THESIS_DIR / "lpm_data"
@@ -73,54 +75,74 @@ Rules:
 5. Do not mention slides, OCR, or visual evidence."""
 
 # ─── Systems to evaluate ─────────────────────────────────────────────────────
-# Add or remove entries here to control what gets benchmarked.
-# For "baseline" systems, supply a BaselineRagConfig in "config".
 SYSTEMS: list[dict] = [
     {"name": "treeseg_leaf", "kind": "leaf"},
-    # {"name": "treeseg_summary_tree", "kind": "summary_tree"},
+    {"name": "treeseg_summary_tree", "kind": "summary_tree"},
     {
-        "name": "baseline_utterance_128_0ov",
+        "name": "baseline_raw_512_0ov",
         "kind": "baseline",
         "config": BaselineRagConfig(
-            chunk_strategy="utterance_packed",
-            chunk_size_tokens=128,
+            chunk_strategy="raw_token_window",
+            chunk_size_tokens=512,
             overlap_percent=0,
             ocr_mode="transcript_only",
         ),
     },
-    # {
-    #     "name": "baseline_utterance_256_0ov",
-    #     "kind": "baseline",
-    #     "config": BaselineRagConfig(
-    #         chunk_strategy="utterance_packed",
-    #         chunk_size_tokens=256,
-    #         overlap_percent=0,
-    #         ocr_mode="transcript_only",
-    #     ),
-    # },
-    # {
-    #     "name": "baseline_token_256_0ov",
-    #     "kind": "baseline",
-    #     "config": BaselineRagConfig(
-    #         chunk_strategy="raw_token_window",
-    #         chunk_size_tokens=256,
-    #         overlap_percent=0,
-    #         ocr_mode="transcript_only",
-    #     ),
-    # },
-    # Uncomment to add more baseline variants:
-    # {
-    #     "name": "baseline_utterance_512_10ov",
-    #     "kind": "baseline",
-    #     "config": BaselineRagConfig(
-    #         chunk_strategy="utterance_packed",
-    #         chunk_size_tokens=512,
-    #         overlap_percent=10,
-    #         ocr_mode="transcript_only",
-    #     ),
-    # },
 ]
 
+# ─── Judge prompt templates ───────────────────────────────────────────────────
+
+_FAITHFULNESS_PROMPT = """Context:
+{context}
+
+Generated answer:
+{answer}
+
+Rate how faithful the answer is to the context on a scale of 0 to 1.
+1.0 = every claim in the answer is directly supported by the context.
+0.0 = the answer makes claims not supported by the context.
+Respond only with JSON: {{"score": <float 0-1>}}"""
+
+_CONTEXT_PRECISION_CHUNK_PROMPT = """Question: {question}
+
+Retrieved context chunk:
+{chunk}
+
+Is this context chunk relevant to answering the question?
+Respond only with JSON: {{"relevant": <0 or 1>}}"""
+
+_CONTEXT_RECALL_PROMPT = """Reference answer:
+{reference}
+
+Retrieved contexts:
+{contexts}
+
+What fraction of the key claims in the reference answer are directly supported by the retrieved contexts?
+Respond only with JSON: {{"score": <float 0-1>}}"""
+
+_ANSWER_CORRECTNESS_PROMPT = """Question: {question}
+
+Reference answer:
+{reference}
+
+Generated answer:
+{answer}
+
+Rate the factual correctness and semantic similarity of the generated answer to the reference.
+1.0 = fully correct and equivalent; 0.0 = completely wrong.
+Respond only with JSON: {{"score": <float 0-1>}}"""
+
+_ANSWER_RELEVANCY_PROMPT = """Question: {question}
+
+Generated answer:
+{answer}
+
+Rate how directly and completely the answer addresses the question.
+1.0 = perfectly relevant and complete; 0.0 = irrelevant.
+Respond only with JSON: {{"score": <float 0-1>}}"""
+
+
+# ─── Dataset loading ──────────────────────────────────────────────────────────
 
 def load_lpm_examples(csv_path: Path, limit: int | None = None) -> list[dict]:
     examples = []
@@ -150,7 +172,42 @@ def discover_lectures(lpm_data_dir: Path) -> dict[str, LectureDescriptor]:
     return {lec.key: lec for lec in lectures}
 
 
-def build_store(system: dict, lectures: list[LectureDescriptor]):
+# ─── Store + retrieval helpers ────────────────────────────────────────────────
+
+def _patch_summary_tree_to_openai(openai_client, model: str) -> None:
+    """Replace OllamaResponder.generate_summary with an OpenAI-backed version.
+
+    This is done in-place on the class so that lecture_segment_builder.dfs(),
+    which holds a reference to the same class, picks up the change.
+    The patch persists for the lifetime of the process, which is fine since
+    all summary_tree builds in this script want the same backend.
+    """
+    def _openai_generate_summary(
+        text, is_leaf=True, model=model, temperature=0.2,
+        keep_alive=None, client=None, host=None,
+    ):
+        if not text or not text.strip():
+            return "Empty"
+        system_prompt = (
+            OllamaResponder.LEAF_SYSTEM_PROMPT if is_leaf
+            else OllamaResponder.INTERNAL_SYSTEM_PROMPT
+        )
+        user_content = f"Transcript excerpt:\n{text}" if is_leaf else text
+        resp = openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_content},
+            ],
+            max_tokens=300,
+            temperature=temperature,
+        )
+        return resp.choices[0].message.content.strip()
+
+    OllamaResponder.generate_summary = staticmethod(_openai_generate_summary)
+
+
+def build_store(system: dict, lectures: list[LectureDescriptor], openai_client=None):
     kind = system["kind"]
     if kind == "baseline":
         result = BaselineStoreBuilder().build_store(
@@ -160,6 +217,15 @@ def build_store(system: dict, lectures: list[LectureDescriptor]):
             print(f"    Skipped lectures: {list(result.skipped_lectures.keys())}")
         return result.store
     config = LpmConfigBuilder.build_lpm_config(embedding_model=EMBEDDING_MODEL)
+    build_options = None
+    if kind == "summary_tree":
+        if GENERATOR_BACKEND == "openai" and openai_client is not None:
+            print(f"  [summary_tree] Using OpenAI ({SUMMARY_OPENAI_MODEL}) for node summaries")
+            _patch_summary_tree_to_openai(openai_client, SUMMARY_OPENAI_MODEL)
+            cache_version = f"openai-{SUMMARY_OPENAI_MODEL}"
+        else:
+            cache_version = "v1"
+        build_options = SummaryTreeBuildOptions(cache_version=cache_version)
     return VectorStoreFactory().build_vector_store(
         lectures=lectures,
         treeseg_config=config,
@@ -174,7 +240,7 @@ def build_store(system: dict, lectures: list[LectureDescriptor]):
         ocr_per_slide=1,
         target_segments=None,
         index_kind=kind,
-        summary_tree_build_options=None,
+        summary_tree_build_options=build_options,
     )
 
 
@@ -300,7 +366,6 @@ def build_context(hits: list[dict], kind: str) -> str:
 
 
 def extract_context_texts(hits: list[dict], kind: str) -> list[str]:
-    """Return a flat list of text strings for RAGAS retrieved_contexts."""
     texts: list[str] = []
     for hit in hits:
         if kind == "summary_tree" and not hit.get("is_leaf", True):
@@ -323,53 +388,6 @@ def extract_context_texts(hits: list[dict], kind: str) -> list[str]:
     return texts or ["<no context retrieved>"]
 
 
-def generate_answer_ollama(question: str, context: str) -> str:
-    if not context:
-        return INSUFFICIENT_CONTEXT_RESPONSE
-    return OllamaResponder.query_response(
-        question,
-        context,
-        model=GENERATOR_OLLAMA_MODEL,
-        system_prompt=QUERY_SYSTEM_PROMPT,
-        temperature=0.0,
-    )
-
-
-def generate_answer_openai(question: str, context: str, client) -> str:
-    if not context:
-        return INSUFFICIENT_CONTEXT_RESPONSE
-    user_content = (
-        f"Retrieved lecture segments:\n"
-        f"{'─' * 60}\n"
-        f"{context}\n"
-        f"{'─' * 60}\n\n"
-        f"Student question: {question}"
-    )
-    response = client.chat.completions.create(
-        model=GENERATOR_OPENAI_MODEL,
-        messages=[
-            {"role": "system", "content": QUERY_SYSTEM_PROMPT},
-            {"role": "user", "content": user_content},
-        ],
-        temperature=0.0,
-    )
-    return response.choices[0].message.content.strip()
-
-
-def build_ragas_judge():
-    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-    from ragas.embeddings import LangchainEmbeddingsWrapper
-    from ragas.llms import LangchainLLMWrapper
-
-    llm = LangchainLLMWrapper(
-        ChatOpenAI(model=RAGAS_JUDGE_MODEL, api_key=OPENAI_API_KEY)
-    )
-    embeddings = LangchainEmbeddingsWrapper(
-        OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-    )
-    return llm, embeddings
-
-
 def build_reranker(kind: str) -> CrossEncoderReranker:
     input_builder = (
         RerankInputBuilder.build_summary_tree_rerank_input
@@ -379,34 +397,35 @@ def build_reranker(kind: str) -> CrossEncoderReranker:
     return CrossEncoderReranker(RERANKER_MODEL, input_builder=input_builder)
 
 
-def run_system(
+# ─── Phase A: retrieval ───────────────────────────────────────────────────────
+
+# Returns list of (ex, context_string, context_texts_list) for each usable example.
+RetrievalResult = tuple[dict, str, list[str]]
+
+
+def run_retrieval(
     system: dict,
     lectures_by_key: dict[str, LectureDescriptor],
     examples: list[dict],
     openai_client=None,
-) -> list:
-    from concurrent.futures import ThreadPoolExecutor
-
-    from ragas import SingleTurnSample
-
+) -> list[RetrievalResult]:
     name = system["name"]
     kind = system["kind"]
 
     usable = [ex for ex in examples if ex["lecture_key"] in lectures_by_key]
     if not usable:
-        print(f"  [skip] No usable examples for {name} — none of the lecture keys found in lpm_data/")
+        print(f"  [skip] No usable examples for {name} — no lecture keys found in lpm_data/")
         return []
 
     unique_keys = {ex["lecture_key"] for ex in usable}
     lectures = [lectures_by_key[k] for k in unique_keys]
     print(f"  Building store ({len(lectures)} lecture(s))...")
-    store = build_store(system, lectures)
+    store = build_store(system, lectures, openai_client=openai_client)
 
     print(f"  Loading reranker ({RERANKER_MODEL})...")
     reranker = build_reranker(kind)
 
-    # Phase A: retrieval (sequential — avoids contention on shared FAISS/model state)
-    retrieval_results: list[tuple[dict, str, list[str]]] = []
+    results: list[RetrievalResult] = []
     for i, ex in enumerate(usable, start=1):
         print(f"  [retrieval {i}/{len(usable)}] {ex['example_id']}: {ex['question'][:70]}...")
         if ex["lecture_key"] not in store.lecture_indices:
@@ -415,63 +434,453 @@ def run_system(
         hits = retrieve_hits(system, store, ex["question"], ex["lecture_key"], reranker)
         context = build_context(hits, kind)
         context_texts = extract_context_texts(hits, kind)
-        retrieval_results.append((ex, context, context_texts))
+        results.append((ex, context, context_texts))
 
-    if not retrieval_results:
-        return []
-
-    # Phase B: generation (parallel — OpenAI calls are I/O-bound, no shared state)
-    def _generate(args: tuple[dict, str, list[str]]) -> tuple[dict, str, list[str]]:
-        ex, context, context_texts = args
-        if GENERATOR_BACKEND == "openai":
-            generated = generate_answer_openai(ex["question"], context, openai_client)
-        else:
-            generated = generate_answer_ollama(ex["question"], context)
-        return ex, generated, context_texts
-
-    workers = min(MAX_GENERATION_WORKERS, len(retrieval_results))
-    print(f"  Generating answers ({len(retrieval_results)} questions, {workers} workers)...")
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        gen_results = list(pool.map(_generate, retrieval_results))
-
-    return [
-        SingleTurnSample(
-            user_input=ex["question"],
-            response=generated,
-            retrieved_contexts=context_texts,
-            reference=ex["answer"],
-        )
-        for ex, generated, context_texts in gen_results
-    ]
+    return results
 
 
-def save_results(df, system_name: str, scores: dict, output_dir: Path) -> None:
+# ─── Phase B: generation (Ollama fallback) ───────────────────────────────────
+
+def _generate_ollama(ex: dict, context: str) -> str:
+    if not context:
+        return INSUFFICIENT_CONTEXT_RESPONSE
+    return OllamaResponder.query_response(
+        ex["question"],
+        context,
+        model=GENERATOR_OLLAMA_MODEL,
+        system_prompt=QUERY_SYSTEM_PROMPT,
+        temperature=0.0,
+    )
+
+
+def run_generation_ollama(
+    retrieval_results: list[RetrievalResult],
+) -> list[tuple[dict, str, list[str]]]:
+    gen = []
+    for ex, context, context_texts in retrieval_results:
+        generated = _generate_ollama(ex, context)
+        gen.append((ex, generated, context_texts))
+    return gen
+
+
+# ─── OpenAI Batch API helpers ─────────────────────────────────────────────────
+
+def _make_chat_request(custom_id: str, model: str, system_prompt: str, user_content: str) -> dict:
+    return {
+        "custom_id": custom_id,
+        "method": "POST",
+        "url": "/v1/chat/completions",
+        "body": {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_content},
+            ],
+            "temperature": 0.0,
+        },
+    }
+
+
+def _submit_batch(requests: list[dict], client, label: str) -> str:
+    """Write requests to a temp JSONL file, upload, submit batch. Returns batch_id."""
+    with tempfile.NamedTemporaryFile(mode="wb", suffix=".jsonl", delete=False) as f:
+        for req in requests:
+            f.write(json.dumps(req).encode() + b"\n")
+        tmp_path = f.name
+
+    try:
+        print(f"  Uploading {label} batch file ({len(requests)} requests)...")
+        with open(tmp_path, "rb") as f:
+            file_obj = client.files.create(file=f, purpose="batch")
+    finally:
+        Path(tmp_path).unlink(missing_ok=True)
+
+    batch = client.batches.create(
+        input_file_id=file_obj.id,
+        endpoint="/v1/chat/completions",
+        completion_window="24h",
+    )
+    print(f"  Batch submitted: {batch.id}")
+    return batch.id, file_obj.id
+
+
+def _poll_batch(batch_id: str, client) -> str:
+    """Poll until completed. Returns output_file_id."""
+    delay = 10.0
+    while True:
+        batch = client.batches.retrieve(batch_id)
+        status = batch.status
+        if status == "completed":
+            print(f"  Batch {batch_id} completed.")
+            return batch.output_file_id
+        if status in ("failed", "expired", "cancelled"):
+            raise RuntimeError(f"Batch {batch_id} ended with status: {status}")
+        completed = batch.request_counts.completed if batch.request_counts else "?"
+        total = batch.request_counts.total if batch.request_counts else "?"
+        print(f"  Batch {batch_id} status: {status} ({completed}/{total}) — waiting {delay:.0f}s...")
+        time.sleep(delay)
+        delay = min(delay * 1.5, 60.0)
+
+
+def _download_batch_results(output_file_id: str, input_file_id: str, client) -> dict[str, str]:
+    """Download result JSONL, parse custom_id → response content. Deletes input file."""
+    content = client.files.content(output_file_id).text
+    results: dict[str, str] = {}
+    for line in content.strip().split("\n"):
+        if not line:
+            continue
+        obj = json.loads(line)
+        custom_id = obj["custom_id"]
+        try:
+            results[custom_id] = (
+                obj["response"]["body"]["choices"][0]["message"]["content"].strip()
+            )
+        except (KeyError, IndexError, TypeError):
+            results[custom_id] = ""
+    client.files.delete(input_file_id)
+    return results
+
+
+def _run_batch(requests: list[dict], client, label: str) -> dict[str, str]:
+    """Full submit → poll → download cycle. Returns {custom_id: response_text}."""
+    batch_id, input_file_id = _submit_batch(requests, client, label)
+    output_file_id = _poll_batch(batch_id, client)
+    return _download_batch_results(output_file_id, input_file_id, client)
+
+
+# ─── Phase B: generation (OpenAI Batch) ──────────────────────────────────────
+
+def generate_all_batch(
+    all_retrieval: dict[str, list[RetrievalResult]],
+    client,
+) -> dict[str, list[tuple[dict, str, list[str]]]]:
+    """Submit one batch for all systems' generation. Returns {system_name: [(ex, answer, ctx_texts)]}."""
+    requests: list[dict] = []
+    # Track (system_name, index, ex, context_texts) for result assembly
+    order: list[tuple[str, int, dict, list[str]]] = []
+
+    for sys_name, retrieval_results in all_retrieval.items():
+        for i, (ex, context, context_texts) in enumerate(retrieval_results):
+            if not context:
+                continue  # no-context cases are handled via INSUFFICIENT_CONTEXT_RESPONSE
+            user_content = (
+                f"Retrieved lecture segments:\n"
+                f"{'─' * 60}\n"
+                f"{context}\n"
+                f"{'─' * 60}\n\n"
+                f"Student question: {ex['question']}"
+            )
+            requests.append(
+                _make_chat_request(
+                    custom_id=f"gen-{sys_name}-{i}",
+                    model=GENERATOR_OPENAI_MODEL,
+                    system_prompt=QUERY_SYSTEM_PROMPT,
+                    user_content=user_content,
+                )
+            )
+            order.append((sys_name, i, ex, context_texts))
+
+    raw = _run_batch(requests, client, "generation") if requests else {}
+
+    gen_results: dict[str, list[tuple[dict, str, list[str]]]] = {
+        name: [] for name in all_retrieval
+    }
+
+    # Fill in batch answers; fall back to INSUFFICIENT_CONTEXT_RESPONSE for empty-context items
+    batch_counters: dict[str, int] = {name: 0 for name in all_retrieval}
+    for sys_name, retrieval_results in all_retrieval.items():
+        for i, (ex, context, context_texts) in enumerate(retrieval_results):
+            if not context:
+                gen_results[sys_name].append((ex, INSUFFICIENT_CONTEXT_RESPONSE, context_texts))
+            else:
+                answer = raw.get(f"gen-{sys_name}-{i}", INSUFFICIENT_CONTEXT_RESPONSE)
+                gen_results[sys_name].append((ex, answer, context_texts))
+
+    return gen_results
+
+
+# ─── Phase C: judging (OpenAI Batch) ─────────────────────────────────────────
+
+def _parse_score(text: str, key: str, fallback: float = 0.0) -> float:
+    try:
+        obj = json.loads(text)
+        return float(obj[key])
+    except Exception:
+        # Try extracting first float from text as fallback
+        import re
+        m = re.search(r"[-+]?\d*\.?\d+", text)
+        return float(m.group()) if m else fallback
+
+
+def judge_all_batch(
+    all_gen_results: dict[str, list[tuple[dict, str, list[str]]]],
+    client,
+) -> dict[str, dict[str, list[float]]]:
+    """
+    Submit one batch for all 5 metrics across all systems.
+    Returns {system_name: {metric_name: [per-question float scores]}}.
+    """
+    requests: list[dict] = []
+
+    for sys_name, gen_results in all_gen_results.items():
+        for i, (ex, generated, context_texts) in enumerate(gen_results):
+            question = ex["question"]
+            reference = ex["answer"]
+            contexts_joined = "\n\n".join(context_texts)
+
+            # Faithfulness: does the answer stay within the context?
+            requests.append(
+                _make_chat_request(
+                    custom_id=f"judge-{sys_name}-{i}-faithfulness",
+                    model=RAGAS_JUDGE_MODEL,
+                    system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
+                    user_content=_FAITHFULNESS_PROMPT.format(
+                        context=contexts_joined, answer=generated
+                    ),
+                )
+            )
+
+            # Context Precision: one request per retrieved chunk
+            for j, chunk in enumerate(context_texts):
+                requests.append(
+                    _make_chat_request(
+                        custom_id=f"judge-{sys_name}-{i}-cp-{j}",
+                        model=RAGAS_JUDGE_MODEL,
+                        system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
+                        user_content=_CONTEXT_PRECISION_CHUNK_PROMPT.format(
+                            question=question, chunk=chunk
+                        ),
+                    )
+                )
+
+            # Context Recall
+            requests.append(
+                _make_chat_request(
+                    custom_id=f"judge-{sys_name}-{i}-context_recall",
+                    model=RAGAS_JUDGE_MODEL,
+                    system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
+                    user_content=_CONTEXT_RECALL_PROMPT.format(
+                        reference=reference, contexts=contexts_joined
+                    ),
+                )
+            )
+
+            # Answer Correctness
+            requests.append(
+                _make_chat_request(
+                    custom_id=f"judge-{sys_name}-{i}-answer_correctness",
+                    model=RAGAS_JUDGE_MODEL,
+                    system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
+                    user_content=_ANSWER_CORRECTNESS_PROMPT.format(
+                        question=question, reference=reference, answer=generated
+                    ),
+                )
+            )
+
+            # Answer Relevancy
+            requests.append(
+                _make_chat_request(
+                    custom_id=f"judge-{sys_name}-{i}-answer_relevancy",
+                    model=RAGAS_JUDGE_MODEL,
+                    system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
+                    user_content=_ANSWER_RELEVANCY_PROMPT.format(
+                        question=question, answer=generated
+                    ),
+                )
+            )
+
+    raw = _run_batch(requests, client, "judging")
+
+    per_system: dict[str, dict[str, list[float]]] = {}
+
+    for sys_name, gen_results in all_gen_results.items():
+        metrics: dict[str, list[float]] = {
+            "faithfulness": [],
+            "context_precision": [],
+            "context_recall": [],
+            "answer_correctness": [],
+            "answer_relevancy": [],
+        }
+
+        for i, (ex, generated, context_texts) in enumerate(gen_results):
+            # Faithfulness
+            metrics["faithfulness"].append(
+                _parse_score(raw.get(f"judge-{sys_name}-{i}-faithfulness", ""), "score")
+            )
+
+            # Context Precision: weighted precision@k over retrieved chunks
+            relevance = []
+            for j in range(len(context_texts)):
+                text = raw.get(f"judge-{sys_name}-{i}-cp-{j}", "")
+                relevance.append(_parse_score(text, "relevant", fallback=0.0))
+            if any(r > 0 for r in relevance):
+                n_rel = 0
+                precision_sum = 0.0
+                for k, r in enumerate(relevance):
+                    if r > 0:
+                        n_rel += 1
+                        precision_sum += n_rel / (k + 1)
+                cp = precision_sum / n_rel
+            else:
+                cp = 0.0
+            metrics["context_precision"].append(cp)
+
+            # Context Recall
+            metrics["context_recall"].append(
+                _parse_score(raw.get(f"judge-{sys_name}-{i}-context_recall", ""), "score")
+            )
+
+            # Answer Correctness
+            metrics["answer_correctness"].append(
+                _parse_score(raw.get(f"judge-{sys_name}-{i}-answer_correctness", ""), "score")
+            )
+
+            # Answer Relevancy
+            metrics["answer_relevancy"].append(
+                _parse_score(raw.get(f"judge-{sys_name}-{i}-answer_relevancy", ""), "score")
+            )
+
+        per_system[sys_name] = metrics
+
+    return per_system
+
+
+# ─── Output helpers ───────────────────────────────────────────────────────────
+
+def _rouge_l(hypothesis: str, reference: str) -> float:
+    """Sentence-level ROUGE-L (LCS-based F1)."""
+    h = hypothesis.lower().split()
+    r = reference.lower().split()
+    if not h or not r:
+        return 0.0
+    # LCS length via DP
+    m, n = len(r), len(h)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            dp[i][j] = dp[i - 1][j - 1] + 1 if r[i - 1] == h[j - 1] else max(dp[i - 1][j], dp[i][j - 1])
+    lcs = dp[m][n]
+    precision = lcs / n if n else 0.0
+    recall = lcs / m if m else 0.0
+    if precision + recall == 0:
+        return 0.0
+    return 2 * precision * recall / (precision + recall)
+
+
+def _bleu_1(hypothesis: str, reference: str) -> float:
+    """Unigram BLEU with brevity penalty."""
+    h = hypothesis.lower().split()
+    r = reference.lower().split()
+    if not h:
+        return 0.0
+    ref_counts: dict[str, int] = {}
+    for w in r:
+        ref_counts[w] = ref_counts.get(w, 0) + 1
+    clipped = 0
+    for w in h:
+        if ref_counts.get(w, 0) > 0:
+            clipped += 1
+            ref_counts[w] -= 1
+    precision = clipped / len(h)
+    bp = min(1.0, len(h) / len(r)) if r else 0.0
+    return bp * precision
+
+
+_LLM_METRIC_COLS = [
+    "faithfulness",
+    "context_precision",
+    "context_recall",
+    "answer_correctness",
+    "answer_relevancy",
+]
+
+
+def save_results(
+    system_name: str,
+    gen_results: list[tuple[dict, str, list[str]]],
+    per_q_metrics: dict[str, list[float]],
+    output_dir: Path,
+) -> dict[str, float]:
+    import pandas as pd
+
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    rows = []
+    for i, (ex, generated, context_texts) in enumerate(gen_results):
+        row = {
+            "system": system_name,
+            "example_id": ex.get("example_id", f"lpm-{i:05d}"),
+            "lecture_key": ex.get("lecture_key", ""),
+            "question": ex["question"],
+            "reference_answer": ex["answer"],
+            "generated_answer": generated,
+            "rouge_l": _rouge_l(generated, ex["answer"]),
+            "bleu_1": _bleu_1(generated, ex["answer"]),
+            "insufficient_context": int(INSUFFICIENT_CONTEXT_RESPONSE in generated),
+        }
+        for metric in _LLM_METRIC_COLS:
+            scores = per_q_metrics.get(metric, [])
+            row[metric] = scores[i] if i < len(scores) else float("nan")
+        rows.append(row)
+
+    df = pd.DataFrame(rows)
+
+    # Per-question CSV (this system only, kept for per-system inspection)
     per_q_path = output_dir / f"{system_name}_per_question.csv"
     df.to_csv(per_q_path, index=False)
     print(f"  Saved: {per_q_path.name}")
 
-    scores_path = output_dir / f"{system_name}_scores.json"
-    scores_path.write_text(json.dumps(scores, indent=2))
-    print(f"  Saved: {scores_path.name}")
+    mean_scores = {
+        col: float(df[col].mean())
+        for col in _LLM_METRIC_COLS + ["rouge_l", "bleu_1"]
+        if col in df.columns
+    }
+    return mean_scores, df
 
+
+def _write_combined_csvs(all_per_q_dfs: dict[str, "pd.DataFrame"], all_scores: dict[str, dict], output_dir: Path) -> None:
+    import pandas as pd
+
+    # 1. per_question_all_systems.csv — flat, one row per (system × question)
+    combined_df = pd.concat(list(all_per_q_dfs.values()), ignore_index=True)
+    col_order = [
+        "system", "example_id", "lecture_key", "question",
+        "reference_answer", "generated_answer",
+        "faithfulness", "context_precision", "context_recall",
+        "answer_correctness", "answer_relevancy",
+        "rouge_l", "bleu_1", "insufficient_context",
+    ]
+    col_order = [c for c in col_order if c in combined_df.columns]
+    combined_df = combined_df[col_order]
+    per_q_all_path = output_dir / "per_question_all_systems.csv"
+    combined_df.to_csv(per_q_all_path, index=False)
+    print(f"Saved: {per_q_all_path.name}")
+
+    # 2. system_summary.csv — one row per system, means + stds
+    summary_rows = []
+    for system_name, df in all_per_q_dfs.items():
+        row: dict = {"system": system_name, "n_questions": len(df)}
+        for col in _LLM_METRIC_COLS + ["rouge_l", "bleu_1"]:
+            if col in df.columns:
+                row[f"{col}_mean"] = round(float(df[col].mean()), 4)
+                row[f"{col}_std"] = round(float(df[col].std()), 4)
+        if "insufficient_context" in df.columns:
+            row["insufficient_context_rate"] = round(float(df["insufficient_context"].mean()), 4)
+        summary_rows.append(row)
+    summary_df = pd.DataFrame(summary_rows)
+    system_summary_path = output_dir / "system_summary.csv"
+    summary_df.to_csv(system_summary_path, index=False)
+    print(f"Saved: {system_summary_path.name}")
+
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
-    from ragas import EvaluationDataset, evaluate
-    from ragas.metrics import (
-        AnswerCorrectness,
-        AnswerRelevancy,
-        ContextPrecision,
-        ContextRecall,
-        Faithfulness,
-    )
-
     generator_model = (
         GENERATOR_OLLAMA_MODEL if GENERATOR_BACKEND == "ollama" else GENERATOR_OPENAI_MODEL
     )
     print(f"Generator:   {GENERATOR_BACKEND} / {generator_model}")
-    print(f"RAGAS judge: {RAGAS_JUDGE_MODEL}")
+    print(f"Judge model: {RAGAS_JUDGE_MODEL}")
     print(f"Dataset:     {DATASET_PATH}")
     print(f"LPM data:    {LPM_DATA_DIR}")
 
@@ -482,7 +891,7 @@ def main():
         print(f"ERROR: lpm_data/ not found at {LPM_DATA_DIR}")
         sys.exit(1)
     if not OPENAI_API_KEY:
-        print("WARNING: OPENAI_API_KEY is not set — RAGAS judge calls will fail.")
+        print("WARNING: OPENAI_API_KEY is not set — batch judge calls will fail.")
 
     examples = load_lpm_examples(DATASET_PATH, LIMIT)
     print(f"\nLoaded {len(examples)} examples")
@@ -490,66 +899,70 @@ def main():
     lectures_by_key = discover_lectures(LPM_DATA_DIR)
     print(f"Discovered {len(lectures_by_key)} lectures in lpm_data/")
 
-    openai_client = None
-    if GENERATOR_BACKEND == "openai":
-        from openai import OpenAI
-        openai_client = OpenAI(api_key=OPENAI_API_KEY)
+    from openai import OpenAI
+    openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
-    ragas_llm, ragas_embeddings = build_ragas_judge()
-    metrics = [
-        Faithfulness(),
-        ContextPrecision(),
-        ContextRecall(),
-        AnswerCorrectness(),
-        AnswerRelevancy(),
-    ]
-
-    all_scores: dict[str, dict] = {}
-
+    # ── Phase A: retrieval (all systems) ────────────────────────────────────
+    all_retrieval: dict[str, list[RetrievalResult]] = {}
     for system in SYSTEMS:
         name = system["name"]
         print(f"\n{'=' * 60}")
-        print(f"System: {name}")
+        print(f"System: {name}  [retrieval]")
         print(f"{'=' * 60}")
+        retrieval_results = run_retrieval(system, lectures_by_key, examples, openai_client=openai_client)
+        all_retrieval[name] = retrieval_results
 
-        samples = run_system(system, lectures_by_key, examples, openai_client)
-        if not samples:
-            print(f"  No samples — skipping RAGAS evaluation for {name}.")
-            continue
+    # Filter out systems with no retrieval results
+    all_retrieval = {k: v for k, v in all_retrieval.items() if v}
+    if not all_retrieval:
+        print("No retrieval results for any system — exiting.")
+        return
 
-        print(f"  Running RAGAS on {len(samples)} samples...")
-        dataset = EvaluationDataset(samples=samples)
-        result = evaluate(
-            dataset,
-            metrics=metrics,
-            llm=ragas_llm,
-            embeddings=ragas_embeddings,
-        )
-        df = result.to_pandas()
+    # ── Phase B: generation (one batch for all systems) ──────────────────────
+    print(f"\n{'=' * 60}")
+    print("Phase B — Batch generation")
+    print(f"{'=' * 60}")
 
-        metric_cols = [
-            "faithfulness",
-            "context_precision",
-            "context_recall",
-            "answer_correctness",
-            "answer_relevancy",
-        ]
-        scores = {
-            col: float(df[col].mean())
-            for col in metric_cols
-            if col in df.columns
+    if GENERATOR_BACKEND == "openai":
+        all_gen_results = generate_all_batch(all_retrieval, openai_client)
+    else:
+        all_gen_results = {
+            name: run_generation_ollama(retrieval_results)
+            for name, retrieval_results in all_retrieval.items()
         }
+
+    # ── Phase C: judging (one batch for all systems) ─────────────────────────
+    print(f"\n{'=' * 60}")
+    print("Phase C — Batch judging")
+    print(f"{'=' * 60}")
+
+    all_judge_scores = judge_all_batch(all_gen_results, openai_client)
+
+    # ── Save results ─────────────────────────────────────────────────────────
+    all_scores: dict[str, dict] = {}
+    all_per_q_dfs: dict = {}
+    for name, gen_results in all_gen_results.items():
+        print(f"\n{'=' * 60}")
+        print(f"System: {name}  [saving results]")
+        print(f"{'=' * 60}")
+        per_q_metrics = all_judge_scores.get(name, {})
+        scores, per_q_df = save_results(name, gen_results, per_q_metrics, OUTPUT_DIR)
         print(f"  Scores:")
         for metric, val in scores.items():
             print(f"    {metric}: {val:.4f}")
-
-        save_results(df, name, scores, OUTPUT_DIR)
         all_scores[name] = scores
+        all_per_q_dfs[name] = per_q_df
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     summary_path = OUTPUT_DIR / "all_systems_summary.json"
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     summary_path.write_text(json.dumps(all_scores, indent=2))
     print(f"\nSummary saved to {summary_path}")
+
+    print(f"\n{'=' * 60}")
+    print("Writing combined CSVs")
+    print(f"{'=' * 60}")
+    _write_combined_csvs(all_per_q_dfs, all_scores, OUTPUT_DIR)
     print("Done.")
 
 

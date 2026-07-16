@@ -14,7 +14,7 @@ Setup
 
 Usage
 -----
-# RAGAS + LPM-QA retrieval evaluation (CPU, OpenAI for generation + judging)
+# RAGAS + LPM-QA retrieval evaluation (CPU, OpenAI Batch API — 50% cost savings)
 modal run modal_eval.py::ragas
 modal run modal_eval.py::ragas --limit 20
 modal run modal_eval.py::ragas --generator-model gpt-4o
@@ -75,6 +75,7 @@ _CORE_PKGS = [
     "scikit-learn",
     "structlog",
     "yake",
+    "ir-measures",
     "segtok",
     "tabulate",
     "matplotlib",
@@ -83,10 +84,9 @@ _CORE_PKGS = [
 ]
 
 _RAGAS_PKGS = [
-    "ragas>=0.2",
-    "langchain-openai>=0.3",
     "openai>=1.0",
     "python-dotenv",
+    "pandas",
 ]
 
 # RAGAS eval: CPU-only, OpenAI for generation and RAGAS judging.
@@ -202,11 +202,11 @@ def upload_eduvid():
         "/lpm_volume": lpm_vol,
         "/outputs": output_vol,
     },
-    timeout=60 * 120,
+    timeout=60 * 360,
     cpu=4.0,
     memory=16384,
 )
-def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str, max_workers: int) -> dict:
+def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str) -> dict:
     import json
     import os
     import sys
@@ -222,7 +222,6 @@ def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str, max_work
     script.GENERATOR_OPENAI_MODEL = generator_model
     script.RAGAS_JUDGE_MODEL = ragas_judge_model
     script.OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-    script.MAX_GENERATION_WORKERS = max_workers
     # The volume was uploaded as `modal volume put ... ./lpm_data /`, so inside
     # the volume the data lives under /lpm_data/. Correct the path accordingly.
     script.LPM_DATA_DIR = Path("/lpm_volume/lpm_data")
@@ -242,33 +241,103 @@ def _ragas_fn(limit: int, generator_model: str, ragas_judge_model: str, max_work
 def ragas(
     limit: int = 5,
     generator_model: str = "gpt-4o-mini",
-    ragas_judge_model: str = "gpt-5.4-mini",
-    max_workers: int = 20,
+    ragas_judge_model: str = "gpt-4.1-mini",
 ):
-    """RAGAS evaluation on the LPM QA dataset (CPU, OpenAI backend).
+    """RAGAS evaluation on the LPM QA dataset (CPU, OpenAI Batch API).
+
+    Both answer generation and judging use the OpenAI Batch API (50% cost vs. standard).
 
     Examples:
         modal run modal_eval.py::ragas
         modal run modal_eval.py::ragas --limit 20
         modal run modal_eval.py::ragas --generator-model gpt-4o
-        modal run modal_eval.py::ragas --limit 50 --max-workers 30
     """
     import json
 
     print(
         f"Starting RAGAS eval  "
-        f"limit={limit}  generator={generator_model}  judge={ragas_judge_model}  "
-        f"max_workers={max_workers}"
+        f"limit={limit}  generator={generator_model}  judge={ragas_judge_model}"
     )
     summary = _ragas_fn.remote(
         limit=limit,
         generator_model=generator_model,
         ragas_judge_model=ragas_judge_model,
-        max_workers=max_workers,
     )
     print("\n── Scores ──────────────────────────────────────────────────────")
     print(json.dumps(summary, indent=2))
     print("\nFull per-question CSVs: modal volume ls thesis-eval-outputs")
+
+
+# ── LPM Temporal Retrieval Evaluation ─────────────────────────────────────────
+
+@app.function(
+    image=gpu_image,
+    volumes={
+        "/lpm_volume": lpm_vol,
+        "/outputs": output_vol,
+    },
+    gpu="T4",
+    timeout=60 * 360,
+    cpu=4.0,
+    memory=16384,
+)
+def _temporal_retrieval_fn(limit: int | None) -> str:
+    import os
+    import subprocess
+    import sys
+    import time
+    from pathlib import Path
+
+    sys.path.insert(0, "/repo")
+    os.chdir("/repo")
+
+    # Start Ollama — needed for summary tree node summarisation.
+    print("Starting Ollama server...")
+    subprocess.Popen(["ollama", "serve"])
+    time.sleep(3)
+    print("Pulling llama3.2...")
+    subprocess.run(["ollama", "pull", "llama3.2"], check=True)
+    print("Model ready.")
+
+    import lpm_qa_evaluation.evaluate_lpm_temporal_retrieval as script
+
+    out_dir = Path("/outputs/temporal_retrieval")
+    cache_dir = out_dir / "summary_tree_cache"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    script.PROJECT_DIR = Path("/lpm_volume")
+
+    argv = [
+        "--output-dir", str(out_dir),
+        "--summary-tree-cache-dir", str(cache_dir),
+    ]
+    if limit is not None:
+        argv += ["--limit", str(limit)]
+
+    script.main(argv)
+    output_vol.commit()
+
+    csv_path = out_dir / "retrieval_evaluation.csv"
+    return csv_path.read_text() if csv_path.exists() else ""
+
+
+@app.local_entrypoint()
+def temporal_retrieval(limit: int | None = None):
+    """LPM temporal retrieval evaluation — all 14 systems, no OpenAI needed.
+
+    Examples:
+        modal run modal_eval.py::temporal_retrieval
+        modal run modal_eval.py::temporal_retrieval --limit 20
+    """
+    print(f"Starting temporal retrieval eval  limit={limit}")
+    csv_text = _temporal_retrieval_fn.remote(limit=limit)
+    if csv_text:
+        lines = csv_text.strip().split("\n")
+        print(f"\n── Results ({len(lines) - 1} systems) ──────────────────────────────────")
+        for line in lines:
+            print(line)
+    print("\nFull CSV: modal volume get thesis-eval-outputs temporal_retrieval/retrieval_evaluation.csv .")
 
 
 # ── EduVid Retrieval + QA Evaluation ──────────────────────────────────────────
