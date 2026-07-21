@@ -32,7 +32,7 @@ from treeseg_vector_index_modular.ollama_responder import OllamaResponder  # noq
 from treeseg_vector_index_modular.rerank_input_builder import RerankInputBuilder  # noqa: E402
 from treeseg_vector_index_modular.vector_store_factory import VectorStoreFactory  # noqa: E402
 
-GENERATOR_BACKEND = "ollama"        # "ollama" | "openai"
+GENERATOR_BACKEND = "openai"        # "ollama" | "openai"
 GENERATOR_OLLAMA_MODEL = "llama3.2"
 GENERATOR_OPENAI_MODEL = "gpt-4o-mini"
 SUMMARY_OPENAI_MODEL = "gpt-4o-mini"   # model used to build summary tree nodes
@@ -42,8 +42,8 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
-LIMIT = 5
-TOP_K = 10
+LIMIT = 150
+TOP_K = 50
 TOP_N = 5
 MAX_CONTEXT_CHARS = 8000
 EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
@@ -52,6 +52,8 @@ SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
 DATASET_PATH = MASTERS_THESIS_DIR / "LPM_QA_DATASET" / "lpm_qa_labeled.csv"
 LPM_DATA_DIR = MASTERS_THESIS_DIR / "lpm_data"
 OUTPUT_DIR = SCRIPT_DIR / "outputs"
+SUMMARY_TREE_CACHE_DIR = OUTPUT_DIR / "summary_tree_cache"
+RETRIEVAL_CHECKPOINT_DIR = OUTPUT_DIR / "retrieval_checkpoints"
 
 INSUFFICIENT_CONTEXT_RESPONSE = (
     "The retrieved lecture segments do not contain enough information to answer "
@@ -85,6 +87,26 @@ SYSTEMS: list[dict] = [
             chunk_strategy="raw_token_window",
             chunk_size_tokens=512,
             overlap_percent=0,
+            ocr_mode="transcript_only",
+        ),
+    },
+    {
+        "name": "baseline_utt_128_0ov",
+        "kind": "baseline",
+        "config": BaselineRagConfig(
+            chunk_strategy="utterance_packed",
+            chunk_size_tokens=128,
+            overlap_percent=0,
+            ocr_mode="transcript_only",
+        ),
+    },
+    {
+        "name": "baseline_utt_128_10ov",
+        "kind": "baseline",
+        "config": BaselineRagConfig(
+            chunk_strategy="utterance_packed",
+            chunk_size_tokens=128,
+            overlap_percent=10,
             ocr_mode="transcript_only",
         ),
     },
@@ -174,7 +196,7 @@ def discover_lectures(lpm_data_dir: Path) -> dict[str, LectureDescriptor]:
 
 # ─── Store + retrieval helpers ────────────────────────────────────────────────
 
-def _patch_summary_tree_to_openai(openai_client, model: str) -> None:
+def _patch_summary_tree_to_openai(openai_client, openai_model: str) -> None:
     """Replace OllamaResponder.generate_summary with an OpenAI-backed version.
 
     This is done in-place on the class so that lecture_segment_builder.dfs(),
@@ -183,9 +205,11 @@ def _patch_summary_tree_to_openai(openai_client, model: str) -> None:
     all summary_tree builds in this script want the same backend.
     """
     def _openai_generate_summary(
-        text, is_leaf=True, model=model, temperature=0.2,
+        text, is_leaf=True, model=None, temperature=0.2,
         keep_alive=None, client=None, host=None,
     ):
+        # Ignore the `model` argument — dfs() passes "llama3.2" which must not
+        # reach the OpenAI API. Always use the captured openai_model instead.
         if not text or not text.strip():
             return "Empty"
         system_prompt = (
@@ -194,7 +218,7 @@ def _patch_summary_tree_to_openai(openai_client, model: str) -> None:
         )
         user_content = f"Transcript excerpt:\n{text}" if is_leaf else text
         resp = openai_client.chat.completions.create(
-            model=model,
+            model=openai_model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content},
@@ -225,7 +249,10 @@ def build_store(system: dict, lectures: list[LectureDescriptor], openai_client=N
             cache_version = f"openai-{SUMMARY_OPENAI_MODEL}"
         else:
             cache_version = "v1"
-        build_options = SummaryTreeBuildOptions(cache_version=cache_version)
+        build_options = SummaryTreeBuildOptions(
+            cache_dir=str(SUMMARY_TREE_CACHE_DIR),
+            cache_version=cache_version,
+        )
     return VectorStoreFactory().build_vector_store(
         lectures=lectures,
         treeseg_config=config,
@@ -394,13 +421,47 @@ def build_reranker(kind: str) -> CrossEncoderReranker:
         if kind == "summary_tree"
         else RerankInputBuilder.build_rerank_input
     )
-    return CrossEncoderReranker(RERANKER_MODEL, input_builder=input_builder)
+    # Force CPU: MPS runs out of memory scoring 50 pairs while the embedding
+    # model already occupies ~12 GB of MPS memory.
+    return CrossEncoderReranker(RERANKER_MODEL, device="cpu", input_builder=input_builder)
 
 
 # ─── Phase A: retrieval ───────────────────────────────────────────────────────
 
 # Returns list of (ex, context_string, context_texts_list) for each usable example.
 RetrievalResult = tuple[dict, str, list[str]]
+
+
+def _checkpoint_path(system_name: str) -> Path:
+    return RETRIEVAL_CHECKPOINT_DIR / f"{system_name}.jsonl"
+
+
+def _load_checkpoint(system_name: str) -> tuple[list[RetrievalResult], set[str]]:
+    """Returns (results_so_far, set_of_completed_example_ids)."""
+    cp = _checkpoint_path(system_name)
+    if not cp.exists():
+        return [], set()
+    results = []
+    done_ids: set[str] = set()
+    with cp.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            record = json.loads(line)
+            ex = {k: record[k] for k in ("example_id", "question", "answer", "lecture_key")}
+            results.append((ex, record["context"], record["context_texts"]))
+            done_ids.add(record["example_id"])
+    if done_ids:
+        print(f"  [checkpoint] Resuming — {len(done_ids)} questions already done, loading from disk.")
+    return results, done_ids
+
+
+def _append_checkpoint(system_name: str, ex: dict, context: str, context_texts: list[str]) -> None:
+    RETRIEVAL_CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
+    record = {**ex, "context": context, "context_texts": context_texts}
+    with _checkpoint_path(system_name).open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record) + "\n")
 
 
 def run_retrieval(
@@ -417,7 +478,14 @@ def run_retrieval(
         print(f"  [skip] No usable examples for {name} — no lecture keys found in lpm_data/")
         return []
 
-    unique_keys = {ex["lecture_key"] for ex in usable}
+    results, done_ids = _load_checkpoint(name)
+    remaining = [ex for ex in usable if ex["example_id"] not in done_ids]
+
+    if not remaining:
+        print(f"  [checkpoint] All {len(results)} questions already done — skipping store build.")
+        return results
+
+    unique_keys = {ex["lecture_key"] for ex in remaining}
     lectures = [lectures_by_key[k] for k in unique_keys]
     print(f"  Building store ({len(lectures)} lecture(s))...")
     store = build_store(system, lectures, openai_client=openai_client)
@@ -425,9 +493,11 @@ def run_retrieval(
     print(f"  Loading reranker ({RERANKER_MODEL})...")
     reranker = build_reranker(kind)
 
-    results: list[RetrievalResult] = []
-    for i, ex in enumerate(usable, start=1):
-        print(f"  [retrieval {i}/{len(usable)}] {ex['example_id']}: {ex['question'][:70]}...")
+    total = len(usable)
+    completed_so_far = len(done_ids)
+    for ex in remaining:
+        completed_so_far += 1
+        print(f"  [retrieval {completed_so_far}/{total}] {ex['example_id']}: {ex['question'][:70]}...")
         if ex["lecture_key"] not in store.lecture_indices:
             print(f"    [skip] lecture not indexed: {ex['lecture_key']}")
             continue
@@ -435,6 +505,7 @@ def run_retrieval(
         context = build_context(hits, kind)
         context_texts = extract_context_texts(hits, kind)
         results.append((ex, context, context_texts))
+        _append_checkpoint(name, ex, context, context_texts)
 
     return results
 

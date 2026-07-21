@@ -340,6 +340,77 @@ def temporal_retrieval(limit: int | None = None):
     print("\nFull CSV: modal volume get thesis-eval-outputs temporal_retrieval/retrieval_evaluation.csv .")
 
 
+# ── EduVid Temporal Retrieval Evaluation ─────────────────────────────────────
+
+@app.function(
+    image=gpu_image,
+    volumes={
+        "/repo/eduvid_evaluation/storage": eduvid_vol,
+        "/outputs": output_vol,
+    },
+    gpu="T4",
+    timeout=60 * 360,
+    cpu=4.0,
+    memory=16384,
+)
+def _eduvid_temporal_retrieval_fn(limit: int | None) -> str:
+    import os
+    import subprocess
+    import sys
+    import time
+    from pathlib import Path
+
+    sys.path.insert(0, "/repo")
+    os.chdir("/repo")
+
+    print("Starting Ollama server...")
+    subprocess.Popen(["ollama", "serve"])
+    time.sleep(3)
+    subprocess.run(["ollama", "pull", "llama3.2"], check=True)
+    print("Model ready.")
+
+    import eduvid_evaluation.evaluate_eduvid_temporal_retrieval as script
+
+    out_dir = Path("/outputs/eduvid_temporal_retrieval")
+    cache_dir = Path("/repo/eduvid_evaluation/storage/summary_tree_cache")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    argv = [
+        "--videos-root", "/repo/eduvid_evaluation/storage/videos",
+        "--output-dir", str(out_dir),
+        "--summary-tree-cache-dir", str(cache_dir),
+    ]
+    if limit is not None:
+        argv += ["--limit", str(limit)]
+
+    script.main(argv)
+    output_vol.commit()
+
+    csv_path = out_dir / "eduvid_retrieval_evaluation.csv"
+    return csv_path.read_text() if csv_path.exists() else ""
+
+
+@app.local_entrypoint()
+def eduvid_temporal_retrieval(limit: int | None = None):
+    """EduVidQA temporal retrieval evaluation — all 14 systems.
+
+    Uses single-point timestamp metrics (recall, recall_relaxed, mean_td, mrr, ndcg).
+
+    Examples:
+        modal run modal_eval.py::eduvid_temporal_retrieval
+        modal run modal_eval.py::eduvid_temporal_retrieval --limit 20
+    """
+    print(f"Starting EduVid temporal retrieval eval  limit={limit}")
+    csv_text = _eduvid_temporal_retrieval_fn.remote(limit=limit)
+    if csv_text:
+        lines = csv_text.strip().split("\n")
+        print(f"\n── Results ({len(lines) - 1} systems) ──────────────────────────────────")
+        for line in lines:
+            print(line)
+    print("\nFull CSV: modal volume get thesis-eval-outputs eduvid_temporal_retrieval/eduvid_retrieval_evaluation.csv .")
+
+
 # ── EduVid Retrieval + QA Evaluation ──────────────────────────────────────────
 
 @app.function(

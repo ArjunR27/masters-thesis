@@ -1,0 +1,6 @@
+system,n_questions,faithfulness_mean,faithfulness_std,context_precision_mean,context_precision_std,context_recall_mean,context_recall_std,answer_correctness_mean,answer_correctness_std,answer_relevancy_mean,answer_relevancy_std,rouge_l_mean,rouge_l_std,bleu_1_mean,bleu_1_std,insufficient_context_rate
+treeseg_leaf,150,0.9913,0.0835,0.8878,0.211,0.944,0.1877,0.892,0.1927,0.9547,0.1354,0.2181,0.0952,0.2231,0.1061,0.0
+treeseg_summary_tree,150,0.9567,0.1978,0.8146,0.2838,0.9541,0.1668,0.8337,0.2741,0.904,0.2377,0.2154,0.102,0.2219,0.1127,0.0533
+baseline_raw_512_0ov,150,0.998,0.014,0.9022,0.227,0.9513,0.1864,0.8943,0.1929,0.9527,0.154,0.2226,0.107,0.2281,0.1189,0.0
+baseline_utt_128_0ov,150,0.9973,0.0199,0.8373,0.2857,0.8815,0.2399,0.8817,0.2025,0.922,0.186,0.2309,0.0927,0.2463,0.1082,0.0
+baseline_utt_128_10ov,150,0.99,0.0528,0.8346,0.2932,0.8828,0.2521,0.8887,0.185,0.926,0.1565,0.2387,0.1163,0.2539,0.1269,0.0
