@@ -1,0 +1,128 @@
+{
+  "treeseg_leaf": {
+    "faithfulness": 0.9913333333333333,
+    "context_precision": 0.8918981481481482,
+    "context_recall": 0.9493333333333334,
+    "answer_correctness": 0.8986666666666667,
+    "answer_relevancy": 0.9573333333333335,
+    "rouge_l": 0.21645545980624442,
+    "bleu_1": 0.22152916103668902
+  },
+  "treeseg_summary_tree": {
+    "faithfulness": 0.9466666666666667,
+    "context_precision": 0.8153056947433474,
+    "context_recall": 0.9554666666666666,
+    "answer_correctness": 0.834,
+    "answer_relevancy": 0.912,
+    "rouge_l": 0.2161099072003958,
+    "bleu_1": 0.22186953484542446
+  },
+  "baseline_raw_128_0ov": {
+    "faithfulness": 0.9966666666666667,
+    "context_precision": 0.8395370370370371,
+    "context_recall": 0.8739333333333333,
+    "answer_correctness": 0.8820000000000001,
+    "answer_relevancy": 0.9266666666666666,
+    "rouge_l": 0.23343316951282805,
+    "bleu_1": 0.24519618609981705
+  },
+  "baseline_raw_128_10ov": {
+    "faithfulness": 0.9840000000000001,
+    "context_precision": 0.8410833333333333,
+    "context_recall": 0.8689333333333333,
+    "answer_correctness": 0.88,
+    "answer_relevancy": 0.9386666666666668,
+    "rouge_l": 0.23713462874128804,
+    "bleu_1": 0.2506502220213715
+  },
+  "baseline_raw_256_0ov": {
+    "faithfulness": 0.9926666666666665,
+    "context_precision": 0.8786944444444444,
+    "context_recall": 0.9238,
+    "answer_correctness": 0.907,
+    "answer_relevancy": 0.9493333333333334,
+    "rouge_l": 0.21872155805481497,
+    "bleu_1": 0.226451571812498
+  },
+  "baseline_raw_256_10ov": {
+    "faithfulness": 0.9946666666666666,
+    "context_precision": 0.8939722222222224,
+    "context_recall": 0.9224666666666667,
+    "answer_correctness": 0.9073333333333334,
+    "answer_relevancy": 0.9426666666666665,
+    "rouge_l": 0.22020159032848047,
+    "bleu_1": 0.22933230922401018
+  },
+  "baseline_raw_512_0ov": {
+    "faithfulness": 0.9979999999999999,
+    "context_precision": 0.9014629629629629,
+    "context_recall": 0.938,
+    "answer_correctness": 0.8916666666666667,
+    "answer_relevancy": 0.9593333333333331,
+    "rouge_l": 0.22239912720452235,
+    "bleu_1": 0.22809413102838685
+  },
+  "baseline_raw_512_10ov": {
+    "faithfulness": 0.9959999999999999,
+    "context_precision": 0.9045000000000001,
+    "context_recall": 0.9473333333333335,
+    "answer_correctness": 0.8933333333333333,
+    "answer_relevancy": 0.9520000000000001,
+    "rouge_l": 0.21746973156869345,
+    "bleu_1": 0.2241198581345697
+  },
+  "baseline_utt_128_0ov": {
+    "faithfulness": 0.9953333333333334,
+    "context_precision": 0.8391944444444444,
+    "context_recall": 0.8764666666666668,
+    "answer_correctness": 0.8753333333333334,
+    "answer_relevancy": 0.9126666666666667,
+    "rouge_l": 0.23065255252625771,
+    "bleu_1": 0.24606290017898283
+  },
+  "baseline_utt_128_10ov": {
+    "faithfulness": 0.9940000000000001,
+    "context_precision": 0.8368055555555556,
+    "context_recall": 0.8706,
+    "answer_correctness": 0.8846666666666668,
+    "answer_relevancy": 0.9339999999999999,
+    "rouge_l": 0.24009502417948114,
+    "bleu_1": 0.25793410913582476
+  },
+  "baseline_utt_256_0ov": {
+    "faithfulness": 0.99,
+    "context_precision": 0.8802037037037038,
+    "context_recall": 0.9371333333333333,
+    "answer_correctness": 0.9013333333333332,
+    "answer_relevancy": 0.9420000000000001,
+    "rouge_l": 0.22229837187650528,
+    "bleu_1": 0.23111333707741358
+  },
+  "baseline_utt_256_10ov": {
+    "faithfulness": 0.9893333333333334,
+    "context_precision": 0.8935740740740742,
+    "context_recall": 0.9321333333333333,
+    "answer_correctness": 0.9076666666666668,
+    "answer_relevancy": 0.9466666666666667,
+    "rouge_l": 0.22500345708204436,
+    "bleu_1": 0.23341247735220705
+  },
+  "baseline_utt_512_0ov": {
+    "faithfulness": 0.9953333333333334,
+    "context_precision": 0.8874722222222222,
+    "context_recall": 0.9486666666666668,
+    "answer_correctness": 0.9056666666666668,
+    "answer_relevancy": 0.9566666666666667,
+    "rouge_l": 0.21840633834336226,
+    "bleu_1": 0.22227102601403212
+  },
+  "baseline_utt_512_10ov": {
+    "faithfulness": 0.9986666666666667,
+    "context_precision": 0.9038240740740742,
+    "context_recall": 0.97,
+    "answer_correctness": 0.9030000000000001,
+    "answer_relevancy": 0.9506666666666667,
+    "rouge_l": 0.2137140574875599,
+    "bleu_1": 0.21993841387534863
+  }
+}

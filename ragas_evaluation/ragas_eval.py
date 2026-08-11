@@ -77,39 +77,36 @@ Rules:
 5. Do not mention slides, OCR, or visual evidence."""
 
 # ─── Systems to evaluate ─────────────────────────────────────────────────────
+def _baseline(name: str, strategy: str, size: int, overlap: int) -> dict:
+    return {
+        "name": name,
+        "kind": "baseline",
+        "config": BaselineRagConfig(
+            chunk_strategy=strategy,
+            chunk_size_tokens=size,
+            overlap_percent=overlap,
+            ocr_mode="transcript_only",
+        ),
+    }
+
+
 SYSTEMS: list[dict] = [
     {"name": "treeseg_leaf", "kind": "leaf"},
     {"name": "treeseg_summary_tree", "kind": "summary_tree"},
-    {
-        "name": "baseline_raw_512_0ov",
-        "kind": "baseline",
-        "config": BaselineRagConfig(
-            chunk_strategy="raw_token_window",
-            chunk_size_tokens=512,
-            overlap_percent=0,
-            ocr_mode="transcript_only",
-        ),
-    },
-    {
-        "name": "baseline_utt_128_0ov",
-        "kind": "baseline",
-        "config": BaselineRagConfig(
-            chunk_strategy="utterance_packed",
-            chunk_size_tokens=128,
-            overlap_percent=0,
-            ocr_mode="transcript_only",
-        ),
-    },
-    {
-        "name": "baseline_utt_128_10ov",
-        "kind": "baseline",
-        "config": BaselineRagConfig(
-            chunk_strategy="utterance_packed",
-            chunk_size_tokens=128,
-            overlap_percent=10,
-            ocr_mode="transcript_only",
-        ),
-    },
+    # raw token-window baselines
+    _baseline("baseline_raw_128_0ov",  "raw_token_window", 128, 0),
+    _baseline("baseline_raw_128_10ov", "raw_token_window", 128, 10),
+    _baseline("baseline_raw_256_0ov",  "raw_token_window", 256, 0),
+    _baseline("baseline_raw_256_10ov", "raw_token_window", 256, 10),
+    _baseline("baseline_raw_512_0ov",  "raw_token_window", 512, 0),
+    _baseline("baseline_raw_512_10ov", "raw_token_window", 512, 10),
+    # utterance-packed baselines
+    _baseline("baseline_utt_128_0ov",  "utterance_packed", 128, 0),
+    _baseline("baseline_utt_128_10ov", "utterance_packed", 128, 10),
+    _baseline("baseline_utt_256_0ov",  "utterance_packed", 256, 0),
+    _baseline("baseline_utt_256_10ov", "utterance_packed", 256, 10),
+    _baseline("baseline_utt_512_0ov",  "utterance_packed", 512, 0),
+    _baseline("baseline_utt_512_10ov", "utterance_packed", 512, 10),
 ]
 
 # ─── Judge prompt templates ───────────────────────────────────────────────────
@@ -120,17 +117,23 @@ _FAITHFULNESS_PROMPT = """Context:
 Generated answer:
 {answer}
 
-Rate how faithful the answer is to the context on a scale of 0 to 1.
-1.0 = every claim in the answer is directly supported by the context.
-0.0 = the answer makes claims not supported by the context.
+Your task:
+1. Break the generated answer into individual atomic statements (one distinct fact or claim per statement, no pronouns).
+2. For each statement, determine whether it can be directly inferred from the context: verdict 1 if supported, 0 if not.
+3. Compute score = number of supported statements / total number of statements.
+   If the answer has no statements, score = 0.0.
+
 Respond only with JSON: {{"score": <float 0-1>}}"""
 
 _CONTEXT_PRECISION_CHUNK_PROMPT = """Question: {question}
 
+Answer: {answer}
+
 Retrieved context chunk:
 {chunk}
 
-Is this context chunk relevant to answering the question?
+Given the question and the answer above, was this context chunk useful in arriving at the given answer?
+Give verdict as 1 if useful and 0 if not.
 Respond only with JSON: {{"relevant": <0 or 1>}}"""
 
 _CONTEXT_RECALL_PROMPT = """Reference answer:
@@ -139,7 +142,12 @@ _CONTEXT_RECALL_PROMPT = """Reference answer:
 Retrieved contexts:
 {contexts}
 
-What fraction of the key claims in the reference answer are directly supported by the retrieved contexts?
+Your task:
+1. Identify each individual key claim or sentence in the reference answer.
+2. For each claim, determine whether it is directly supported by the retrieved contexts: verdict 1 if supported, 0 if not.
+3. Compute score = number of supported claims / total number of claims in the reference answer.
+   If the reference has no claims, score = 0.0.
+
 Respond only with JSON: {{"score": <float 0-1>}}"""
 
 _ANSWER_CORRECTNESS_PROMPT = """Question: {question}
@@ -150,18 +158,23 @@ Reference answer:
 Generated answer:
 {answer}
 
-Rate the factual correctness and semantic similarity of the generated answer to the reference.
-1.0 = fully correct and equivalent; 0.0 = completely wrong.
+Your task:
+1. Extract the key statements from both the reference answer and the generated answer.
+2. Classify each statement into exactly one category:
+   - TP (true positive): present in the generated answer AND directly supported by the reference answer
+   - FP (false positive): present in the generated answer but NOT supported by the reference answer
+   - FN (false negative): present in the reference answer but MISSING from the generated answer
+3. Compute F1 score = 2*TP / (2*TP + FP + FN). If TP + FP + FN = 0, score = 1.0.
+
 Respond only with JSON: {{"score": <float 0-1>}}"""
 
-_ANSWER_RELEVANCY_PROMPT = """Question: {question}
-
-Generated answer:
+_ANSWER_RELEVANCY_PROMPT = """Answer:
 {answer}
 
-Rate how directly and completely the answer addresses the question.
-1.0 = perfectly relevant and complete; 0.0 = irrelevant.
-Respond only with JSON: {{"score": <float 0-1>}}"""
+Generate 3 distinct questions that this answer could be responding to.
+Also determine if the answer is noncommittal (evasive, vague, or ambiguous — e.g. "I don't know", "I'm not sure", "It depends"): noncommittal = 1 if so, 0 if the answer is substantive.
+
+Respond only with JSON: {{"questions": ["...", "...", "..."], "noncommittal": <0 or 1>}}"""
 
 
 # ─── Dataset loading ──────────────────────────────────────────────────────────
@@ -719,7 +732,7 @@ def judge_all_batch(
                         model=RAGAS_JUDGE_MODEL,
                         system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
                         user_content=_CONTEXT_PRECISION_CHUNK_PROMPT.format(
-                            question=question, chunk=chunk
+                            question=question, answer=generated, chunk=chunk
                         ),
                     )
                 )
@@ -755,7 +768,7 @@ def judge_all_batch(
                     model=RAGAS_JUDGE_MODEL,
                     system_prompt="You are an expert evaluator. Follow the instructions exactly and respond only with JSON.",
                     user_content=_ANSWER_RELEVANCY_PROMPT.format(
-                        question=question, answer=generated
+                        answer=generated
                     ),
                 )
             )
@@ -806,12 +819,61 @@ def judge_all_batch(
                 _parse_score(raw.get(f"judge-{sys_name}-{i}-answer_correctness", ""), "score")
             )
 
-            # Answer Relevancy
-            metrics["answer_relevancy"].append(
-                _parse_score(raw.get(f"judge-{sys_name}-{i}-answer_relevancy", ""), "score")
-            )
+            # Answer Relevancy — placeholder; filled in after embedding computation below
+            metrics["answer_relevancy"].append(0.0)
 
         per_system[sys_name] = metrics
+
+    # ── Answer Relevancy: embedding-based cosine similarity (mirrors RAGAS) ──
+    # Parse synthetic questions + noncommittal flag from batch results
+    ar_data: dict[tuple[str, int], tuple[str, list[str], int]] = {}
+    for sys_name, gen_results in all_gen_results.items():
+        for i, (ex, generated, _) in enumerate(gen_results):
+            text = raw.get(f"judge-{sys_name}-{i}-answer_relevancy", "")
+            try:
+                obj = json.loads(text)
+                synth_qs = [q for q in obj.get("questions", []) if isinstance(q, str) and q.strip()]
+                noncommittal = int(obj.get("noncommittal", 0))
+            except Exception:
+                synth_qs = []
+                noncommittal = 0
+            ar_data[(sys_name, i)] = (ex["question"], synth_qs, noncommittal)
+
+    # Batch-encode all original + synthetic questions with the retrieval embedding model
+    from sentence_transformers import SentenceTransformer
+    import numpy as _np
+    print(f"  Computing answer relevancy embeddings ({EMBEDDING_MODEL})...")
+    _embed = SentenceTransformer(EMBEDDING_MODEL)
+
+    all_texts: list[str] = []
+    text_keys: list[tuple] = []
+    for (sys_name, i), (orig_q, synth_qs, _) in ar_data.items():
+        all_texts.append(orig_q)
+        text_keys.append((sys_name, i, "orig"))
+        for j, sq in enumerate(synth_qs):
+            all_texts.append(sq)
+            text_keys.append((sys_name, i, f"synth_{j}"))
+
+    if all_texts:
+        embeddings = _embed.encode(all_texts, normalize_embeddings=True, show_progress_bar=False)
+        emb_map = {k: e for k, e in zip(text_keys, embeddings)}
+    else:
+        emb_map = {}
+
+    for sys_name, gen_results in all_gen_results.items():
+        for i in range(len(gen_results)):
+            orig_q, synth_qs, noncommittal = ar_data.get((sys_name, i), ("", [], 0))
+            if noncommittal or not synth_qs:
+                score = 0.0
+            else:
+                orig_emb = emb_map.get((sys_name, i, "orig"))
+                sims = []
+                for j in range(len(synth_qs)):
+                    synth_emb = emb_map.get((sys_name, i, f"synth_{j}"))
+                    if orig_emb is not None and synth_emb is not None:
+                        sims.append(float(_np.dot(orig_emb, synth_emb)))
+                score = float(_np.mean(sims)) if sims else 0.0
+            per_system[sys_name]["answer_relevancy"][i] = score
 
     return per_system
 
