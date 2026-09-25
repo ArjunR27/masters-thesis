@@ -46,6 +46,8 @@ LIMIT = 150
 TOP_K = 50
 TOP_N = 5
 MAX_CONTEXT_CHARS = 8000
+OCR_TOP_K = 10
+OCR_TOP_N = 5
 EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
 SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
 
@@ -63,9 +65,10 @@ INSUFFICIENT_CONTEXT_RESPONSE = (
 QUERY_SYSTEM_PROMPT = """You are an intelligent teaching assistant helping a student understand
 material from a college-level lecture.
 
-You will be given retrieved transcript evidence from the lecture. The evidence may include:
+You will be given retrieved evidence from the lecture. The evidence may include:
 - High-level summary nodes that describe a larger section of the lecture
-- Supporting transcript excerpts grounded in the lecture audio
+- Transcript excerpts grounded in the lecture audio
+- Slide OCR text extracted from lecture slides shown at that moment
 
 Your job is to answer the student's question using ONLY the provided context.
 
@@ -74,7 +77,7 @@ Rules:
 2. If the answer is not directly stated but can be reasonably inferred, say that it is inferred.
 3. If the context is insufficient, clearly say so instead of guessing.
 4. Give a helpful college-level explanation, but stay concise.
-5. Do not mention slides, OCR, or visual evidence."""
+5. You may draw on both transcript and slide content when both are present."""
 
 # ─── Systems to evaluate ─────────────────────────────────────────────────────
 def _baseline(name: str, strategy: str, size: int, overlap: int) -> dict:
@@ -405,6 +408,28 @@ def build_context(hits: list[dict], kind: str) -> str:
     return "\n\n".join(blocks).strip()
 
 
+def build_ocr_block(hit: dict, rank: int) -> str:
+    parts = [f"[Slide {rank}]"]
+    time_text = format_time_range(hit)
+    if time_text:
+        parts.append(time_text)
+    body = compact_text(str(hit.get("text") or ""))
+    if not body:
+        return ""
+    return "\n".join([" ".join(parts), body])
+
+
+def build_ocr_context(ocr_hits: list[dict]) -> str:
+    if not ocr_hits:
+        return ""
+    blocks = []
+    for rank, hit in enumerate(ocr_hits, start=1):
+        block = build_ocr_block(hit, rank)
+        if block:
+            blocks.append(block)
+    return "\n\n".join(blocks).strip()
+
+
 def extract_context_texts(hits: list[dict], kind: str) -> list[str]:
     texts: list[str] = []
     for hit in hits:
@@ -437,6 +462,13 @@ def build_reranker(kind: str) -> CrossEncoderReranker:
     # Force CPU: MPS runs out of memory scoring 50 pairs while the embedding
     # model already occupies ~12 GB of MPS memory.
     return CrossEncoderReranker(RERANKER_MODEL, device="cpu", input_builder=input_builder)
+
+
+def build_ocr_reranker() -> CrossEncoderReranker:
+    return CrossEncoderReranker(
+        RERANKER_MODEL, device="cpu",
+        input_builder=RerankInputBuilder.build_rerank_input_ocr,
+    )
 
 
 # ─── Phase A: retrieval ───────────────────────────────────────────────────────
@@ -500,11 +532,17 @@ def run_retrieval(
 
     unique_keys = {ex["lecture_key"] for ex in remaining}
     lectures = [lectures_by_key[k] for k in unique_keys]
-    print(f"  Building store ({len(lectures)} lecture(s))...")
+    print(f"  Building ASR store ({len(lectures)} lecture(s))...")
     store = build_store(system, lectures, openai_client=openai_client)
 
-    print(f"  Loading reranker ({RERANKER_MODEL})...")
+    print(f"  Building OCR store ({len(lectures)} lecture(s))...")
+    ocr_store = VectorStoreFactory().build_ocr_vector_store(
+        lectures, embed_model=EMBEDDING_MODEL, normalize=True, build_global=False,
+    )
+
+    print(f"  Loading rerankers ({RERANKER_MODEL})...")
     reranker = build_reranker(kind)
+    ocr_reranker = build_ocr_reranker()
 
     total = len(usable)
     completed_so_far = len(done_ids)
@@ -514,9 +552,29 @@ def run_retrieval(
         if ex["lecture_key"] not in store.lecture_indices:
             print(f"    [skip] lecture not indexed: {ex['lecture_key']}")
             continue
-        hits = retrieve_hits(system, store, ex["question"], ex["lecture_key"], reranker)
-        context = build_context(hits, kind)
-        context_texts = extract_context_texts(hits, kind)
+
+        # Independent ASR retrieval
+        asr_hits = retrieve_hits(system, store, ex["question"], ex["lecture_key"], reranker)
+
+        # Independent OCR retrieval (only if the lecture has OCR slides indexed)
+        ocr_hits: list[dict] = []
+        if ex["lecture_key"] in ocr_store.lecture_indices:
+            raw_ocr = ocr_store.search(ex["question"], top_k=OCR_TOP_K, lecture_key=ex["lecture_key"])
+            ocr_hits = ocr_reranker.rerank(ex["question"], raw_ocr, top_n=OCR_TOP_N)
+
+        # Build combined context: ASR section + OCR section
+        asr_context = build_context(asr_hits, kind)
+        ocr_context = build_ocr_context(ocr_hits)
+        if asr_context and ocr_context:
+            context = asr_context + "\n\n--- Slide Evidence ---\n\n" + ocr_context
+        else:
+            context = asr_context or ocr_context
+
+        # context_texts for RAGAS judge: ASR texts + OCR texts
+        context_texts = extract_context_texts(asr_hits, kind)
+        if ocr_hits:
+            context_texts += [compact_text(str(h.get("text") or "")) for h in ocr_hits if h.get("text")]
+
         results.append((ex, context, context_texts))
         _append_checkpoint(name, ex, context, context_texts)
 
@@ -1100,4 +1158,19 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--systems", nargs="+", metavar="NAME",
+        help="Run only these system names (default: all). E.g. --systems treeseg_summary_tree"
+    )
+    args = parser.parse_args()
+    if args.systems:
+        known = {s["name"] for s in SYSTEMS}
+        unknown = set(args.systems) - known
+        if unknown:
+            print(f"ERROR: unknown system(s): {unknown}")
+            print(f"Known: {sorted(known)}")
+            raise SystemExit(1)
+        SYSTEMS[:] = [s for s in SYSTEMS if s["name"] in args.systems]
     main()

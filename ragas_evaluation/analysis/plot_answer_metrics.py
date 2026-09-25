@@ -15,7 +15,9 @@ import matplotlib.ticker as mticker
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+MASTERS = HERE.parent.parent
 UNIFIED = HERE / "outputs" / "unified_table.csv"
+NO_RETRIEVAL_CSV = MASTERS / "ragas_evaluation/outputs/no_retrieval_per_question.csv"
 OUT = HERE / "outputs" / "answer_metrics.png"
 
 METRICS = [
@@ -38,17 +40,49 @@ def short_name(s: str) -> str:
     )
 
 
+def _load_closed_book_means() -> dict[str, float]:
+    """Returns {metric: mean} for no_retrieval if CSV exists, else {}."""
+    if not NO_RETRIEVAL_CSV.exists():
+        return {}
+    nr = pd.read_csv(NO_RETRIEVAL_CSV)
+    result = {}
+    for col in ("answer_correctness", "answer_relevancy"):
+        vals = pd.to_numeric(nr[col], errors="coerce").dropna()
+        if len(vals):
+            result[col] = float(vals.mean())
+    return result
+
+
 def main() -> None:
     df = pd.read_csv(UNIFIED)
     df["label"] = df["system"].apply(short_name)
 
+    closed_book = _load_closed_book_means()
+    has_closed_book = bool(closed_book)
+    cb_metrics = {"answer_correctness", "answer_relevancy"}
+
+    CB_COLOR = "#999999"
+    title = "LLM-as-a-Judge Answer Generation Metrics by System"
+    if has_closed_book:
+        title += "\n(grey bar = closed-book baseline, no retrieved context)"
+
     fig, axes = plt.subplots(3, 2, figsize=(13, 14))
-    fig.suptitle("LLM-as-a-Judge Answer Generation Metrics by System", fontsize=13, fontweight="bold", y=0.99)
+    fig.suptitle(title, fontsize=13, fontweight="bold", y=0.99)
 
-    for ax, (col, title, color) in zip(axes.flat, METRICS):
-        sub = df[["label", col]].dropna().sort_values(col, ascending=False)
+    for ax, (col, title_panel, color) in zip(axes.flat, METRICS):
+        cb_val = closed_book.get(col) if has_closed_book and col in cb_metrics else None
 
-        bars = ax.barh(sub["label"], sub[col], color=color, height=0.55, zorder=3)
+        if cb_val is not None:
+            # Add "No Retrieval" as an extra row, sorted in with the rest
+            sub = df[["label", col]].dropna()
+            nr_row = pd.DataFrame({"label": ["No Retrieval"], col: [cb_val]})
+            sub = pd.concat([sub, nr_row]).sort_values(col, ascending=False).reset_index(drop=True)
+            bar_colors = [CB_COLOR if lbl == "No Retrieval" else color for lbl in sub["label"]]
+        else:
+            sub = df[["label", col]].dropna().sort_values(col, ascending=False)
+            bar_colors = color
+
+        bars = ax.barh(sub["label"], sub[col], color=bar_colors, height=0.55, zorder=3)
 
         x_max = sub[col].max()
         for bar in bars:
@@ -60,7 +94,7 @@ def main() -> None:
                 va="center", ha="left", fontsize=8, color="#444",
             )
 
-        ax.set_title(title, fontsize=10, fontweight="semibold", pad=6)
+        ax.set_title(title_panel, fontsize=10, fontweight="semibold", pad=6)
         ax.set_xlabel("Score", fontsize=8)
         ax.tick_params(axis="y", labelsize=8)
         ax.tick_params(axis="x", labelsize=8)

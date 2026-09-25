@@ -1,0 +1,9 @@
+system,n_questions,faithfulness_mean,faithfulness_std,context_precision_mean,context_precision_std,context_recall_mean,context_recall_std,answer_correctness_mean,answer_correctness_std,answer_relevancy_mean,answer_relevancy_std,rouge_l_mean,rouge_l_std,bleu_1_mean,bleu_1_std,insufficient_context_rate
+treeseg__leaf,80,0.7075,0.4457,0.6661,0.387,0.725,0.4493,0.434,0.358,0.542,0.4042,0.1798,0.0649,0.1866,0.0937,0.0125
+treeseg__summary_tree,80,0.6,0.4683,0.5822,0.3651,0.875,0.3328,0.4183,0.3779,0.4792,0.4173,0.1638,0.0634,0.1695,0.0892,0.0875
+baseline__utterance_packed__128tok__ov0__transcript_only,80,0.6262,0.4463,0.6666,0.3682,0.51,0.4809,0.4065,0.3471,0.5019,0.4153,0.1879,0.0644,0.2001,0.0946,0.0
+baseline__utterance_packed__256tok__ov0__transcript_only,80,0.6125,0.4671,0.6858,0.3654,0.6813,0.4638,0.4488,0.3649,0.5641,0.3979,0.1852,0.0664,0.1888,0.089,0.0
+baseline__utterance_packed__512tok__ov0__transcript_only,80,0.685,0.4327,0.6612,0.3761,0.7219,0.4483,0.4277,0.3767,0.5205,0.4083,0.1798,0.0607,0.1847,0.0863,0.0
+baseline__raw_token_window__128tok__ov0__transcript_only,80,0.6231,0.4516,0.6085,0.3828,0.5509,0.4775,0.3794,0.3503,0.5637,0.3969,0.1801,0.0572,0.1932,0.0877,0.0
+baseline__raw_token_window__256tok__ov0__transcript_only,80,0.6606,0.4431,0.6953,0.3818,0.6638,0.4688,0.4529,0.3562,0.5518,0.4,0.1815,0.0587,0.1911,0.084,0.0
+baseline__raw_token_window__512tok__ov0__transcript_only,80,0.6206,0.4487,0.6802,0.3994,0.7125,0.4485,0.4042,0.3539,0.5343,0.4084,0.182,0.0627,0.1855,0.0948,0.0

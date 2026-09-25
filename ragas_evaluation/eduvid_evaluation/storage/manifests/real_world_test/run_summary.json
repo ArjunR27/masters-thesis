@@ -1,0 +1,11 @@
+{
+  "split": "real_world_test",
+  "processing_mode": "asr_only",
+  "dataset_path": "masters-thesis/eduvid_evaluation/storage/eduvid_data/real_world_test.csv",
+  "row_count": 1,
+  "unique_video_count": 1,
+  "success_count": 1,
+  "skipped_existing_count": 0,
+  "failure_count": 0,
+  "dry_run_count": 0
+}

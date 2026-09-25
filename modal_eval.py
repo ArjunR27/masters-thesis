@@ -19,6 +19,14 @@ modal run modal_eval.py::ragas
 modal run modal_eval.py::ragas --limit 20
 modal run modal_eval.py::ragas --generator-model gpt-4o
 
+# LPM-QA temporal retrieval evaluation only, all 14 systems (CPU)
+modal run modal_eval.py::temporal_retrieval
+modal run modal_eval.py::temporal_retrieval --limit 20
+
+# EduVidQA temporal retrieval evaluation only, all 14 systems (CPU, OpenAI)
+modal run modal_eval.py::eduvid_temporal_retrieval
+modal run modal_eval.py::eduvid_temporal_retrieval --limit 20
+
 # EduVid retrieval + QA evaluation (T4 GPU, Ollama/llama3.2)
 modal run modal_eval.py::eduvid --limit 10
 modal run modal_eval.py::eduvid --limit 20 --leaf-only --rerank
@@ -27,6 +35,7 @@ Download outputs
 ----------------
 modal volume ls thesis-eval-outputs
 modal volume get thesis-eval-outputs ragas/all_systems_summary.json .
+modal volume get thesis-eval-outputs eduvid_temporal_retrieval/eduvid_retrieval_evaluation.csv .
 modal volume get thesis-eval-outputs eduvid/summary.json .
 """
 
@@ -54,7 +63,7 @@ _SKIP = (
     ".venv_lpm_preproc",
     "__pycache__",
     "lpm_data",
-    "eduvid_evaluation/storage",
+    "ragas_evaluation/eduvid_evaluation/storage",
     "ragas_evaluation/outputs",
 )
 
@@ -176,10 +185,10 @@ def _upload_eduvid_fn(files: list[tuple[str, bytes]]) -> int:
 
 @app.local_entrypoint()
 def upload_eduvid():
-    """Upload eduvid_evaluation/storage/ to Modal Volume (run once)."""
-    storage_dir = REPO_ROOT / "eduvid_evaluation" / "storage"
+    """Upload ragas_evaluation/eduvid_evaluation/storage/ to Modal Volume (run once)."""
+    storage_dir = REPO_ROOT / "ragas_evaluation" / "eduvid_evaluation" / "storage"
     if not storage_dir.exists():
-        print("ERROR: eduvid_evaluation/storage/ not found at", storage_dir)
+        print("ERROR: ragas_evaluation/eduvid_evaluation/storage/ not found at", storage_dir)
         return
 
     files = []
@@ -343,41 +352,37 @@ def temporal_retrieval(limit: int | None = None):
 # ── EduVid Temporal Retrieval Evaluation ─────────────────────────────────────
 
 @app.function(
-    image=gpu_image,
+    image=cpu_image,
+    secrets=[modal.Secret.from_name("thesis-openai")],
     volumes={
-        "/repo/eduvid_evaluation/storage": eduvid_vol,
+        "/repo/ragas_evaluation/eduvid_evaluation/storage": eduvid_vol,
         "/outputs": output_vol,
     },
-    gpu="T4",
     timeout=60 * 360,
     cpu=4.0,
     memory=16384,
 )
 def _eduvid_temporal_retrieval_fn(limit: int | None) -> str:
     import os
-    import subprocess
     import sys
-    import time
     from pathlib import Path
 
     sys.path.insert(0, "/repo")
     os.chdir("/repo")
 
-    print("Starting Ollama server...")
-    subprocess.Popen(["ollama", "serve"])
-    time.sleep(3)
-    subprocess.run(["ollama", "pull", "llama3.2"], check=True)
-    print("Model ready.")
-
-    import eduvid_evaluation.evaluate_eduvid_temporal_retrieval as script
+    # TreeSeg's summary-tree node summarisation now defaults to gpt-4o-mini
+    # (DEFAULT_SUMMARY_MODEL in lecture_segment_builder.py), not llama3.2 —
+    # no Ollama server needed here anymore. OPENAI_API_KEY comes from the
+    # "thesis-openai" secret and is already in the environment.
+    import ragas_evaluation.eduvid_evaluation.evaluate_eduvid_temporal_retrieval as script
 
     out_dir = Path("/outputs/eduvid_temporal_retrieval")
-    cache_dir = Path("/repo/eduvid_evaluation/storage/summary_tree_cache")
+    cache_dir = Path("/repo/ragas_evaluation/eduvid_evaluation/storage/summary_tree_cache")
     out_dir.mkdir(parents=True, exist_ok=True)
     cache_dir.mkdir(parents=True, exist_ok=True)
 
     argv = [
-        "--videos-root", "/repo/eduvid_evaluation/storage/videos",
+        "--videos-root", "/repo/ragas_evaluation/eduvid_evaluation/storage/videos",
         "--output-dir", str(out_dir),
         "--summary-tree-cache-dir", str(cache_dir),
     ]

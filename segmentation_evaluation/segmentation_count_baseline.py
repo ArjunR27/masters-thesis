@@ -78,6 +78,15 @@ def parse_args():
         default=DEFAULT_OUT_DIR,
         help=f"Output directory (default: {DEFAULT_OUT_DIR}).",
     )
+    parser.add_argument(
+        "--max-gap-s",
+        default="auto",
+        help=(
+            "Pause threshold (seconds) used to construct utterances, e.g. '0.8' "
+            "for a fixed threshold, or 'auto' for the per-lecture adaptive "
+            "threshold (default: %(default)s)."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -115,6 +124,7 @@ def evaluate_lecture(
     lecture,
     treeseg_config,
     lowercase: bool,
+    max_gap_s="auto",
 ):
     segments_path = Path(lecture.meeting_dir) / "segments.txt"
     if not segments_path.exists():
@@ -128,6 +138,7 @@ def evaluate_lecture(
         lecture=lecture,
         lowercase=lowercase,
         attach_ocr=False,
+        max_gap_s=max_gap_s,
     )
     if not utterances:
         return None, {"lecture_key": lecture.key, "reason": "no_utterances"}
@@ -183,7 +194,7 @@ def median_or_nan(values):
     return float(statistics.median(values))
 
 
-def build_summary(rows, total_candidates: int, skipped_rows):
+def build_summary(rows, total_candidates: int, skipped_rows, max_gap_s_requested="auto"):
     n_slides_values = [r["n_slides"] for r in rows]
     n_treeseg_values = [r["n_treeseg_segments"] for r in rows]
     diff_values = [r["diff"] for r in rows]
@@ -203,6 +214,7 @@ def build_summary(rows, total_candidates: int, skipped_rows):
 
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "max_gap_s_requested": max_gap_s_requested,
         "total_candidates": int(total_candidates),
         "evaluated_lectures": int(len(rows)),
         "skipped_lectures": int(len(skipped_rows)),
@@ -333,6 +345,7 @@ def main():
                 lecture=lecture,
                 treeseg_config=treeseg_config,
                 lowercase=lowercase,
+                max_gap_s=args.max_gap_s,
             )
         except Exception as exc:
             row = None
@@ -380,7 +393,12 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
 
-    summary = build_summary(rows, total_candidates=total_candidates, skipped_rows=skipped)
+    summary = build_summary(
+        rows,
+        total_candidates=total_candidates,
+        skipped_rows=skipped,
+        max_gap_s_requested=args.max_gap_s,
+    )
     summary_path = out_dir / "summary_stats.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
 

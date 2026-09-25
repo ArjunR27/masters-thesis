@@ -14,7 +14,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
-PER_Q = HERE.parent.parent / "ragas_evaluation/outputs/per_question_all_systems.csv"
+MASTERS = HERE.parent.parent
+PER_Q = MASTERS / "ragas_evaluation/outputs/per_question_all_systems.csv"
+NO_RETRIEVAL_CSV = MASTERS / "ragas_evaluation/outputs/no_retrieval_per_question.csv"
 OUT = HERE / "outputs" / "score_distributions.png"
 
 
@@ -40,15 +42,42 @@ def system_color(s: str) -> str:
 def main() -> None:
     df = pd.read_csv(PER_Q)
 
+    # Optionally add closed-book baseline
+    nr_data = None
+    if NO_RETRIEVAL_CSV.exists():
+        nr = pd.read_csv(NO_RETRIEVAL_CSV)
+        vals = pd.to_numeric(nr["answer_correctness"], errors="coerce").dropna().values
+        if len(vals):
+            nr_data = vals
+
     # Sort systems by median answer_correctness descending
     medians = df.groupby("system")["answer_correctness"].median().sort_values(ascending=True)
     systems_ordered = medians.index.tolist()
-    labels = [short_name(s) for s in systems_ordered]
-    colors = [system_color(s) for s in systems_ordered]
 
-    data = [df[df["system"] == s]["answer_correctness"].dropna().values for s in systems_ordered]
+    if nr_data is not None:
+        import numpy as np
+        nr_median = float(np.median(nr_data))
+        insert_pos = sum(1 for m in medians.values if m < nr_median)
+        systems_ordered.insert(insert_pos, "__no_retrieval__")
 
-    fig, ax = plt.subplots(figsize=(8, 9))
+    labels = []
+    colors = []
+    data = []
+    for s in systems_ordered:
+        if s == "__no_retrieval__":
+            labels.append("No Retrieval")
+            colors.append("#888888")
+            data.append(nr_data)
+        else:
+            labels.append(short_name(s))
+            colors.append(system_color(s))
+            data.append(df[df["system"] == s]["answer_correctness"].dropna().values)
+
+    has_nr = nr_data is not None
+    n_systems = sum(1 for s in systems_ordered if s != "__no_retrieval__")
+    subtitle = f"(n=150 questions each{', +closed-book baseline' if has_nr else ''})"
+
+    fig, ax = plt.subplots(figsize=(8, 9 if not has_nr else 10))
     bp = ax.boxplot(
         data,
         vert=False,
@@ -71,7 +100,7 @@ def main() -> None:
     ax.set_yticks(range(1, len(labels) + 1))
     ax.set_yticklabels(labels, fontsize=8)
     ax.set_xlabel("Answer Correctness (per question)", fontsize=9)
-    ax.set_title("Answer Correctness Distribution by System\n(n=150 questions each)",
+    ax.set_title(f"Answer Correctness Distribution by System\n{subtitle}",
                  fontsize=11, fontweight="bold")
     ax.grid(axis="x", linestyle="--", linewidth=0.5, alpha=0.5)
     ax.set_axisbelow(True)
@@ -83,6 +112,8 @@ def main() -> None:
         Patch(color="#e34948", alpha=0.8, label="Raw baseline"),
         Patch(color="#1baf7a", alpha=0.8, label="Utt baseline"),
     ]
+    if has_nr:
+        legend_handles.append(Patch(color="#888888", alpha=0.8, label="No retrieval"))
     ax.legend(handles=legend_handles, fontsize=8, loc="lower right")
 
     fig.tight_layout()

@@ -94,6 +94,17 @@ class OllamaResponder:
             {"role": "user",   "content": user_content},
         ]
 
+        # OpenAI path — triggered when model name is a GPT model
+        if model.startswith("gpt-") or model.startswith("o1") or model.startswith("o3"):
+            from openai import OpenAI
+            oa_client = OpenAI()
+            resp = oa_client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+            )
+            return resp.choices[0].message.content.strip()
+
         options = {"temperature": temperature}
 
         if client is None:
