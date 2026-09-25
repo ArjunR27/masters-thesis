@@ -1,0 +1,17 @@
+{
+  "dataset_path": "/Users/arjunranade/CP_CSC/MastersThesis/masters-thesis/eduvid_evaluation/storage/eduvid_data/real_world_test.csv",
+  "output_dir": "/Users/arjunranade/CP_CSC/MastersThesis/masters-thesis/eduvid_evaluation/storage/evaluation_outputs",
+  "requested_question_count": 30,
+  "evaluated_question_count": 30,
+  "skipped_question_count": 0,
+  "skipped_example_ids": [],
+  "systems": {
+    "summary_tree": {
+      "question_count": 30,
+      "bleu1": 0.2140548279867862,
+      "rouge_l": 0.17857236751241873,
+      "meteor": 0.42477451826462886
+    }
+  },
+  "comparison": {}
+}

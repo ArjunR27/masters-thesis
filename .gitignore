@@ -4,3 +4,7 @@ lpm_data.zip
 lpm_data
 eduvid_evaluation/storage
 .env
+ragas_evaluation/eduvid_evaluation/storage/videos/
+ragas_evaluation/eduvid_evaluation/storage/summary_tree_cache/
+lpm_qa_evaluation/summary_tree_cache/
+ragas_evaluation/outputs/summary_tree_cache/

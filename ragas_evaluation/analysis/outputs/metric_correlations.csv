@@ -1,0 +1,8 @@
+metric_a,metric_b,pearson_r,p_value,n
+rouge_l,answer_correctness,0.4141,0.0,2100
+bleu_1,answer_correctness,0.3923,0.0,2100
+rouge_l,context_recall,0.1188,0.0,2100
+bleu_1,context_recall,0.0911,2.9e-05,2100
+answer_correctness,context_recall,0.2416,0.0,2100
+faithfulness,answer_correctness,0.2544,0.0,2100
+context_precision,answer_correctness,0.1299,0.0,2100

@@ -39,7 +39,7 @@ DEFAULT_DATASET_PATH = PROJECT_DIR / "LPM_QA_DATASET" / "lpm_qa_labeled.csv"
 DEFAULT_OUTPUT_DIR = HERE / "outputs"
 DEFAULT_K_VALUES = [1, 3, 5]
 EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
-RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
+RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 INITIAL_TOP_K = 50
 FINAL_TOP_N = 5
 SUMMARY_TREE_TOP_DESCENDANT_LEAVES = 3
@@ -692,6 +692,15 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"{system_name}: evaluated {len(system_metric_rows)} rows, skipped {system_skips} rows"
         )
+
+        # Free GPU memory between systems to avoid OOM across 14 iterations.
+        del store
+        try:
+            import torch
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
 
     retrieval_fieldnames = [
         "system",

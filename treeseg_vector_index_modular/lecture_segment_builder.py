@@ -38,7 +38,7 @@ except ModuleNotFoundError as exc:
 
 logger = structlog.get_logger()
 _WORKER_LOCAL = threading.local()
-DEFAULT_SUMMARY_MODEL = "llama3.2"
+DEFAULT_SUMMARY_MODEL = "gpt-4o-mini"
 
 
 class LockedEmbedderProxy:

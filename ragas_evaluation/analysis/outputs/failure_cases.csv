@@ -1,0 +1,34 @@
+example_id,lecture_key,question,baseline_raw_128_0ov,baseline_raw_128_10ov,baseline_raw_256_0ov,baseline_raw_256_10ov,baseline_raw_512_0ov,baseline_raw_512_10ov,baseline_utt_128_0ov,baseline_utt_128_10ov,baseline_utt_256_0ov,baseline_utt_256_10ov,baseline_utt_512_0ov,baseline_utt_512_10ov,treeseg_leaf,treeseg_summary_tree,min_score
+lpm-00005,anat-1/AnatomyPhysiology/01,What are the two types of active membrane transport processes discussed in this lecture?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+lpm-00113,ml-1/MultimodalMachineLearning/02,How do confounding factors bias multimodal models and how does this problem appear similarly in both sentiment analysis and VQA research?,0.5,0.0,0.857,0.857,0.75,0.6,0.0,0.4,0.4,0.4,0.75,0.5,0.4,0.75,0.0
+lpm-00111,ml-1/MultimodalMachineLearning/02,Why does language carry more information than other modalities?,0.5,0.5,0.25,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.4,0.0,0.0
+lpm-00102,psy-1/LectureSeriesForIntrotoPsy-PSY101/6,So big picture what is this lecture mainly trying to cover?,0.75,0.75,0.75,0.75,0.5,0.75,0.75,0.75,0.75,0.75,0.5,0.5,0.5,0.0,0.0
+lpm-00086,bio-3/Biol1020/08,What was Hunter Kelly's disease and result?,0.5,0.5,0.5,0.5,0.0,0.5,0.25,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.0
+lpm-00145,dental/Orthodontics/1,When will the next videos about biomechanics be available?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+lpm-00064,ml-1/MultimodalMachineLearning/08,How is this lecture connected to previous topics and next topics?,0.5,0.25,0.5,0.5,0.5,0.5,0.6,0.5,0.5,0.5,0.5,0.6,0.5,0.0,0.0
+lpm-00054,psy-2/LectureSeriesforIntrotoDevelopmentalPsy/15,What are the logistics of the course?,0.75,0.0,0.5,1.0,0.0,0.0,0.5,1.0,0.6,0.5,0.0,0.6,0.0,0.0,0.0
+lpm-00053,psy-2/LectureSeriesforIntrotoDevelopmentalPsy/15,What extra material does the professor assign?,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.75,0.0,0.0,0.0,0.0,1.0,0.0
+lpm-00052,psy-2/LectureSeriesforIntrotoDevelopmentalPsy/15,What is the main focus of this lecture?,0.0,0.25,0.25,0.75,0.0,0.25,0.6153846153846154,0.727,0.25,0.5,0.5714285714285714,0.7272727272727273,0.0,0.0,0.0
+lpm-00065,ml-1/MultimodalMachineLearning/08,How does cross-modal generation happen?,0.5,0.5,0.5,0.25,0.5,0.8,0.25,0.25,0.5,1.0,1.0,0.8,0.25,0.0,0.0
+lpm-00045,ml-1/MultimodalMachineLearning/10,Why can self-attention lose information and how do they fix that?,0.0,0.0,0.25,0.8,0.8,0.75,0.0,0.5,0.5,0.75,0.0,0.0,0.0,0.5,0.0
+lpm-00040,ml-1/MultimodalMachineLearning/10,How are attention scores computed in Transformer self-attention?,0.75,0.75,0.5,0.5,0.75,0.6,0.5,0.75,1.0,0.75,0.5,0.75,0.75,0.0,0.0
+lpm-00012,anat-1/AnatomyPhysiology/01,What should I watch next?,0.6666666667,0.0,0.5,0.5,0.6666666666666666,0.75,0.6666666666666666,0.6666666667,0.6666666666666666,0.8,0.5,0.8,0.8,0.8,0.0
+lpm-00038,bio-3/Biol1020/01,What is key for the review slides?,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+lpm-00049,ml-1/MultimodalMachineLearning/10,What are the next topics going to be covered in this course?,0.5,0.5,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.25,0.25,0.0,0.0,0.0
+lpm-00023,psy-1/LectureSeriesForIntrotoPsy-PSY101/1,What should I do if I have a question?,0.0,0.0,0.5,0.5,0.25,0.0,0.5,0.0,0.5,0.5,1.0,0.25,0.25,0.0,0.0
+lpm-00137,dental/Orthodontics/1,What is the difference between how the PDL behaves during normal function such as chewing versus during orthodontic tooth movement?,0.4,0.25,0.5,0.4,0.8,0.4,0.5,0.5,0.6,0.5,0.25,0.75,0.25,0.5,0.25
+lpm-00124,dental/Orthodontics/1,What happens to PDL blood vessels when heavy orthodontic force is applied?,0.6666666666666666,0.5,0.5,0.25,0.5,0.5,0.5,0.6667,0.5,0.5,0.5,0.8,0.6667,0.5,0.25
+lpm-00117,ml-1/MultimodalMachineLearning/02,Does this course cover affective computing where can I find more material?,1.0,0.8,1.0,0.8,1.0,1.0,1.0,1.0,1.0,1.0,0.75,0.8,0.8,0.25,0.25
+lpm-00020,psy-1/LectureSeriesForIntrotoPsy-PSY101/1,What are all the differences between classical and operant conditioning?,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.6667,0.4,0.5,0.6666666666666666,0.5,0.25
+lpm-00108,ml-1/MultimodalMachineLearning/02,How did the goals and methods of multimodal research evolve through the deep learning era,0.75,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.75,0.625,0.5714285714285714,0.4,0.4,0.5,0.25
+lpm-00084,bio-3/Biol1020/08,What is this whole lecture about?,0.5,0.8,0.8,0.6666666666666666,0.75,0.8,0.5,0.5,0.8,0.75,0.75,0.75,0.75,0.25,0.25
+lpm-00039,ml-1/MultimodalMachineLearning/10,What is self-attention?,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.25
+lpm-00063,ml-1/MultimodalMachineLearning/08,How should I learn more and understand better?,0.25,0.25,0.25,0.25,0.5,0.5,0.25,0.5,0.5,0.25,0.5,0.5,0.25,0.25,0.25
+lpm-00060,ml-1/MultimodalMachineLearning/08,What's the Pearson Correlation and the formula?,0.5,0.8,0.75,0.75,0.5,0.5,0.75,0.75,0.5,0.5,0.5,0.75,0.25,0.75,0.25
+lpm-00042,ml-1/MultimodalMachineLearning/10,Why use transformer self-attention over other approaches?,0.6,0.5,0.4,0.5,0.5,0.5,0.5,0.5,0.4,0.5714285714285714,0.5,0.5,0.5,0.25,0.25
+lpm-00100,psy-1/LectureSeriesForIntrotoPsy-PSY101/6,What does social influence actually do to people?,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.25
+lpm-00148,anat-1/AnatomyPhysiology/01,What are the steps involved in receptor-mediated endocytosis?,0.5,0.5,0.4,0.4,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.25
+lpm-00110,ml-1/MultimodalMachineLearning/02,How does the alignment problem manifest differently in affective computing compared to multimodal QA?,0.4,1.0,0.75,1.0,0.8,0.5,0.8,0.5,0.8571,1.0,0.8,0.6153846153846154,0.75,0.5,0.4
+lpm-00134,dental/Orthodontics/1,What does this course cover and what is the focus of this first lecture?,0.4,0.75,0.5,0.5,0.5,0.571,0.75,0.571,0.75,0.5,0.571,0.5,0.5,0.5,0.4
+lpm-00138,dental/Orthodontics/1,What happens step by step when heavy orthodontic force is applied until the tooth finally moves?,0.5,0.5,0.8,0.75,0.625,0.5,0.5,0.4,0.75,0.5,0.5,0.75,0.75,0.5,0.4
+lpm-00144,dental/Orthodontics/1,How does force magnitude connect molecular-level events to clinical decisions across the entire lecture?,0.5,0.4,0.75,0.75,0.75,0.5,0.75,0.6,0.6,0.75,0.75,0.5,0.5,0.5714285714285714,0.4
